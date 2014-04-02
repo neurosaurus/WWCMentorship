@@ -7,3 +7,8 @@ For benchmarking applications, we decided to go with different dating apps, as t
 Benchmarking Applications:
 1) OkCupid
 2) How About We
+
+
+General Guideline for the app, as layed out by Nathan & Alaina (from WWC):
+
+[Mentorship System](https://gist.github.com/nesquena/9648cd400423173db5ca)
