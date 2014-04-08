@@ -27,9 +27,11 @@
 {
     [super viewDidLoad];
     
-    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-    testObject[@"foo"] = @"bar";
-    [testObject saveInBackground];
+//    PFObject *userObject = [PFObject objectWithClassName:@"User"];
+//    userObject[@"foo"] = @"bar";
+//    [userObject saveInBackground];
+    
+
     
 }
 
