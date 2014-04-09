@@ -21,6 +21,8 @@
 		EB8798DA18F3A46C00B9CF72 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB8798D818F3A46C00B9CF72 /* ProfileViewController.xib */; };
 		EB8798DF18F3A8E000B9CF72 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8798DD18F3A8E000B9CF72 /* LoginViewController.m */; };
 		EB8798E018F3A8E000B9CF72 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB8798DE18F3A8E000B9CF72 /* LoginViewController.xib */; };
+		EBC9901818F50E6C00ACA491 /* MentorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC9901618F50E6C00ACA491 /* MentorListViewController.m */; };
+		EBC9901918F50E6C00ACA491 /* MentorListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBC9901718F50E6C00ACA491 /* MentorListViewController.xib */; };
 		EBE794B818EC78FA00733D5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE794B718EC78F900733D5F /* Foundation.framework */; };
 		EBE794BA18EC78FA00733D5F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE794B918EC78FA00733D5F /* CoreGraphics.framework */; };
 		EBE794BC18EC78FA00733D5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE794BB18EC78FA00733D5F /* UIKit.framework */; };
@@ -62,6 +64,9 @@
 		EB8798DC18F3A8E000B9CF72 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		EB8798DD18F3A8E000B9CF72 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		EB8798DE18F3A8E000B9CF72 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		EBC9901518F50E6C00ACA491 /* MentorListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MentorListViewController.h; sourceTree = "<group>"; };
+		EBC9901618F50E6C00ACA491 /* MentorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MentorListViewController.m; sourceTree = "<group>"; };
+		EBC9901718F50E6C00ACA491 /* MentorListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MentorListViewController.xib; sourceTree = "<group>"; };
 		EBE794B418EC78F900733D5F /* WWCMentorship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWCMentorship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE794B718EC78F900733D5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EBE794B918EC78FA00733D5F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -123,6 +128,9 @@
 				EB8798D618F3A46C00B9CF72 /* ProfileViewController.h */,
 				EB8798D718F3A46C00B9CF72 /* ProfileViewController.m */,
 				EB8798D818F3A46C00B9CF72 /* ProfileViewController.xib */,
+				EBC9901518F50E6C00ACA491 /* MentorListViewController.h */,
+				EBC9901618F50E6C00ACA491 /* MentorListViewController.m */,
+				EBC9901718F50E6C00ACA491 /* MentorListViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -283,6 +291,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBC9901918F50E6C00ACA491 /* MentorListViewController.xib in Resources */,
 				EB8798E018F3A8E000B9CF72 /* LoginViewController.xib in Resources */,
 				EB8798DA18F3A46C00B9CF72 /* ProfileViewController.xib in Resources */,
 				EBE794C218EC78FA00733D5F /* InfoPlist.strings in Resources */,
@@ -305,6 +314,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBC9901818F50E6C00ACA491 /* MentorListViewController.m in Sources */,
 				EB8798DF18F3A8E000B9CF72 /* LoginViewController.m in Sources */,
 				EBE794C818EC78FA00733D5F /* AppDelegate.m in Sources */,
 				EB8798D918F3A46C00B9CF72 /* ProfileViewController.m in Sources */,
