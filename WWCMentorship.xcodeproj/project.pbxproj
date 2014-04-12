@@ -21,12 +21,22 @@
 		EB8798DA18F3A46C00B9CF72 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB8798D818F3A46C00B9CF72 /* ProfileViewController.xib */; };
 		EB8798DF18F3A8E000B9CF72 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8798DD18F3A8E000B9CF72 /* LoginViewController.m */; };
 		EB8798E018F3A8E000B9CF72 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB8798DE18F3A8E000B9CF72 /* LoginViewController.xib */; };
-		EBC9901818F50E6C00ACA491 /* MentorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC9901618F50E6C00ACA491 /* MentorListViewController.m */; };
-		EBC9901918F50E6C00ACA491 /* MentorListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBC9901718F50E6C00ACA491 /* MentorListViewController.xib */; };
 		EBE0B22318F8E37C00E2122E /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B22118F8E37C00E2122E /* ComposeViewController.m */; };
 		EBE0B22418F8E37C00E2122E /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B22218F8E37C00E2122E /* ComposeViewController.xib */; };
-		EBE0B22818F8E3B700E2122E /* MentorshipFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B22618F8E3B700E2122E /* MentorshipFormViewController.m */; };
-		EBE0B22918F8E3B700E2122E /* MentorshipFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B22718F8E3B700E2122E /* MentorshipFormViewController.xib */; };
+		EBE0B22D18F9F2A800E2122E /* ProfileFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B22B18F9F2A800E2122E /* ProfileFormViewController.m */; };
+		EBE0B22E18F9F2A800E2122E /* ProfileFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B22C18F9F2A800E2122E /* ProfileFormViewController.xib */; };
+		EBE0B23218F9F2B800E2122E /* MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B23018F9F2B800E2122E /* MessageListViewController.m */; };
+		EBE0B23318F9F2B800E2122E /* MessageListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B23118F9F2B800E2122E /* MessageListViewController.xib */; };
+		EBE0B23718F9F2C900E2122E /* MentorSkillsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B23518F9F2C900E2122E /* MentorSkillsViewController.m */; };
+		EBE0B23818F9F2C900E2122E /* MentorSkillsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B23618F9F2C900E2122E /* MentorSkillsViewController.xib */; };
+		EBE0B23C18F9F2D200E2122E /* MenteeSkillsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B23A18F9F2D200E2122E /* MenteeSkillsViewController.m */; };
+		EBE0B23D18F9F2D200E2122E /* MenteeSkillsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B23B18F9F2D200E2122E /* MenteeSkillsViewController.xib */; };
+		EBE0B24118F9F2DB00E2122E /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B23F18F9F2DB00E2122E /* MenuViewController.m */; };
+		EBE0B24218F9F2DB00E2122E /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B24018F9F2DB00E2122E /* MenuViewController.xib */; };
+		EBE0B24618F9F2E400E2122E /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B24418F9F2E400E2122E /* UserListViewController.m */; };
+		EBE0B24718F9F2E400E2122E /* UserListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B24518F9F2E400E2122E /* UserListViewController.xib */; };
+		EBE0B24B18F9F2F200E2122E /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B24918F9F2F200E2122E /* MessageViewController.m */; };
+		EBE0B24C18F9F2F200E2122E /* MessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B24A18F9F2F200E2122E /* MessageViewController.xib */; };
 		EBE794B818EC78FA00733D5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE794B718EC78F900733D5F /* Foundation.framework */; };
 		EBE794BA18EC78FA00733D5F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE794B918EC78FA00733D5F /* CoreGraphics.framework */; };
 		EBE794BC18EC78FA00733D5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE794BB18EC78FA00733D5F /* UIKit.framework */; };
@@ -68,15 +78,30 @@
 		EB8798DC18F3A8E000B9CF72 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		EB8798DD18F3A8E000B9CF72 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		EB8798DE18F3A8E000B9CF72 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
-		EBC9901518F50E6C00ACA491 /* MentorListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MentorListViewController.h; sourceTree = "<group>"; };
-		EBC9901618F50E6C00ACA491 /* MentorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MentorListViewController.m; sourceTree = "<group>"; };
-		EBC9901718F50E6C00ACA491 /* MentorListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MentorListViewController.xib; sourceTree = "<group>"; };
 		EBE0B22018F8E37C00E2122E /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		EBE0B22118F8E37C00E2122E /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		EBE0B22218F8E37C00E2122E /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
-		EBE0B22518F8E3B700E2122E /* MentorshipFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MentorshipFormViewController.h; sourceTree = "<group>"; };
-		EBE0B22618F8E3B700E2122E /* MentorshipFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MentorshipFormViewController.m; sourceTree = "<group>"; };
-		EBE0B22718F8E3B700E2122E /* MentorshipFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MentorshipFormViewController.xib; sourceTree = "<group>"; };
+		EBE0B22A18F9F2A800E2122E /* ProfileFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileFormViewController.h; sourceTree = "<group>"; };
+		EBE0B22B18F9F2A800E2122E /* ProfileFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileFormViewController.m; sourceTree = "<group>"; };
+		EBE0B22C18F9F2A800E2122E /* ProfileFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileFormViewController.xib; sourceTree = "<group>"; };
+		EBE0B22F18F9F2B800E2122E /* MessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListViewController.h; sourceTree = "<group>"; };
+		EBE0B23018F9F2B800E2122E /* MessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListViewController.m; sourceTree = "<group>"; };
+		EBE0B23118F9F2B800E2122E /* MessageListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageListViewController.xib; sourceTree = "<group>"; };
+		EBE0B23418F9F2C900E2122E /* MentorSkillsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MentorSkillsViewController.h; sourceTree = "<group>"; };
+		EBE0B23518F9F2C900E2122E /* MentorSkillsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MentorSkillsViewController.m; sourceTree = "<group>"; };
+		EBE0B23618F9F2C900E2122E /* MentorSkillsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MentorSkillsViewController.xib; sourceTree = "<group>"; };
+		EBE0B23918F9F2D200E2122E /* MenteeSkillsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenteeSkillsViewController.h; sourceTree = "<group>"; };
+		EBE0B23A18F9F2D200E2122E /* MenteeSkillsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenteeSkillsViewController.m; sourceTree = "<group>"; };
+		EBE0B23B18F9F2D200E2122E /* MenteeSkillsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenteeSkillsViewController.xib; sourceTree = "<group>"; };
+		EBE0B23E18F9F2DB00E2122E /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		EBE0B23F18F9F2DB00E2122E /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		EBE0B24018F9F2DB00E2122E /* MenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
+		EBE0B24318F9F2E400E2122E /* UserListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListViewController.h; sourceTree = "<group>"; };
+		EBE0B24418F9F2E400E2122E /* UserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListViewController.m; sourceTree = "<group>"; };
+		EBE0B24518F9F2E400E2122E /* UserListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserListViewController.xib; sourceTree = "<group>"; };
+		EBE0B24818F9F2F200E2122E /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		EBE0B24918F9F2F200E2122E /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		EBE0B24A18F9F2F200E2122E /* MessageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageViewController.xib; sourceTree = "<group>"; };
 		EBE794B418EC78F900733D5F /* WWCMentorship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWCMentorship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE794B718EC78F900733D5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EBE794B918EC78FA00733D5F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -141,12 +166,27 @@
 				EBE0B22018F8E37C00E2122E /* ComposeViewController.h */,
 				EBE0B22118F8E37C00E2122E /* ComposeViewController.m */,
 				EBE0B22218F8E37C00E2122E /* ComposeViewController.xib */,
-				EBE0B22518F8E3B700E2122E /* MentorshipFormViewController.h */,
-				EBE0B22618F8E3B700E2122E /* MentorshipFormViewController.m */,
-				EBE0B22718F8E3B700E2122E /* MentorshipFormViewController.xib */,
-				EBC9901518F50E6C00ACA491 /* MentorListViewController.h */,
-				EBC9901618F50E6C00ACA491 /* MentorListViewController.m */,
-				EBC9901718F50E6C00ACA491 /* MentorListViewController.xib */,
+				EBE0B22A18F9F2A800E2122E /* ProfileFormViewController.h */,
+				EBE0B22B18F9F2A800E2122E /* ProfileFormViewController.m */,
+				EBE0B22C18F9F2A800E2122E /* ProfileFormViewController.xib */,
+				EBE0B22F18F9F2B800E2122E /* MessageListViewController.h */,
+				EBE0B23018F9F2B800E2122E /* MessageListViewController.m */,
+				EBE0B23118F9F2B800E2122E /* MessageListViewController.xib */,
+				EBE0B23418F9F2C900E2122E /* MentorSkillsViewController.h */,
+				EBE0B23518F9F2C900E2122E /* MentorSkillsViewController.m */,
+				EBE0B23618F9F2C900E2122E /* MentorSkillsViewController.xib */,
+				EBE0B23918F9F2D200E2122E /* MenteeSkillsViewController.h */,
+				EBE0B23A18F9F2D200E2122E /* MenteeSkillsViewController.m */,
+				EBE0B23B18F9F2D200E2122E /* MenteeSkillsViewController.xib */,
+				EBE0B23E18F9F2DB00E2122E /* MenuViewController.h */,
+				EBE0B23F18F9F2DB00E2122E /* MenuViewController.m */,
+				EBE0B24018F9F2DB00E2122E /* MenuViewController.xib */,
+				EBE0B24318F9F2E400E2122E /* UserListViewController.h */,
+				EBE0B24418F9F2E400E2122E /* UserListViewController.m */,
+				EBE0B24518F9F2E400E2122E /* UserListViewController.xib */,
+				EBE0B24818F9F2F200E2122E /* MessageViewController.h */,
+				EBE0B24918F9F2F200E2122E /* MessageViewController.m */,
+				EBE0B24A18F9F2F200E2122E /* MessageViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -307,13 +347,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBC9901918F50E6C00ACA491 /* MentorListViewController.xib in Resources */,
+				EBE0B22E18F9F2A800E2122E /* ProfileFormViewController.xib in Resources */,
 				EBE0B22418F8E37C00E2122E /* ComposeViewController.xib in Resources */,
+				EBE0B24C18F9F2F200E2122E /* MessageViewController.xib in Resources */,
+				EBE0B23318F9F2B800E2122E /* MessageListViewController.xib in Resources */,
 				EB8798E018F3A8E000B9CF72 /* LoginViewController.xib in Resources */,
+				EBE0B23D18F9F2D200E2122E /* MenteeSkillsViewController.xib in Resources */,
+				EBE0B24718F9F2E400E2122E /* UserListViewController.xib in Resources */,
 				EB8798DA18F3A46C00B9CF72 /* ProfileViewController.xib in Resources */,
+				EBE0B23818F9F2C900E2122E /* MentorSkillsViewController.xib in Resources */,
+				EBE0B24218F9F2DB00E2122E /* MenuViewController.xib in Resources */,
 				EBE794C218EC78FA00733D5F /* InfoPlist.strings in Resources */,
 				EBE794CA18EC78FA00733D5F /* Images.xcassets in Resources */,
-				EBE0B22918F8E3B700E2122E /* MentorshipFormViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,13 +377,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBC9901818F50E6C00ACA491 /* MentorListViewController.m in Sources */,
 				EB8798DF18F3A8E000B9CF72 /* LoginViewController.m in Sources */,
+				EBE0B23218F9F2B800E2122E /* MessageListViewController.m in Sources */,
 				EBE794C818EC78FA00733D5F /* AppDelegate.m in Sources */,
-				EBE0B22818F8E3B700E2122E /* MentorshipFormViewController.m in Sources */,
 				EBE0B22318F8E37C00E2122E /* ComposeViewController.m in Sources */,
+				EBE0B24618F9F2E400E2122E /* UserListViewController.m in Sources */,
 				EB8798D918F3A46C00B9CF72 /* ProfileViewController.m in Sources */,
+				EBE0B24B18F9F2F200E2122E /* MessageViewController.m in Sources */,
+				EBE0B23718F9F2C900E2122E /* MentorSkillsViewController.m in Sources */,
+				EBE0B23C18F9F2D200E2122E /* MenteeSkillsViewController.m in Sources */,
+				EBE0B22D18F9F2A800E2122E /* ProfileFormViewController.m in Sources */,
 				EBE794C418EC78FA00733D5F /* main.m in Sources */,
+				EBE0B24118F9F2DB00E2122E /* MenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

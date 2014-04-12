@@ -1,18 +1,18 @@
 //
-//  MentorshipFormViewController.m
+//  MessageListViewController.m
 //  WWCMentorship
 //
-//  Created by Tripta Gupta on 4/11/14.
+//  Created by Tripta Gupta on 4/12/14.
 //  Copyright (c) 2014 Tripta Gupta. All rights reserved.
 //
 
-#import "MentorshipFormViewController.h"
+#import "MessageListViewController.h"
 
-@interface MentorshipFormViewController ()
+@interface MessageListViewController ()
 
 @end
 
-@implementation MentorshipFormViewController
+@implementation MessageListViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
