@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>205D2D2F-D63B-46D5-9906-0E7D470CD0E1</string>
+	<key>IDESourceControlProjectName</key>
+	<string>WWCMentorship</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>6AE6BBBD-AD32-4CA1-AED7-D5FD077D107B</key>
+		<string>ssh://github.com/neurosaurus/WWCMentorship.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>WWCMentorship.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>6AE6BBBD-AD32-4CA1-AED7-D5FD077D107B</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/neurosaurus/WWCMentorship.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6AE6BBBD-AD32-4CA1-AED7-D5FD077D107B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6AE6BBBD-AD32-4CA1-AED7-D5FD077D107B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>WWCMentorship</string>
+		</dict>
+	</array>
+</dict>
+</plist>

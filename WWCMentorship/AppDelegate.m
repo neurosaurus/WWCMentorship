@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import "MenuViewController.h"
 #import "ProfileViewController.h"
 
 @implementation AppDelegate
@@ -16,8 +17,12 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    ProfileViewController *pvc = [[ProfileViewController alloc] init];
-    self.window.rootViewController = pvc;
+    //ProfileViewController *pvc = [[ProfileViewController alloc] init];
+    //self.window.rootViewController = pvc;
+    
+    // for testing purposes
+    MenuViewController *mvc = [[MenuViewController alloc] init];
+    self.window.rootViewController = mvc;
     
     [Parse setApplicationId:@"EFnYeM1PjDIus6gHu02UTOZ9XbbvuAXlv21ZxFnK"
                   clientKey:@"PQEtRTrB4PJ9A9KeKWQbw1OLGraXtVNOtU4cHHZl"];
