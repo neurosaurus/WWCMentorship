@@ -10,6 +10,10 @@
 
 @interface MenuViewController ()
 
+- (IBAction)onMentorButton:(id)sender;
+- (IBAction)onMenteeButton:(id)sender;
+- (IBAction)onMessagesButton:(id)sender;
+
 @end
 
 @implementation MenuViewController
@@ -33,6 +37,17 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+# pragma mark - Private methods
+
+- (IBAction)onMentorButton:(id)sender {
+}
+
+- (IBAction)onMenteeButton:(id)sender {
+}
+
+- (IBAction)onMessagesButton:(id)sender {
 }
 
 @end
