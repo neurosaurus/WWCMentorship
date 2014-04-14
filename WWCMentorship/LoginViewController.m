@@ -31,7 +31,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (![PFUser currentUser]) //no user logged in
+    {
+        PFLogInViewController *loginViewController = [[PFLogInViewController alloc] init];
+        [loginViewController setDelegate:self]; //set ourselves as the delegate
+        
+        //Create signup view controller
+        PFSignUpViewController *signupViewController = [[PFSignUpViewController alloc] init];
+        [signupViewController setDelegate:self]; //set ourselves as the delegate
+        
+        //assign our sign up controller to be displayed from the login controller
+        [loginViewController setSignUpController:signupViewController];
+        
+        //Present the login view controller
+        [self presentedViewController:loginViewController animated:YES completion:NULL];
+    }
 }
 
 - (void)didReceiveMemoryWarning
