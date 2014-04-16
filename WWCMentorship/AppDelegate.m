@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "MenuViewController.h"
 #import "ProfileViewController.h"
+#import "LoginViewController.h"
 
 @implementation AppDelegate
 
@@ -21,8 +22,11 @@
     //self.window.rootViewController = pvc;
     
     // for testing purposes
-    MenuViewController *mvc = [[MenuViewController alloc] init];
-    self.window.rootViewController = mvc;
+//    MenuViewController *mvc = [[MenuViewController alloc] init];
+//    self.window.rootViewController = mvc;
+    
+    LoginViewController *lvc = [[LoginViewController alloc] init];
+    self.window.rootViewController = lvc;
     
     [Parse setApplicationId:@"EFnYeM1PjDIus6gHu02UTOZ9XbbvuAXlv21ZxFnK"
                   clientKey:@"PQEtRTrB4PJ9A9KeKWQbw1OLGraXtVNOtU4cHHZl"];
