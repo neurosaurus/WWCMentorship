@@ -22,7 +22,7 @@
     
     // for testing purposes
     MenuViewController *mvc = [[MenuViewController alloc] init];
-    self.window.rootViewController = mvc;
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mvc];
     
     [Parse setApplicationId:@"EFnYeM1PjDIus6gHu02UTOZ9XbbvuAXlv21ZxFnK"
                   clientKey:@"PQEtRTrB4PJ9A9KeKWQbw1OLGraXtVNOtU4cHHZl"];

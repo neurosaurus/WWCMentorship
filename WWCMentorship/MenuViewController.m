@@ -7,6 +7,8 @@
 //
 
 #import "MenuViewController.h"
+#import "UserListViewController.h"
+#import "MessageListViewController.h"
 
 @interface MenuViewController ()
 
@@ -42,12 +44,29 @@
 # pragma mark - Private methods
 
 - (IBAction)onMentorButton:(id)sender {
+    NSLog(@"mentors, please");
+    
+    // push view controller
+    UserListViewController *ulvc = [[UserListViewController alloc] init];
+    ulvc.showMentor = YES;
+    [self.navigationController pushViewController:ulvc animated:YES];
 }
 
 - (IBAction)onMenteeButton:(id)sender {
+    NSLog(@"mentees, please");
+    
+    // push view controller
+    UserListViewController *ulvc = [[UserListViewController alloc] init];
+    ulvc.showMentor = NO;
+    [self.navigationController pushViewController:ulvc animated:YES];
 }
 
 - (IBAction)onMessagesButton:(id)sender {
+    NSLog(@"messages, please");
+    
+    // push view controller
+    MessageListViewController *mlvc = [[MessageListViewController alloc] init];
+    [self.navigationController pushViewController:mlvc animated:YES];
 }
 
 @end

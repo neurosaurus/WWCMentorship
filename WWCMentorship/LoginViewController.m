@@ -43,7 +43,7 @@
         PFLogInViewController *loginViewController = [[PFLogInViewController alloc] init];
         [loginViewController setDelegate:self]; //set ourselves as the delegate
         
-        //Create signup view controller
+        // Create signup view controller
         PFSignUpViewController *signupViewController = [[PFSignUpViewController alloc] init];
         [signupViewController setDelegate:self]; //set ourselves as the delegate
         
@@ -85,7 +85,7 @@
 - (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+/*
 // Sent to the delegate when the log in attempt fails.
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(NSError *)error {
     NSLog(@"Failed to log in...");
@@ -94,7 +94,7 @@
 // Sent to the delegate when the log in screen is dismissed.
 - (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
     [self.navigationController popViewControllerAnimated:YES];
-}
+}*/
 
 // Sent to the delegate to determine whether the sign up request should be submitted to the server.
 - (BOOL)signUpViewController:(PFSignUpViewController *)signUpController shouldBeginSignUp:(NSDictionary *)info {
