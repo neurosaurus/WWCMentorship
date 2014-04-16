@@ -21,10 +21,6 @@
     //ProfileViewController *pvc = [[ProfileViewController alloc] init];
     //self.window.rootViewController = pvc;
     
-    // for testing purposes
-//    MenuViewController *mvc = [[MenuViewController alloc] init];
-//    self.window.rootViewController = mvc;
-    
     LoginViewController *lvc = [[LoginViewController alloc] init];
     self.window.rootViewController = lvc;
     

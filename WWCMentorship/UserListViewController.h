@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
-@interface UserListViewController : UIViewController
+@interface UserListViewController : UIViewController < UITableViewDataSource, UITableViewDelegate >
+
+@property (nonatomic, assign) BOOL showMentor;
+@property (nonatomic, assign) BOOL showMatch;
 
 @end
