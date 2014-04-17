@@ -11,6 +11,8 @@
 		900D56B618FA07F1009EE8B5 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900D56B518FA07F1009EE8B5 /* Social.framework */; };
 		900D56B818FA07FA009EE8B5 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900D56B718FA07FA009EE8B5 /* Accounts.framework */; };
 		900D56BB18FA0A87009EE8B5 /* FBMissingSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = 900D56BA18FA0A87009EE8B5 /* FBMissingSymbols.m */; };
+		902F513118FF665D00637BB1 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902F512F18FF665D00637BB1 /* UserCell.m */; };
+		902F513218FF665D00637BB1 /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 902F513018FF665D00637BB1 /* UserCell.xib */; };
 		EB8798C318F3A36800B9CF72 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8798C218F3A36800B9CF72 /* Parse.framework */; };
 		EB8798C518F3A3B000B9CF72 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8798C418F3A3B000B9CF72 /* AudioToolbox.framework */; };
 		EB8798C718F3A3B700B9CF72 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8798C618F3A3B700B9CF72 /* CFNetwork.framework */; };
@@ -67,6 +69,9 @@
 		900D56B518FA07F1009EE8B5 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		900D56B718FA07FA009EE8B5 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		900D56BA18FA0A87009EE8B5 /* FBMissingSymbols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBMissingSymbols.m; sourceTree = "<group>"; };
+		902F512E18FF665D00637BB1 /* UserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCell.h; sourceTree = "<group>"; };
+		902F512F18FF665D00637BB1 /* UserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
+		902F513018FF665D00637BB1 /* UserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCell.xib; sourceTree = "<group>"; };
 		D00B8A0CF10D4A8EA28288E5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		EB8798C218F3A36800B9CF72 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		EB8798C418F3A3B000B9CF72 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -248,6 +253,9 @@
 				EB8798DB18F3A82300B9CF72 /* ViewControllers */,
 				EBE794C918EC78FA00733D5F /* Images.xcassets */,
 				EBE794BE18EC78FA00733D5F /* Supporting Files */,
+				902F512E18FF665D00637BB1 /* UserCell.h */,
+				902F512F18FF665D00637BB1 /* UserCell.m */,
+				902F513018FF665D00637BB1 /* UserCell.xib */,
 			);
 			path = WWCMentorship;
 			sourceTree = "<group>";
@@ -366,6 +374,7 @@
 				EBE0B24718F9F2E400E2122E /* UserListViewController.xib in Resources */,
 				EB8798DA18F3A46C00B9CF72 /* ProfileViewController.xib in Resources */,
 				EBE0B23818F9F2C900E2122E /* MentorSkillsViewController.xib in Resources */,
+				902F513218FF665D00637BB1 /* UserCell.xib in Resources */,
 				EBE0B24218F9F2DB00E2122E /* MenuViewController.xib in Resources */,
 				EBE794C218EC78FA00733D5F /* InfoPlist.strings in Resources */,
 				EBE794CA18EC78FA00733D5F /* Images.xcassets in Resources */,
@@ -432,6 +441,7 @@
 				EBE0B22D18F9F2A800E2122E /* ProfileFormViewController.m in Sources */,
 				EBE794C418EC78FA00733D5F /* main.m in Sources */,
 				EBE0B24118F9F2DB00E2122E /* MenuViewController.m in Sources */,
+				902F513118FF665D00637BB1 /* UserCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
