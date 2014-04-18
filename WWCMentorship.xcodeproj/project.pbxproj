@@ -166,21 +166,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EB06982A1900DDC90054175E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		EB06982B1900DDCE0054175E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		EB8798DB18F3A82300B9CF72 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				EB8798DC18F3A8E000B9CF72 /* LoginViewController.h */,
 				EB8798DD18F3A8E000B9CF72 /* LoginViewController.m */,
 				EB8798DE18F3A8E000B9CF72 /* LoginViewController.xib */,
-				EB8798D618F3A46C00B9CF72 /* ProfileViewController.h */,
-				EB8798D718F3A46C00B9CF72 /* ProfileViewController.m */,
-				EB8798D818F3A46C00B9CF72 /* ProfileViewController.xib */,
-				EBE0B22018F8E37C00E2122E /* ComposeViewController.h */,
-				EBE0B22118F8E37C00E2122E /* ComposeViewController.m */,
-				EBE0B22218F8E37C00E2122E /* ComposeViewController.xib */,
 				EBE0B22A18F9F2A800E2122E /* ProfileFormViewController.h */,
 				EBE0B22B18F9F2A800E2122E /* ProfileFormViewController.m */,
 				EBE0B22C18F9F2A800E2122E /* ProfileFormViewController.xib */,
+				EBE0B22018F8E37C00E2122E /* ComposeViewController.h */,
+				EBE0B22118F8E37C00E2122E /* ComposeViewController.m */,
+				EBE0B22218F8E37C00E2122E /* ComposeViewController.xib */,
+				EB8798D618F3A46C00B9CF72 /* ProfileViewController.h */,
+				EB8798D718F3A46C00B9CF72 /* ProfileViewController.m */,
+				EB8798D818F3A46C00B9CF72 /* ProfileViewController.xib */,
 				EBE0B22F18F9F2B800E2122E /* MessageListViewController.h */,
 				EBE0B23018F9F2B800E2122E /* MessageListViewController.m */,
 				EBE0B23118F9F2B800E2122E /* MessageListViewController.xib */,
@@ -250,9 +264,11 @@
 		EBE794BD18EC78FA00733D5F /* WWCMentorship */ = {
 			isa = PBXGroup;
 			children = (
+				EB06982B1900DDCE0054175E /* Views */,
+				EB06982A1900DDC90054175E /* Models */,
 				EBE794C618EC78FA00733D5F /* AppDelegate.h */,
-				900D56BA18FA0A87009EE8B5 /* FBMissingSymbols.m */,
 				EBE794C718EC78FA00733D5F /* AppDelegate.m */,
+				900D56BA18FA0A87009EE8B5 /* FBMissingSymbols.m */,
 				EB8798DB18F3A82300B9CF72 /* ViewControllers */,
 				EBE794C918EC78FA00733D5F /* Images.xcassets */,
 				EBE794BE18EC78FA00733D5F /* Supporting Files */,
