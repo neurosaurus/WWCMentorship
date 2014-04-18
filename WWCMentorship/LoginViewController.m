@@ -36,6 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self updateLoginLabelAndButton];
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,6 +64,7 @@
     }
     else {
         [PFUser logOut];
+        [self updateLoginLabelAndButton];
     }
 }
 
@@ -111,16 +113,19 @@
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
+    [self updateLoginLabelAndButton];
 }
 
 // Sent to the delegate when the log in attempt fails.
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(NSError *)error {
     NSLog(@"Failed to log in...");
+    [self updateLoginLabelAndButton];
 }
 
 // Sent to the delegate when the log in screen is dismissed.
 - (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
     [self.navigationController popViewControllerAnimated:YES];
+    [self updateLoginLabelAndButton];
 }
 
 
@@ -152,20 +157,22 @@
 }
 
 // Sent to the delegate when a PFUser is signed up.
-- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
-{
-    [self dismissModalViewControllerAnimated:YES]; // Dismiss the PFSignUpViewController
+- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
+    [self dismissViewControllerAnimated:YES completion:^{} ]; // Dismiss the PFSignUpViewController
+    [self updateLoginLabelAndButton];
 }
 
 // Sent to the delegate when the sign up attempt fails.
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didFailToSignUpWithError:(NSError *)error
 {
     NSLog(@"Failed to sign up...");
+    [self updateLoginLabelAndButton];
 }
 
 // Sent to the delegate when the sign up screen is dismissed.
 - (void)signUpViewControllerDidCancelSignUp:(PFSignUpViewController *)signUpController
 {
     NSLog(@"User dismissed the signUpViewController");
+    [self updateLoginLabelAndButton];
 }
 @end

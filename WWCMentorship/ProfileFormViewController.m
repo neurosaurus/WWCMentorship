@@ -10,6 +10,11 @@
 
 @interface ProfileFormViewController ()
 
+@property (weak, nonatomic) IBOutlet UITextField *firstnameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *lastnameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+@property (weak, nonatomic) IBOutlet UITextField *summaryTextField;
+
 @end
 
 @implementation ProfileFormViewController
@@ -26,7 +31,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.navigationItem.title = @"Your Profile";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(onSave)];
+}
+
+- (void)onSave
+{
+    //Create a user
+    
+    
+    //Save to Parse
 }
 
 - (void)didReceiveMemoryWarning
