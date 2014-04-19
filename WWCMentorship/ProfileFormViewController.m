@@ -50,7 +50,6 @@
         NSLog(@"User Saved to Parse");
     }];
     
-    // Dismiss and go back to WeddingInfoView
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
