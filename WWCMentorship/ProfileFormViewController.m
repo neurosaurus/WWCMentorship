@@ -37,10 +37,21 @@
 
 - (void)onSave
 {
+    NSLog(@"Saving User Info");
     //Create a user
+    PFObject *newUser = [PFObject objectWithClassName:@"User"];
+    newUser[@"FirstName"]          = self.firstnameTextField;
+    newUser[@"LastName"]           = self.lastnameTextField;
+    newUser[@"Email"]              = self.emailTextField;
+    newUser[@"Description"]        = self.summaryTextField;
     
+    // Save to Parse
+    [newUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        NSLog(@"User Saved to Parse");
+    }];
     
-    //Save to Parse
+    // Dismiss and go back to WeddingInfoView
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
