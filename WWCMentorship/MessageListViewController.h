@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
-@interface MessageListViewController : UIViewController
+@interface MessageListViewController : UIViewController < UITableViewDelegate, UITableViewDataSource >
 
 @end

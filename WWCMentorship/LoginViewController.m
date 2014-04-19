@@ -55,7 +55,7 @@
         // Create the sign up view controller
         PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
         [signUpViewController setDelegate:self]; // Set ourselves as the delegate
-        
+
         // Assign our sign up controller to be displayed from the login controller
         [logInViewController setSignUpController:signUpViewController];
         
@@ -127,6 +127,19 @@
     [self.navigationController popViewControllerAnimated:YES];
     [self updateLoginLabelAndButton];
 }
+<<<<<<< HEAD
+/*
+// Sent to the delegate when the log in attempt fails.
+- (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(NSError *)error {
+    NSLog(@"Failed to log in...");
+}
+
+// Sent to the delegate when the log in screen is dismissed.
+- (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
+    [self.navigationController popViewControllerAnimated:YES];
+}*/
+=======
+>>>>>>> master
 
 
 #pragma mark PFSignUpViewControllerDelegate

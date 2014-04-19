@@ -27,8 +27,6 @@
 		EB8798DA18F3A46C00B9CF72 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB8798D818F3A46C00B9CF72 /* ProfileViewController.xib */; };
 		EB8798DF18F3A8E000B9CF72 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8798DD18F3A8E000B9CF72 /* LoginViewController.m */; };
 		EB8798E018F3A8E000B9CF72 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB8798DE18F3A8E000B9CF72 /* LoginViewController.xib */; };
-		EBE0B22318F8E37C00E2122E /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B22118F8E37C00E2122E /* ComposeViewController.m */; };
-		EBE0B22418F8E37C00E2122E /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B22218F8E37C00E2122E /* ComposeViewController.xib */; };
 		EBE0B22D18F9F2A800E2122E /* ProfileFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B22B18F9F2A800E2122E /* ProfileFormViewController.m */; };
 		EBE0B22E18F9F2A800E2122E /* ProfileFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B22C18F9F2A800E2122E /* ProfileFormViewController.xib */; };
 		EBE0B23218F9F2B800E2122E /* MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B23018F9F2B800E2122E /* MessageListViewController.m */; };
@@ -87,9 +85,6 @@
 		EB8798DC18F3A8E000B9CF72 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		EB8798DD18F3A8E000B9CF72 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		EB8798DE18F3A8E000B9CF72 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
-		EBE0B22018F8E37C00E2122E /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
-		EBE0B22118F8E37C00E2122E /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
-		EBE0B22218F8E37C00E2122E /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
 		EBE0B22A18F9F2A800E2122E /* ProfileFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileFormViewController.h; sourceTree = "<group>"; };
 		EBE0B22B18F9F2A800E2122E /* ProfileFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileFormViewController.m; sourceTree = "<group>"; };
 		EBE0B22C18F9F2A800E2122E /* ProfileFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileFormViewController.xib; sourceTree = "<group>"; };
@@ -181,6 +176,12 @@
 				EB8798DC18F3A8E000B9CF72 /* LoginViewController.h */,
 				EB8798DD18F3A8E000B9CF72 /* LoginViewController.m */,
 				EB8798DE18F3A8E000B9CF72 /* LoginViewController.xib */,
+<<<<<<< HEAD
+=======
+				EB8798D618F3A46C00B9CF72 /* ProfileViewController.h */,
+				EB8798D718F3A46C00B9CF72 /* ProfileViewController.m */,
+				EB8798D818F3A46C00B9CF72 /* ProfileViewController.xib */,
+>>>>>>> master
 				EBE0B22A18F9F2A800E2122E /* ProfileFormViewController.h */,
 				EBE0B22B18F9F2A800E2122E /* ProfileFormViewController.m */,
 				EBE0B22C18F9F2A800E2122E /* ProfileFormViewController.xib */,
@@ -375,7 +376,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBE0B22E18F9F2A800E2122E /* ProfileFormViewController.xib in Resources */,
-				EBE0B22418F8E37C00E2122E /* ComposeViewController.xib in Resources */,
 				EBE0B24C18F9F2F200E2122E /* MessageViewController.xib in Resources */,
 				EB48727519021D1E0030350C /* SkillsViewController.xib in Resources */,
 				EBE0B23318F9F2B800E2122E /* MessageListViewController.xib in Resources */,
@@ -439,7 +439,6 @@
 				EB8798DF18F3A8E000B9CF72 /* LoginViewController.m in Sources */,
 				EBE0B23218F9F2B800E2122E /* MessageListViewController.m in Sources */,
 				EBE794C818EC78FA00733D5F /* AppDelegate.m in Sources */,
-				EBE0B22318F8E37C00E2122E /* ComposeViewController.m in Sources */,
 				900D56BB18FA0A87009EE8B5 /* FBMissingSymbols.m in Sources */,
 				EBE0B24618F9F2E400E2122E /* UserListViewController.m in Sources */,
 				EB8798D918F3A46C00B9CF72 /* ProfileViewController.m in Sources */,
