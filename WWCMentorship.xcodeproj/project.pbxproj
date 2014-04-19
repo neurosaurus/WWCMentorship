@@ -11,13 +11,13 @@
 		900D56B618FA07F1009EE8B5 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900D56B518FA07F1009EE8B5 /* Social.framework */; };
 		900D56B818FA07FA009EE8B5 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900D56B718FA07FA009EE8B5 /* Accounts.framework */; };
 		900D56BB18FA0A87009EE8B5 /* FBMissingSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = 900D56BA18FA0A87009EE8B5 /* FBMissingSymbols.m */; };
-<<<<<<< HEAD
+
 		EB48727419021D1E0030350C /* SkillsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB48727219021D1E0030350C /* SkillsViewController.m */; };
 		EB48727519021D1E0030350C /* SkillsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB48727319021D1E0030350C /* SkillsViewController.xib */; };
-=======
+
 		902F513118FF665D00637BB1 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902F512F18FF665D00637BB1 /* UserCell.m */; };
 		902F513218FF665D00637BB1 /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 902F513018FF665D00637BB1 /* UserCell.xib */; };
->>>>>>> stephanie
+
 		EB8798C318F3A36800B9CF72 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8798C218F3A36800B9CF72 /* Parse.framework */; };
 		EB8798C518F3A3B000B9CF72 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8798C418F3A3B000B9CF72 /* AudioToolbox.framework */; };
 		EB8798C718F3A3B700B9CF72 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8798C618F3A3B700B9CF72 /* CFNetwork.framework */; };
@@ -184,12 +184,7 @@
 				EB8798DC18F3A8E000B9CF72 /* LoginViewController.h */,
 				EB8798DD18F3A8E000B9CF72 /* LoginViewController.m */,
 				EB8798DE18F3A8E000B9CF72 /* LoginViewController.xib */,
-<<<<<<< HEAD
-=======
-				EB8798D618F3A46C00B9CF72 /* ProfileViewController.h */,
-				EB8798D718F3A46C00B9CF72 /* ProfileViewController.m */,
-				EB8798D818F3A46C00B9CF72 /* ProfileViewController.xib */,
->>>>>>> master
+
 				EBE0B22A18F9F2A800E2122E /* ProfileFormViewController.h */,
 				EBE0B22B18F9F2A800E2122E /* ProfileFormViewController.m */,
 				EBE0B22C18F9F2A800E2122E /* ProfileFormViewController.xib */,
@@ -393,11 +388,9 @@
 				EB8798E018F3A8E000B9CF72 /* LoginViewController.xib in Resources */,
 				EBE0B24718F9F2E400E2122E /* UserListViewController.xib in Resources */,
 				EB8798DA18F3A46C00B9CF72 /* ProfileViewController.xib in Resources */,
-<<<<<<< HEAD
-=======
-				EBE0B23818F9F2C900E2122E /* MentorSkillsViewController.xib in Resources */,
+
 				902F513218FF665D00637BB1 /* UserCell.xib in Resources */,
->>>>>>> stephanie
+
 				EBE0B24218F9F2DB00E2122E /* MenuViewController.xib in Resources */,
 				EBE794C218EC78FA00733D5F /* InfoPlist.strings in Resources */,
 				EBE794CA18EC78FA00733D5F /* Images.xcassets in Resources */,
