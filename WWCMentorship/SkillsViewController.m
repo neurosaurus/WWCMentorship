@@ -1,18 +1,18 @@
 //
-//  MentorSkillsViewController.m
+//  SkillsViewController.m
 //  WWCMentorship
 //
-//  Created by Tripta Gupta on 4/12/14.
+//  Created by Tripta Gupta on 4/18/14.
 //  Copyright (c) 2014 Tripta Gupta. All rights reserved.
 //
 
-#import "MentorSkillsViewController.h"
+#import "SkillsViewController.h"
 
-@interface MentorSkillsViewController ()
+@interface SkillsViewController ()
 
 @end
 
-@implementation MentorSkillsViewController
+@implementation SkillsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

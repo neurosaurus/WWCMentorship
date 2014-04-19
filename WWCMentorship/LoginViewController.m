@@ -7,13 +7,18 @@
 //
 
 #import "LoginViewController.h"
+#import "ProfileFormViewController.h"
+
 
 @interface LoginViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *profileButton;
 
-- (IBAction)submitButton:(id)sender;
+
+- (IBAction)onLogin:(id)sender;
+- (IBAction)onProfile:(id)sender;
 
 @end
 
@@ -31,30 +36,64 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self updateLoginLabelAndButton];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)onLogin:(id)sender
+{
+    if (![PFUser currentUser]) { // No user logged in
+        // Create the log in view controller
+        PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
+        [logInViewController setDelegate:self]; // Set ourselves as the delegate
+        
+        // Create the sign up view controller
+        PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
+        [signUpViewController setDelegate:self]; // Set ourselves as the delegate
+
+        // Assign our sign up controller to be displayed from the login controller
+        [logInViewController setSignUpController:signUpViewController];
+        
+        // Present the log in view controller
+        [self presentViewController:logInViewController animated:YES completion:NULL];
+    }
+    else {
+        [PFUser logOut];
+        [self updateLoginLabelAndButton];
+    }
+}
+
+- (IBAction)onProfile:(id)sender
+{
+    ProfileFormViewController *pvc = [[ProfileFormViewController alloc] init];
+    [self.navigationController pushViewController:pvc animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    if (![PFUser currentUser]) //no user logged in
-    {
-        PFLogInViewController *loginViewController = [[PFLogInViewController alloc] init];
-        [loginViewController setDelegate:self]; //set ourselves as the delegate
-        
-        // Create signup view controller
-        PFSignUpViewController *signupViewController = [[PFSignUpViewController alloc] init];
-        [signupViewController setDelegate:self]; //set ourselves as the delegate
-        
-        //assign our sign up controller to be displayed from the login controller
-        [loginViewController setSignUpController:signupViewController];
-        
-        //Present the login view controller
-        [self presentViewController:loginViewController animated:YES completion:NULL];
+}
+
+-(void)updateLoginLabelAndButton
+{
+    if([PFUser currentUser]) {
+        self.loginButton.titleLabel.text=@"Logout";
+        self.usernameLabel.text = [[PFUser currentUser] username];
+    }
+    else {
+        self.loginButton.titleLabel.text=@"Login";
+        self.usernameLabel.text = @"Not logged in";
     }
 }
 
+
+// Sent to the delegate to determine whether the log in request should be submitted to the server.
 - (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password
 {
     // Check if both fields are completed
@@ -74,16 +113,19 @@
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
+    [self updateLoginLabelAndButton];
 }
 
 // Sent to the delegate when the log in attempt fails.
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(NSError *)error {
     NSLog(@"Failed to log in...");
+    [self updateLoginLabelAndButton];
 }
 
 // Sent to the delegate when the log in screen is dismissed.
 - (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
     [self.navigationController popViewControllerAnimated:YES];
+    [self updateLoginLabelAndButton];
 }
 <<<<<<< HEAD
 /*
@@ -98,6 +140,9 @@
 }*/
 =======
 >>>>>>> master
+
+
+#pragma mark PFSignUpViewControllerDelegate
 
 // Sent to the delegate to determine whether the sign up request should be submitted to the server.
 - (BOOL)signUpViewController:(PFSignUpViewController *)signUpController shouldBeginSignUp:(NSDictionary *)info {
@@ -126,41 +171,21 @@
 
 // Sent to the delegate when a PFUser is signed up.
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
-    [self dismissModalViewControllerAnimated:YES]; // Dismiss the PFSignUpViewController
+    [self dismissViewControllerAnimated:YES completion:^{} ]; // Dismiss the PFSignUpViewController
+    [self updateLoginLabelAndButton];
 }
 
 // Sent to the delegate when the sign up attempt fails.
-- (void)signUpViewController:(PFSignUpViewController *)signUpController didFailToSignUpWithError:(NSError *)error {
+- (void)signUpViewController:(PFSignUpViewController *)signUpController didFailToSignUpWithError:(NSError *)error
+{
     NSLog(@"Failed to sign up...");
+    [self updateLoginLabelAndButton];
 }
 
 // Sent to the delegate when the sign up screen is dismissed.
-- (void)signUpViewControllerDidCancelSignUp:(PFSignUpViewController *)signUpController {
+- (void)signUpViewControllerDidCancelSignUp:(PFSignUpViewController *)signUpController
+{
     NSLog(@"User dismissed the signUpViewController");
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)submitButton:(id)sender
-{
-    NSString *usernameString = self.usernameTextField.text;
-    NSString *passwordString = self.passwordTextField.text;
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"User"];
-    [query whereKey:@"username" equalTo:@"stephanie"];
-    [query whereKey:@"password" equalTo:@"678901"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error && objects && objects.count == 1) {
-            NSLog(@"found stephanie");
-        } else {
-            NSLog(@"no stephanie here");
-        }
-    }];
-    
+    [self updateLoginLabelAndButton];
 }
 @end
