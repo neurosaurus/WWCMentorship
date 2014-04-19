@@ -9,12 +9,16 @@
 #import "MenuViewController.h"
 #import "UserListViewController.h"
 #import "MessageListViewController.h"
+#import "ProfileViewController.h"
+#import "LoginViewController.h"
 
 @interface MenuViewController ()
 
 - (IBAction)onMentorButton:(id)sender;
 - (IBAction)onMenteeButton:(id)sender;
 - (IBAction)onMessagesButton:(id)sender;
+- (IBAction)onProfileButton:(id)sender;
+- (IBAction)onSignOutButton:(id)sender;
 
 @end
 
@@ -67,6 +71,22 @@
     // push view controller
     MessageListViewController *mlvc = [[MessageListViewController alloc] init];
     [self.navigationController pushViewController:mlvc animated:YES];
+}
+
+- (IBAction)onProfileButton:(id)sender {
+    NSLog(@"profile, please");
+    
+    // push view controller
+    ProfileViewController *pvc = [[ProfileViewController alloc] init];
+    [self.navigationController pushViewController:pvc animated:YES];
+}
+
+- (IBAction)onSignOutButton:(id)sender {
+    NSLog(@"get me outta here");
+    
+    // push view controller
+    LoginViewController *lvc = [[LoginViewController alloc] init];
+    [self.navigationController pushViewController:lvc animated:YES];
 }
 
 @end
