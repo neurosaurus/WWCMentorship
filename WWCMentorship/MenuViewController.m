@@ -81,12 +81,9 @@
     [self.navigationController pushViewController:pvc animated:YES];
 }
 
-//- (IBAction)onSignOutButton:(id)sender {
-//    NSLog(@"get me outta here");
-//    
-//    // push view controller
-//    LoginViewController *lvc = [[LoginViewController alloc] init];
-//    [self.navigationController pushViewController:lvc animated:YES];
-//}
+- (IBAction)onSignOutButton:(id)sender {
+    NSLog(@"get me outta here");
+    
+}
 
 @end

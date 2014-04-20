@@ -8,6 +8,9 @@
 
 #import "ProfileViewController.h"
 #import "UserListViewController.h"
+#import "ProfileFormViewController.h"
+#import "CustomParseLoginViewController.h"
+#import "CustomParseSignupViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "REMenu.h"
 
@@ -80,6 +83,14 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
+- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
+    NSLog(@"signed up");
+    [self dismissViewControllerAnimated:YES completion:^{
+        ProfileFormViewController *pfvc = [[ProfileFormViewController alloc] init];
+        [self presentViewController:pfvc animated:NO completion:NULL];
+    }];
+}
+
 - (void)onMenu:(id)sender {
     NSLog(@"let's go somewhere else");
     if (self.menu.isOpen) {
@@ -119,8 +130,14 @@
                                                          NSLog(@"signing out");
                                                          [PFUser logOut];
                                                          
-                                                         PFLogInViewController *pflvc = [[PFLogInViewController alloc] init];
+                                                         CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
+                                                         CustomParseSignupViewController *pfsvc = [[CustomParseSignupViewController alloc] init];
+                                                         
                                                          pflvc.delegate = self;
+                                                         pfsvc.delegate = self;
+                                                         
+                                                         pflvc.signUpController = pfsvc;
+                                                         
                                                          [self presentViewController:pflvc animated:YES completion:NULL];
                                                      }];
     
