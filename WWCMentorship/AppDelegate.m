@@ -26,7 +26,9 @@
 //    self.window.rootViewController = lvc;
 
     SkillsViewController *svc = [[SkillsViewController alloc] init];
-    self.window.rootViewController = svc;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:svc];
+
+    self.window.rootViewController = navigationController;
     
     [Parse setApplicationId:@"EFnYeM1PjDIus6gHu02UTOZ9XbbvuAXlv21ZxFnK"
                   clientKey:@"PQEtRTrB4PJ9A9KeKWQbw1OLGraXtVNOtU4cHHZl"];
