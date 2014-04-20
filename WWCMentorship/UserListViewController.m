@@ -8,7 +8,6 @@
 
 #import "UserListViewController.h"
 #import "ProfileViewController.h"
-#import "LoginViewController.h"
 #import "UserCell.h"
 #import "REMenu.h"
 
@@ -31,53 +30,53 @@
     return self;
 }
 
-//- (void)viewDidLoad
-//{
-//    [super viewDidLoad];
-//    
-//    // if not logged in, present login view controller
-//    PFUser *user = [PFUser currentUser];
-//    if (!user) {
-//        PFLogInViewController *pflvc = [[PFLogInViewController alloc] init];
-//        pflvc.delegate = self;
-//        
-//        [self presentViewController:pflvc animated:YES completion:NULL];
-//    // if not logged in, present either sign-up view controller, tab bar controller
-//    } else {
-//        PFQuery *query = [PFQuery queryWithClassName:@"User"];
-//        [query whereKey:@"objectId" equalTo:user.objectId];
-//            
-//        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//            if (objects && !error) {
-//
-//            } else if (!objects) {
-//                LoginViewController *lvc = [[LoginViewController alloc] init];
-//                [self presentViewController:lvc animated:YES completion:NULL];
-//            } else if (error) {
-//                NSLog(@"error: %@", error.description);
-//            }
-//        }];
-//    }
-//    
-//    // assign table view's delegate, data source
-//    self.tableView.delegate = self;
-//    self.tableView.dataSource = self;
-//    
-//    // register user cell nib
-//    UINib *nib = [UINib nibWithNibName:@"UserCell" bundle:nil];
-//    [self.tableView registerNib:nib forCellReuseIdentifier:@"UserCell"];
-//    
-//    self.showMatch = NO;
-//    if (self.showMatch) {
-//        [self loadMatches];
-//    } else {
-//        [self loadPotentials];
-//    }
-//    
-//    // set up navigation menu
-//    [self setNavigationMenu];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
-//}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // if not logged in, present login view controller
+    PFUser *user = [PFUser currentUser];
+    if (!user) {
+        PFLogInViewController *pflvc = [[PFLogInViewController alloc] init];
+        pflvc.delegate = self;
+        
+        [self presentViewController:pflvc animated:YES completion:NULL];
+    // if not logged in, present either sign-up view controller, tab bar controller
+    } else {
+        PFQuery *query = [PFQuery queryWithClassName:@"User"];
+        [query whereKey:@"objectId" equalTo:user.objectId];
+            
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (objects && !error) {
+
+            } else if (!objects) {
+                LoginViewController *lvc = [[LoginViewController alloc] init];
+                [self presentViewController:lvc animated:YES completion:NULL];
+            } else if (error) {
+                NSLog(@"error: %@", error.description);
+            }
+        }];
+    }
+    
+    // assign table view's delegate, data source
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    // register user cell nib
+    UINib *nib = [UINib nibWithNibName:@"UserCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"UserCell"];
+    
+    self.showMatch = NO;
+    if (self.showMatch) {
+        [self loadMatches];
+    } else {
+        [self loadPotentials];
+    }
+    
+    // set up navigation menu
+    [self setNavigationMenu];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
+}
 
 - (void)didReceiveMemoryWarning
 {
