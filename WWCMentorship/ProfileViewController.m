@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *toTeach6;
 
 - (IBAction)onContactButton:(id)sender;
+- (IBAction)onSignOut:(id)sender;
 
 @end
 
@@ -65,5 +66,9 @@
 }
 
 - (IBAction)onContactButton:(id)sender {
+}
+
+- (IBAction)onSignOut:(id)sender {
+    [PFUser logOut];
 }
 @end

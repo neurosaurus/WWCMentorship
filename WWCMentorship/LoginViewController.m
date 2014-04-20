@@ -9,7 +9,6 @@
 #import "LoginViewController.h"
 #import "ProfileFormViewController.h"
 
-
 @interface LoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
