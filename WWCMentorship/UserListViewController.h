@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface UserListViewController : UIViewController < UITableViewDataSource, UITableViewDelegate, PFLogInViewControllerDelegate >
+@interface UserListViewController : UIViewController < UITableViewDataSource, UITableViewDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate >
 
 @property (nonatomic, assign) BOOL showMentor;
 @property (nonatomic, assign) BOOL showMatch;
