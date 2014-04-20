@@ -13,8 +13,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *firstnameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastnameTextField;
 @property (weak, nonatomic) IBOutlet UITextView *summaryTextView;
+@property (weak, nonatomic) IBOutlet UIPickerView *genderPick;
 
-- (IBAction)addSkillsButton:(id)sender;
+@property (nonatomic, strong) NSMutableArray *selectedList;
+
 @end
 
 @implementation ProfileFormViewController
@@ -31,8 +33,45 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"Your Profile";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(onSave)];
+    
+    NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
+    NSString *bundleName = [NSString stringWithFormat:@"%@", [info objectForKey:@"CFbundleDisplayName"]];
+    self.title = bundleName;
+}
+
+#pragma mark - Array list
+- (NSArray *)list
+{
+    return [NSArray arrayWithObjects:@"Objective-C", @"Android", @"Ruby", nil];
+}
+
+- (IBAction)skillsButton:(id)sender
+{
+    float paddingTopBottom = 20.0f;
+    float paddingLeftRight = 20.0f;
+    
+    CGPoint point = CGPointMake(paddingLeftRight,
+                                (self.navigationController.navigationBar.frame.size.height + paddingTopBottom) + paddingTopBottom);
+    CGSize size = CGSizeMake((self.view.frame.size.width - (paddingLeftRight * 2)), self.view.frame.size.height - ((self.navigationController.navigationBar.frame.size.height + paddingTopBottom) + (paddingTopBottom * 2)));
+    
+    LPPopupListView *listView = [[LPPopupListView alloc] initWithTitle:@"Skills" list:[self list] selectedList:self.selectedList point:point size:size multipleSelection:YES];
+    listView.delegate = self;
+    
+    [listView showInView:self.navigationController.view animated:YES];
+}
+
+- (void)popupListView:(LPPopupListView *)popUpListView didSelectedIndex:(NSInteger)index
+{
+    NSLog(@"popUpListView - didSelectedIndex: %d", index);
+}
+
+- (void)popupListViewDidHide:(LPPopupListView *)popUpListView selectedList:(NSArray *)list
+{
+    NSLog(@"popupListViewDidHide - selectedList: %@", list.description);
+    
+    self.selectedList = [NSMutableArray arrayWithArray:list];
+    
+    self.textView.text = self.selectedList.description;
 }
 
 - (void)onSave
@@ -43,6 +82,7 @@
     newUser[@"FirstName"]          = self.firstnameTextField;
     newUser[@"LastName"]           = self.lastnameTextField;
     newUser[@"Description"]        = self.summaryTextView;
+    newUser[@"Gender"]             = self.genderPick;
     
     // Save to Parse
     [newUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -58,8 +98,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)addSkillsButton:(id)sender
-{
-    
-}
+
 @end

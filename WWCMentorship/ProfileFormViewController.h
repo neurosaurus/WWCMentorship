@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "LPPopupListView.h"
 
-@interface ProfileFormViewController : UIViewController <UITextFieldDelegate, PFLogInViewControllerDelegate,PFSignUpViewControllerDelegate>
+@interface ProfileFormViewController : UIViewController <UITextFieldDelegate, PFLogInViewControllerDelegate,PFSignUpViewControllerDelegate, LPPopupListViewDelegate>
+
+- (IBAction)skillsButton:(id)sender;
+
+@property (strong, nonatomic) IBOutlet UITextView *textView;
 
 @end
