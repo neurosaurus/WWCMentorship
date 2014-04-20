@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-LPPopupListView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4675B9935D39411E91353A3A</key>
+		<key>65B6FDE12447432CB29741EF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BB4DAD2124344DD5917042D0</key>
+		<key>9238B62B9607493C8A321E5D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F2DD7EBDA25B4D82B6016B24</key>
+		<key>975B6AA385564F6DBB463A70</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E32FD085F9EA45AD88EDD43F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
+#import "LPPopupListView.h"
 
-@interface SkillsViewController : UIViewController
+@interface SkillsViewController : UIViewController <LPPopupListViewDelegate>
+
+@property (strong, nonatomic) IBOutlet UITextView *textView;
+
+- (IBAction)buttonClicked:(id)sender;
 
 @end
