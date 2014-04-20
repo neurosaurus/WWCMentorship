@@ -12,8 +12,9 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *firstnameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastnameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *summaryTextField;
+@property (weak, nonatomic) IBOutlet UITextView *summaryTextView;
 
+- (IBAction)addSkillsButton:(id)sender;
 @end
 
 @implementation ProfileFormViewController
@@ -41,7 +42,7 @@
     PFObject *newUser = [PFObject objectWithClassName:@"User"];
     newUser[@"FirstName"]          = self.firstnameTextField;
     newUser[@"LastName"]           = self.lastnameTextField;
-    newUser[@"Description"]        = self.summaryTextField;
+    newUser[@"Description"]        = self.summaryTextView;
     
     // Save to Parse
     [newUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -57,4 +58,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)addSkillsButton:(id)sender
+{
+    
+}
 @end
