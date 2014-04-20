@@ -7,10 +7,14 @@
 //
 
 #import "UserListViewController.h"
+#import "ProfileViewController.h"
+#import "LoginViewController.h"
 #import "UserCell.h"
+#import "REMenu.h"
 
 @interface UserListViewController ()
 
+@property (nonatomic, strong, readwrite) REMenu *menu;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *users;
 
@@ -31,6 +35,30 @@
 {
     [super viewDidLoad];
     
+    // if not logged in, present login view controller
+    PFUser *user = [PFUser currentUser];
+    if (!user) {
+        PFLogInViewController *pflvc = [[PFLogInViewController alloc] init];
+        pflvc.delegate = self;
+        
+        [self presentViewController:pflvc animated:YES completion:NULL];
+    // if not logged in, present either sign-up view controller, tab bar controller
+    } else {
+        PFQuery *query = [PFQuery queryWithClassName:@"User"];
+        [query whereKey:@"objectId" equalTo:user.objectId];
+            
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (objects && !error) {
+
+            } else if (!objects) {
+                LoginViewController *lvc = [[LoginViewController alloc] init];
+                [self presentViewController:lvc animated:YES completion:NULL];
+            } else if (error) {
+                NSLog(@"error: %@", error.description);
+            }
+        }];
+    }
+    
     // assign table view's delegate, data source
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -45,6 +73,10 @@
     } else {
         [self loadPotentials];
     }
+    
+    // set up navigation menu
+    [self setNavigationMenu];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -135,6 +167,60 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UserCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserCell" forIndexPath:indexPath];
     return cell;
+}
+
+# pragma mark - Navigation methods
+
+- (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
+    NSLog(@"i'm in!");
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)onMenu:(id)sender {
+    NSLog(@"let's go somewhere else");
+    if (self.menu.isOpen) {
+        return [self.menu close];
+    } else {
+        [self.menu showFromNavigationController:self.navigationController];
+    }
+}
+
+- (void)setNavigationMenu {
+    REMenuItem *profile = [[REMenuItem alloc] initWithTitle:@"Profile"
+                                               subtitle:nil
+                                                  image:nil
+                                       highlightedImage:nil
+                                                 action:^(REMenuItem *item) {
+                                                     NSLog(@"item: %@", item);
+                                                     NSLog(@"showing profile");
+                                                     ProfileViewController *pvc = [[ProfileViewController alloc] init];
+                                                     [self.navigationController pushViewController:pvc animated:NO];
+                                                 }];
+    
+    REMenuItem *userList = [[REMenuItem alloc] initWithTitle:@"Explore"
+                                               subtitle:nil
+                                                  image:nil
+                                       highlightedImage:nil
+                                                 action:^(REMenuItem *item) {
+                                                     NSLog(@"item: %@", item);
+                                                     NSLog(@"showing user list");
+                                                 }];
+    
+    REMenuItem *signOut = [[REMenuItem alloc] initWithTitle:@"Sign Out"
+                                               subtitle:nil
+                                                  image:nil
+                                       highlightedImage:nil
+                                                 action:^(REMenuItem *item) {
+                                                     NSLog(@"item: %@", item);
+                                                     NSLog(@"signing out");
+                                                     [PFUser logOut];
+                                                     
+                                                     PFLogInViewController *pflvc = [[PFLogInViewController alloc] init];
+                                                     pflvc.delegate = self;
+                                                     [self presentViewController:pflvc animated:YES completion:NULL];
+                                                 }];
+    
+    self.menu = [[REMenu alloc] initWithItems:@[profile, userList, signOut]];
 }
 
 @end

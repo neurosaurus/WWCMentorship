@@ -7,9 +7,13 @@
 //
 
 #import "ProfileViewController.h"
+#import "UserListViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "REMenu.h"
 
 @interface ProfileViewController ()
+
+@property (nonatomic, strong, readwrite) REMenu *menu;
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
 @property (weak, nonatomic) IBOutlet UILabel *name;
@@ -32,7 +36,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *toTeach6;
 
 - (IBAction)onContactButton:(id)sender;
-- (IBAction)onSignOut:(id)sender;
 
 @end
 
@@ -56,7 +59,9 @@
 //    [userObject saveInBackground];
     
 
-    
+    // set up navigation menu
+    [self setNavigationMenu];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,7 +73,57 @@
 - (IBAction)onContactButton:(id)sender {
 }
 
-- (IBAction)onSignOut:(id)sender {
-    [PFUser logOut];
+# pragma mark - Navigation methods
+
+- (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
+    NSLog(@"i'm in!");
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)onMenu:(id)sender {
+    NSLog(@"let's go somewhere else");
+    if (self.menu.isOpen) {
+        return [self.menu close];
+    } else {
+        [self.menu showFromNavigationController:self.navigationController];
+    }
+}
+
+- (void)setNavigationMenu {
+    REMenuItem *profile = [[REMenuItem alloc] initWithTitle:@"Profile"
+                                                   subtitle:nil
+                                                      image:nil
+                                           highlightedImage:nil
+                                                     action:^(REMenuItem *item) {
+                                                         NSLog(@"item: %@", item);
+                                                         NSLog(@"showing profile");
+                                                     }];
+    
+    REMenuItem *userList = [[REMenuItem alloc] initWithTitle:@"Explore"
+                                                    subtitle:nil
+                                                       image:nil
+                                            highlightedImage:nil
+                                                      action:^(REMenuItem *item) {
+                                                          NSLog(@"item: %@", item);
+                                                          NSLog(@"showing user list");
+                                                          UserListViewController *ulvc = [[UserListViewController alloc] init];
+                                                          [self.navigationController pushViewController:ulvc animated:NO];
+                                                      }];
+    
+    REMenuItem *signOut = [[REMenuItem alloc] initWithTitle:@"Sign Out"
+                                                   subtitle:nil
+                                                      image:nil
+                                           highlightedImage:nil
+                                                     action:^(REMenuItem *item) {
+                                                         NSLog(@"item: %@", item);
+                                                         NSLog(@"signing out");
+                                                         [PFUser logOut];
+                                                         
+                                                         PFLogInViewController *pflvc = [[PFLogInViewController alloc] init];
+                                                         pflvc.delegate = self;
+                                                         [self presentViewController:pflvc animated:YES completion:NULL];
+                                                     }];
+    
+    self.menu = [[REMenu alloc] initWithItems:@[profile, userList, signOut]];
 }
 @end
