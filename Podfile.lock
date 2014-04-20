@@ -21,13 +21,16 @@ PODS:
   - BDBOAuth1Manager (1.2.0):
     - AFNetworking/NSURLConnection (~> 2.2.0)
     - AFNetworking/NSURLSession (~> 2.2.0)
+  - LPPopupListView (1.0.2)
 
 DEPENDENCIES:
   - AFNetworking
   - BDBOAuth1Manager
+  - LPPopupListView
 
 SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
   BDBOAuth1Manager: 25d18d56820695aa18aae44eecad55829274a290
+  LPPopupListView: 4ee256fd0d41ec16889aae3ddfdd04c4bd144a5d
 
 COCOAPODS: 0.32.1

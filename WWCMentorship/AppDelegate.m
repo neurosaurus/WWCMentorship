@@ -11,6 +11,7 @@
 #import "MenuViewController.h"
 #import "ProfileViewController.h"
 #import "LoginViewController.h"
+#import "SkillsViewController.h"
 
 @implementation AppDelegate
 
@@ -21,8 +22,13 @@
     //ProfileViewController *pvc = [[ProfileViewController alloc] init];
     //self.window.rootViewController = pvc;
     
-    LoginViewController *lvc = [[LoginViewController alloc] init];
-    self.window.rootViewController = lvc;
+//    LoginViewController *lvc = [[LoginViewController alloc] init];
+//    self.window.rootViewController = lvc;
+
+    SkillsViewController *svc = [[SkillsViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:svc];
+
+    self.window.rootViewController = navigationController;
     
     [Parse setApplicationId:@"EFnYeM1PjDIus6gHu02UTOZ9XbbvuAXlv21ZxFnK"
                   clientKey:@"PQEtRTrB4PJ9A9KeKWQbw1OLGraXtVNOtU4cHHZl"];

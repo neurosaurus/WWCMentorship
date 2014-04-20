@@ -12,7 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *firstnameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastnameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *summaryTextField;
 
 @end
@@ -42,7 +41,6 @@
     PFObject *newUser = [PFObject objectWithClassName:@"User"];
     newUser[@"FirstName"]          = self.firstnameTextField;
     newUser[@"LastName"]           = self.lastnameTextField;
-    newUser[@"Email"]              = self.emailTextField;
     newUser[@"Description"]        = self.summaryTextField;
     
     // Save to Parse
