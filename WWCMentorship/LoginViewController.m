@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *profileButton;
 
-
 - (IBAction)onLogin:(id)sender;
 - (IBAction)onProfile:(id)sender;
 

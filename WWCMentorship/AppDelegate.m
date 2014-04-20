@@ -18,18 +18,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    //ProfileViewController *pvc = [[ProfileViewController alloc] init];
-    //self.window.rootViewController = pvc;
-    
-//    LoginViewController *lvc = [[LoginViewController alloc] init];
-//    self.window.rootViewController = lvc;
 
-    SkillsViewController *svc = [[SkillsViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:svc];
+    //SkillsViewController *svc = [[SkillsViewController alloc] init];
+    //UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:svc];
+    //self.window.rootViewController = navigationController;
 
-    self.window.rootViewController = navigationController;
     
+    MenuViewController *mvc = [[MenuViewController alloc] init];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mvc];
+     
     [Parse setApplicationId:@"EFnYeM1PjDIus6gHu02UTOZ9XbbvuAXlv21ZxFnK"
                   clientKey:@"PQEtRTrB4PJ9A9KeKWQbw1OLGraXtVNOtU4cHHZl"];
     
