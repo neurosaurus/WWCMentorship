@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
 #import "UserListViewController.h"
-#import "LoginViewController.h"
 #import "ProfileFormViewController.h"
 
 @implementation AppDelegate
@@ -20,9 +20,11 @@
     //SkillsViewController *svc = [[SkillsViewController alloc] init];
     //UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:svc];
     //self.window.rootViewController = navigationController;
-    
+        
     [Parse setApplicationId:@"EFnYeM1PjDIus6gHu02UTOZ9XbbvuAXlv21ZxFnK"
                   clientKey:@"PQEtRTrB4PJ9A9KeKWQbw1OLGraXtVNOtU4cHHZl"];
+    
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
     UserListViewController *ulvc = [[UserListViewController alloc] init];
     UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:ulvc];

@@ -1,14 +1,14 @@
+////
+////  LoginViewController.h
+////  WWCMentorship
+////
+////  Created by Tripta Gupta on 4/7/14.
+////  Copyright (c) 2014 Tripta Gupta. All rights reserved.
+////
 //
-//  LoginViewController.h
-//  WWCMentorship
+//#import <UIKit/UIKit.h>
+//#import <Parse/Parse.h>
 //
-//  Created by Tripta Gupta on 4/7/14.
-//  Copyright (c) 2014 Tripta Gupta. All rights reserved.
+//@interface LoginViewController : UIViewController <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate>
 //
-
-#import <UIKit/UIKit.h>
-#import <Parse/Parse.h>
-
-@interface LoginViewController : UIViewController <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate>
-
-@end
+//@end

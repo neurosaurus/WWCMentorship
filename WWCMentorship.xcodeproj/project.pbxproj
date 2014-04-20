@@ -49,6 +49,9 @@
 		EBE794D318EC78FA00733D5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE794BB18EC78FA00733D5F /* UIKit.framework */; };
 		EBE794DB18EC78FA00733D5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EBE794D918EC78FA00733D5F /* InfoPlist.strings */; };
 		EBE794DD18EC78FA00733D5F /* WWCMentorshipTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE794DC18EC78FA00733D5F /* WWCMentorshipTests.m */; };
+		EBEA220819047ED000F9880C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EBEA220719047ED000F9880C /* User.m */; };
+		EBEA220B19047FCA00F9880C /* CustomParseSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBEA220A19047FCA00F9880C /* CustomParseSignupViewController.m */; };
+		EBEA220E1904839A00F9880C /* CustomParseLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBEA220D1904839A00F9880C /* CustomParseLoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +119,12 @@
 		EBE794D818EC78FA00733D5F /* WWCMentorshipTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WWCMentorshipTests-Info.plist"; sourceTree = "<group>"; };
 		EBE794DA18EC78FA00733D5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EBE794DC18EC78FA00733D5F /* WWCMentorshipTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WWCMentorshipTests.m; sourceTree = "<group>"; };
+		EBEA220619047ED000F9880C /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		EBEA220719047ED000F9880C /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		EBEA220919047FCA00F9880C /* CustomParseSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomParseSignupViewController.h; sourceTree = "<group>"; };
+		EBEA220A19047FCA00F9880C /* CustomParseSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomParseSignupViewController.m; sourceTree = "<group>"; };
+		EBEA220C1904839A00F9880C /* CustomParseLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomParseLoginViewController.h; sourceTree = "<group>"; };
+		EBEA220D1904839A00F9880C /* CustomParseLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomParseLoginViewController.m; sourceTree = "<group>"; };
 		F6115BEB0BC24DE7B66F4980 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -159,6 +168,8 @@
 		EB06982A1900DDC90054175E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EBEA220619047ED000F9880C /* User.h */,
+				EBEA220719047ED000F9880C /* User.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -166,6 +177,9 @@
 		EB06982B1900DDCE0054175E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				902F512E18FF665D00637BB1 /* UserCell.h */,
+				902F512F18FF665D00637BB1 /* UserCell.m */,
+				902F513018FF665D00637BB1 /* UserCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -176,6 +190,10 @@
 				EB8798DC18F3A8E000B9CF72 /* LoginViewController.h */,
 				EB8798DD18F3A8E000B9CF72 /* LoginViewController.m */,
 				EB8798DE18F3A8E000B9CF72 /* LoginViewController.xib */,
+				EBEA220919047FCA00F9880C /* CustomParseSignupViewController.h */,
+				EBEA220A19047FCA00F9880C /* CustomParseSignupViewController.m */,
+				EBEA220C1904839A00F9880C /* CustomParseLoginViewController.h */,
+				EBEA220D1904839A00F9880C /* CustomParseLoginViewController.m */,
 				EBE0B22A18F9F2A800E2122E /* ProfileFormViewController.h */,
 				EBE0B22B18F9F2A800E2122E /* ProfileFormViewController.m */,
 				EBE0B22C18F9F2A800E2122E /* ProfileFormViewController.xib */,
@@ -245,17 +263,14 @@
 		EBE794BD18EC78FA00733D5F /* WWCMentorship */ = {
 			isa = PBXGroup;
 			children = (
-				EB06982B1900DDCE0054175E /* Views */,
-				EB06982A1900DDC90054175E /* Models */,
 				EBE794C618EC78FA00733D5F /* AppDelegate.h */,
 				EBE794C718EC78FA00733D5F /* AppDelegate.m */,
 				900D56BA18FA0A87009EE8B5 /* FBMissingSymbols.m */,
+				EB06982B1900DDCE0054175E /* Views */,
+				EB06982A1900DDC90054175E /* Models */,
 				EB8798DB18F3A82300B9CF72 /* ViewControllers */,
 				EBE794C918EC78FA00733D5F /* Images.xcassets */,
 				EBE794BE18EC78FA00733D5F /* Supporting Files */,
-				902F512E18FF665D00637BB1 /* UserCell.h */,
-				902F512F18FF665D00637BB1 /* UserCell.m */,
-				902F513018FF665D00637BB1 /* UserCell.xib */,
 			);
 			path = WWCMentorship;
 			sourceTree = "<group>";
@@ -427,6 +442,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBEA220B19047FCA00F9880C /* CustomParseSignupViewController.m in Sources */,
 				EB8798DF18F3A8E000B9CF72 /* LoginViewController.m in Sources */,
 				EBE0B23218F9F2B800E2122E /* MessageListViewController.m in Sources */,
 				EBE794C818EC78FA00733D5F /* AppDelegate.m in Sources */,
@@ -435,8 +451,10 @@
 				EB8798D918F3A46C00B9CF72 /* ProfileViewController.m in Sources */,
 				EBE0B24B18F9F2F200E2122E /* MessageViewController.m in Sources */,
 				EBE0B22D18F9F2A800E2122E /* ProfileFormViewController.m in Sources */,
+				EBEA220819047ED000F9880C /* User.m in Sources */,
 				EBE794C418EC78FA00733D5F /* main.m in Sources */,
 				EBE0B24118F9F2DB00E2122E /* MenuViewController.m in Sources */,
+				EBEA220E1904839A00F9880C /* CustomParseLoginViewController.m in Sources */,
 				902F513118FF665D00637BB1 /* UserCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,7 +10,7 @@
 #import "UserListViewController.h"
 #import "MessageListViewController.h"
 #import "ProfileViewController.h"
-#import "LoginViewController.h"
+//#import "LoginViewController.h"
 
 @interface MenuViewController ()
 
@@ -81,12 +81,12 @@
     [self.navigationController pushViewController:pvc animated:YES];
 }
 
-- (IBAction)onSignOutButton:(id)sender {
-    NSLog(@"get me outta here");
-    
-    // push view controller
-    LoginViewController *lvc = [[LoginViewController alloc] init];
-    [self.navigationController pushViewController:lvc animated:YES];
-}
+//- (IBAction)onSignOutButton:(id)sender {
+//    NSLog(@"get me outta here");
+//    
+//    // push view controller
+//    LoginViewController *lvc = [[LoginViewController alloc] init];
+//    [self.navigationController pushViewController:lvc animated:YES];
+//}
 
 @end
