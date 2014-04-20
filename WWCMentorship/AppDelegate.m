@@ -7,9 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import <Parse/Parse.h>
-#import "MenuViewController.h"
 #import "ProfileViewController.h"
+#import "UserListViewController.h"
 #import "LoginViewController.h"
 #import "SkillsViewController.h"
 
@@ -22,13 +21,48 @@
     //SkillsViewController *svc = [[SkillsViewController alloc] init];
     //UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:svc];
     //self.window.rootViewController = navigationController;
-
     
-    MenuViewController *mvc = [[MenuViewController alloc] init];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mvc];
-     
     [Parse setApplicationId:@"EFnYeM1PjDIus6gHu02UTOZ9XbbvuAXlv21ZxFnK"
                   clientKey:@"PQEtRTrB4PJ9A9KeKWQbw1OLGraXtVNOtU4cHHZl"];
+
+    // set up sign-up view controller
+    LoginViewController *lvc = [[LoginViewController alloc] init];
+    
+    // set up login view controller
+    PFLogInViewController *pflvc = [[PFLogInViewController alloc] init];
+    
+    // set up tab bar controller with related view controllers
+    UITabBarController *tbc = [[UITabBarController alloc] init];
+    
+    ProfileViewController *pvc = [[ProfileViewController alloc] init];
+    UINavigationController *pnc = [[UINavigationController alloc] initWithRootViewController:pvc];
+    
+    UserListViewController *ulvc = [[UserListViewController alloc] init];
+    UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:ulvc];
+    
+    tbc.viewControllers = @[pnc, ulnc];
+    
+    PFUser *user = [PFUser currentUser];
+    // if not logged in, present login view controller
+    if (!user) {
+        self.window.rootViewController = pflvc;
+    // if logged in
+    } else {
+        PFQuery *query = [PFQuery queryWithClassName:@"User"];
+        [query whereKey:@"objectId" equalTo:user.objectId];
+        query.limit = 1;
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (objects && !error) {
+                self.window.rootViewController = tbc;
+            // user is new, present sign-up view controller
+            } else if (!objects) {
+                self.window.rootViewController = lvc;
+            } else if (error) {
+                NSLog(@"error: %@", error.description);
+            }
+        }];
+    }
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
