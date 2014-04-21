@@ -74,6 +74,14 @@
     self.textView.text = self.selectedList.description;
 }
 
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.firstnameTextField resignFirstResponder];
+    [self.lastnameTextField resignFirstResponder];
+    [self.summaryTextView resignFirstResponder];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
