@@ -13,9 +13,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *firstnameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastnameTextField;
 @property (weak, nonatomic) IBOutlet UITextView *summaryTextView;
-@property (weak, nonatomic) IBOutlet UIPickerView *genderPick;
 
 @property (nonatomic, strong) NSMutableArray *selectedList;
+- (IBAction)onSave:(id)sender;
 
 @end
 
@@ -74,22 +74,12 @@
     self.textView.text = self.selectedList.description;
 }
 
-- (void)onSave
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"Saving User Info");
-    //Create a user
-    PFObject *newUser = [PFObject objectWithClassName:@"User"];
-    newUser[@"FirstName"]          = self.firstnameTextField;
-    newUser[@"LastName"]           = self.lastnameTextField;
-    newUser[@"Description"]        = self.summaryTextView;
-    newUser[@"Gender"]             = self.genderPick;
-    
-    // Save to Parse
-    [newUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        NSLog(@"User Saved to Parse");
-    }];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.firstnameTextField resignFirstResponder];
+    [self.lastnameTextField resignFirstResponder];
+    [self.summaryTextView resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -99,4 +89,29 @@
 }
 
 
+- (IBAction)onSave:(id)sender {
+    // for testing
+    self.firstnameTextField.text = @"firstname - test";
+    self.lastnameTextField.text = @"lastname - test";
+    self.summaryTextView.text = @"test";
+    
+    NSLog(@"Saving User Info");
+    PFUser *user = [PFUser currentUser];
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"objectId" equalTo:user.objectId];
+    PFObject *object = [query getObjectWithId:user.objectId];
+    NSLog(@"user: %@", object);
+    [object setObject:self.firstnameTextField.text forKey:@"firstName"];
+    [object setObject:self.lastnameTextField.text forKey:@"lastName"];
+    [object setObject:self.summaryTextView.text forKey:@"summary"];
+    [object setObject:@YES forKey:@"isMentor"];
+    
+    // save to Parse
+    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        NSLog(@"User Saved to Parse");
+    }];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end
