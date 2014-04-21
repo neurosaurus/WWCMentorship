@@ -29,8 +29,6 @@
 		EBE0B22E18F9F2A800E2122E /* ProfileFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B22C18F9F2A800E2122E /* ProfileFormViewController.xib */; };
 		EBE0B23218F9F2B800E2122E /* MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B23018F9F2B800E2122E /* MessageListViewController.m */; };
 		EBE0B23318F9F2B800E2122E /* MessageListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B23118F9F2B800E2122E /* MessageListViewController.xib */; };
-		EBE0B24118F9F2DB00E2122E /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B23F18F9F2DB00E2122E /* MenuViewController.m */; };
-		EBE0B24218F9F2DB00E2122E /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B24018F9F2DB00E2122E /* MenuViewController.xib */; };
 		EBE0B24618F9F2E400E2122E /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B24418F9F2E400E2122E /* UserListViewController.m */; };
 		EBE0B24718F9F2E400E2122E /* UserListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B24518F9F2E400E2122E /* UserListViewController.xib */; };
 		EBE0B24B18F9F2F200E2122E /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B24918F9F2F200E2122E /* MessageViewController.m */; };
@@ -88,9 +86,6 @@
 		EBE0B22F18F9F2B800E2122E /* MessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListViewController.h; sourceTree = "<group>"; };
 		EBE0B23018F9F2B800E2122E /* MessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListViewController.m; sourceTree = "<group>"; };
 		EBE0B23118F9F2B800E2122E /* MessageListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageListViewController.xib; sourceTree = "<group>"; };
-		EBE0B23E18F9F2DB00E2122E /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
-		EBE0B23F18F9F2DB00E2122E /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
-		EBE0B24018F9F2DB00E2122E /* MenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		EBE0B24318F9F2E400E2122E /* UserListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListViewController.h; sourceTree = "<group>"; };
 		EBE0B24418F9F2E400E2122E /* UserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListViewController.m; sourceTree = "<group>"; };
 		EBE0B24518F9F2E400E2122E /* UserListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserListViewController.xib; sourceTree = "<group>"; };
@@ -190,9 +185,6 @@
 				EBE0B22F18F9F2B800E2122E /* MessageListViewController.h */,
 				EBE0B23018F9F2B800E2122E /* MessageListViewController.m */,
 				EBE0B23118F9F2B800E2122E /* MessageListViewController.xib */,
-				EBE0B23E18F9F2DB00E2122E /* MenuViewController.h */,
-				EBE0B23F18F9F2DB00E2122E /* MenuViewController.m */,
-				EBE0B24018F9F2DB00E2122E /* MenuViewController.xib */,
 				EBE0B24318F9F2E400E2122E /* UserListViewController.h */,
 				EBE0B24418F9F2E400E2122E /* UserListViewController.m */,
 				EBE0B24518F9F2E400E2122E /* UserListViewController.xib */,
@@ -374,7 +366,6 @@
 				EBE0B24718F9F2E400E2122E /* UserListViewController.xib in Resources */,
 				EB8798DA18F3A46C00B9CF72 /* ProfileViewController.xib in Resources */,
 				902F513218FF665D00637BB1 /* UserCell.xib in Resources */,
-				EBE0B24218F9F2DB00E2122E /* MenuViewController.xib in Resources */,
 				EBE794C218EC78FA00733D5F /* InfoPlist.strings in Resources */,
 				EBE794CA18EC78FA00733D5F /* Images.xcassets in Resources */,
 			);
@@ -437,7 +428,6 @@
 				EBE0B24B18F9F2F200E2122E /* MessageViewController.m in Sources */,
 				EBE0B22D18F9F2A800E2122E /* ProfileFormViewController.m in Sources */,
 				EBE794C418EC78FA00733D5F /* main.m in Sources */,
-				EBE0B24118F9F2DB00E2122E /* MenuViewController.m in Sources */,
 				EBEA220E1904839A00F9880C /* CustomParseLoginViewController.m in Sources */,
 				902F513118FF665D00637BB1 /* UserCell.m in Sources */,
 			);

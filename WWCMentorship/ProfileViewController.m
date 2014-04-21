@@ -101,6 +101,17 @@
 }
 
 - (void)setNavigationMenu {
+    PFUser *user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    PFObject *userObject = [query getObjectWithId:user.objectId];
+    
+    NSString *type = @"Matches";
+    if ([userObject objectForKey:@"isMentor"]) {
+        type = @"Mentees";
+    } else {
+        type = @"Mentors";
+    }
+    
     REMenuItem *profile = [[REMenuItem alloc] initWithTitle:@"Profile"
                                                    subtitle:nil
                                                       image:nil
@@ -108,18 +119,43 @@
                                                      action:^(REMenuItem *item) {
                                                          NSLog(@"item: %@", item);
                                                          NSLog(@"showing profile");
+                                                         ProfileViewController *pvc = [[ProfileViewController alloc] init];
+                                                         [self.navigationController pushViewController:pvc animated:NO];
                                                      }];
     
-    REMenuItem *userList = [[REMenuItem alloc] initWithTitle:@"Explore"
-                                                    subtitle:nil
-                                                       image:nil
-                                            highlightedImage:nil
-                                                      action:^(REMenuItem *item) {
-                                                          NSLog(@"item: %@", item);
-                                                          NSLog(@"showing user list");
-                                                          UserListViewController *ulvc = [[UserListViewController alloc] init];
-                                                          [self.navigationController pushViewController:ulvc animated:NO];
-                                                      }];
+    REMenuItem *potentials = [[REMenuItem alloc] initWithTitle:@"Explore"
+                                                      subtitle:nil
+                                                         image:nil
+                                              highlightedImage:nil
+                                                        action:^(REMenuItem *item) {
+                                                            NSLog(@"item: %@", item);
+                                                            NSLog(@"showing potential users");
+                                                            UserListViewController *ulvc = [[UserListViewController alloc] init];
+                                                            ulvc.showMatch = NO;
+                                                            if ([userObject objectForKey:@"isMentor"]){
+                                                                ulvc.showMentor = NO;
+                                                            } else {
+                                                                ulvc.showMentor = YES;
+                                                            }
+                                                            [self.navigationController pushViewController:ulvc animated:NO];
+                                                        }];
+    
+    REMenuItem *matches = [[REMenuItem alloc] initWithTitle:type
+                                                   subtitle:nil
+                                                      image:nil
+                                           highlightedImage:nil
+                                                     action:^(REMenuItem *item) {
+                                                         NSLog(@"item: %@", item);
+                                                         NSLog(@"showing matches");
+                                                         UserListViewController *ulvc = [[UserListViewController alloc] init];
+                                                         ulvc.showMatch = YES;
+                                                         if ([userObject objectForKey:@"isMentor"]){
+                                                             ulvc.showMentor = NO;
+                                                         } else {
+                                                             ulvc.showMentor = YES;
+                                                         }
+                                                         [self.navigationController pushViewController:ulvc animated:NO];
+                                                     }];
     
     REMenuItem *signOut = [[REMenuItem alloc] initWithTitle:@"Sign Out"
                                                    subtitle:nil
@@ -141,6 +177,6 @@
                                                          [self presentViewController:pflvc animated:YES completion:NULL];
                                                      }];
     
-    self.menu = [[REMenu alloc] initWithItems:@[profile, userList, signOut]];
+    self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, signOut]];
 }
 @end
