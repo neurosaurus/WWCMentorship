@@ -99,7 +99,7 @@
     //self.summaryTextView.text = @"test";
     
     NSLog(@"Saving User Info");
-    //PFUser *user = [PFUser currentUser];
+    PFUser *user = [PFUser currentUser];
     id isMentorObject;
     if (self.isMentor) {
         isMentorObject = @YES;
@@ -114,30 +114,29 @@
     NSLog(@"isMentor will be: %@", isMentorObject);
     
     
-    //PFQuery *query = [PFQuery queryWithClassName:@"_User"];
-    //[query whereKey:@"objectId" equalTo:user.objectId];
-    //PFObject *object = [query getObjectWithId:user.objectId];
-    //NSLog(@"user: %@", object);
-    //[object setObject:self.firstnameTextField.text forKey:@"firstName"];
-    //[object setObject:self.lastnameTextField.text forKey:@"lastName"];
-    //[object setObject:self.summaryTextView.text forKey:@"summary"];
-    //[object setObject:isMentorObject forKey:@"isMentor"];
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"objectId" equalTo:user.objectId];
+    PFObject *object = [query getObjectWithId:user.objectId];
+    NSLog(@"user: %@", object);
+    [object setObject:self.firstnameTextField.text forKey:@"firstName"];
+    [object setObject:self.lastnameTextField.text forKey:@"lastName"];
+    [object setObject:self.summaryTextView.text forKey:@"summary"];
+    [object setObject:isMentorObject forKey:@"isMentor"];
     
     // save to Parse
-    //[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         NSLog(@"Success: saved to Parse!");
-    //}];
+    }];
     
     for (NSString *skill in self.selectedSkills) {
         NSLog(@"adding %@ to Skills table", skill);
-        //PF
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)onTap:(id)sender {
-    [self.view endEditing:YES]; // unnecessary?
+    [self.view endEditing:YES]; 
     
     if (self.isMentorControl.selectedSegmentIndex == 0) {
         self.isMentor = YES;

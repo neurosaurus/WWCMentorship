@@ -224,15 +224,20 @@
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     PFObject *userObject = [query getObjectWithId:user.objectId];
     
-    NSString *type = @"Matches";
-    if ([userObject objectForKey:@"isMentor"]) {
+    NSString *type = @"Matches", *singular_type = @"Match";
+    NSLog(@"isMentor: %@ // 1 is true", [userObject objectForKey:@"isMentor"]);
+    NSNumber *isMentorNumber = (NSNumber *) [userObject objectForKey:@"isMentor"];
+    int isMentor = [isMentorNumber intValue];
+    if (isMentor == 1) {
         type = @"Mentees";
-    } else {
+        singular_type = @"Mentee";
+    } else if (isMentor == 0) {
         type = @"Mentors";
+        singular_type = @"Mentor";
     }
     
     REMenuItem *profile = [[REMenuItem alloc] initWithTitle:@"Profile"
-                                               subtitle:nil
+                                               subtitle:@"View Your Profile"
                                                   image:nil
                                        highlightedImage:nil
                                                  action:^(REMenuItem *item) {
@@ -244,7 +249,7 @@
                                                  }];
     
     REMenuItem *potentials = [[REMenuItem alloc] initWithTitle:@"Explore"
-                                               subtitle:nil
+                                                      subtitle:[NSString stringWithFormat:@"Find a %@", singular_type]
                                                   image:nil
                                        highlightedImage:nil
                                                  action:^(REMenuItem *item) {
@@ -253,9 +258,9 @@
                                                      if (self.showMatch) {
                                                          UserListViewController *ulvc = [[UserListViewController alloc] init];
                                                          ulvc.showMatch = NO;
-                                                         if ([userObject objectForKey:@"isMentor"]){
+                                                         if (isMentor == 1){
                                                              ulvc.showMentor = NO;
-                                                         } else {
+                                                         } else if (isMentor == 0) {
                                                              ulvc.showMentor = YES;
                                                          }
                                                          [self.navigationController pushViewController:ulvc animated:NO];
@@ -263,7 +268,7 @@
                                                  }];
     
     REMenuItem *matches = [[REMenuItem alloc] initWithTitle:type
-                                                      subtitle:nil
+                                                      subtitle:[NSString stringWithFormat:@"View Your %@", type]
                                                          image:nil
                                               highlightedImage:nil
                                                         action:^(REMenuItem *item) {
@@ -273,9 +278,9 @@
                                                             if (!self.showMatch) {
                                                                 UserListViewController *ulvc = [[UserListViewController alloc] init];
                                                                 ulvc.showMatch = YES;
-                                                                if ([userObject objectForKey:@"isMentor"]){
+                                                                if (isMentor == 1){
                                                                     ulvc.showMentor = NO;
-                                                                } else {
+                                                                } else if (isMentor == 0) {
                                                                     ulvc.showMentor = YES;
                                                                 }
                                                                 [self.navigationController pushViewController:ulvc animated:NO];

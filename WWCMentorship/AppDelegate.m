@@ -17,17 +17,15 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         
-    //[Parse setApplicationId:@"EFnYeM1PjDIus6gHu02UTOZ9XbbvuAXlv21ZxFnK"
-                  //clientKey:@"PQEtRTrB4PJ9A9KeKWQbw1OLGraXtVNOtU4cHHZl"];
+    [Parse setApplicationId:@"EFnYeM1PjDIus6gHu02UTOZ9XbbvuAXlv21ZxFnK"
+                  clientKey:@"PQEtRTrB4PJ9A9KeKWQbw1OLGraXtVNOtU4cHHZl"];
     
-    //[PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
     UserListViewController *ulvc = [[UserListViewController alloc] init];
     UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:ulvc];
     
-    //self.window.rootViewController = ulnc;
-    // for testing only
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[ProfileFormViewController alloc] init]];
+    self.window.rootViewController = ulnc;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
