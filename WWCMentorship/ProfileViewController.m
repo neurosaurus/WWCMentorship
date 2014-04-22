@@ -11,6 +11,7 @@
 #import "ProfileFormViewController.h"
 #import "CustomParseLoginViewController.h"
 #import "CustomParseSignupViewController.h"
+
 #import "UIImageView+AFNetworking.h"
 #import "REMenu.h"
 
@@ -58,14 +59,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-//    PFObject *userObject = [PFObject objectWithClassName:@"User"];
-//    userObject[@"foo"] = @"bar";
-//    [userObject saveInBackground];
-    
-    
-    // populate values
-    [self setUser];
 
     // set up navigation menu
     [self setNavigationMenu];
@@ -193,7 +186,8 @@
 
 # pragma mark - Private methods
 
-- (void)setUser {
+- (void)setUser:(User *)user {
+    self.user = user;
     
 }
 

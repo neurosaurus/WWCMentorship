@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "User.h"
 
 @interface ProfileViewController : UIViewController < PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate >
 
 @property (nonatomic, assign) BOOL isSelf;
+@property (nonatomic, strong) User *user;
+
+- (void)setUser:(User *)user;
 
 @end

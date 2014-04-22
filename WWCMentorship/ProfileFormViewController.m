@@ -133,8 +133,7 @@
             NSLog(@"success: saved %@ in parse", skill);
         }];
     }
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 - (IBAction)onTap:(id)sender {
