@@ -155,10 +155,13 @@
                             PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
                             PFObject *fullUserObject = [userQuery getObjectWithId:userId];
                             
-                            NSDictionary *parameters = @{@"firstName" : fullUserObject[@"firstName"], @"lastName" : fullUserObject[@"lastName"]};
+                            NSDictionary *parameters = @{@"firstName" : fullUserObject[@"firstName"],
+                                                         @"lastName" : fullUserObject[@"lastName"],
+                                                         @"summary" : fullUserObject[@"summary"],
+                                                         @"avatarURL" : fullUserObject[@"avatarURL"]};
                             NSLog(@"params: %@", parameters);
                             User *potential = [[User alloc] init];
-                            [potential setuserWithDictionary:parameters];
+                            [potential setUserWithDictionary:parameters];
                             [self.usersArray addObject:potential];
                         }
                         [self.tableView reloadData];
