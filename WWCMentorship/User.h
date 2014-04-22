@@ -19,6 +19,6 @@
 @property (nonatomic, strong) NSURL *avatarURL;
 @property (nonatomic, assign) BOOL isMentor;
 
-- (void)setuserWithDictionary:(NSDictionary *)userDictionary;
+- (void)setUserWithDictionary:(NSDictionary *)userDictionary;
 
 @end

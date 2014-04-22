@@ -10,7 +10,7 @@
 
 @implementation User
 
-- (void)setuserWithDictionary:(NSDictionary *)userDictionary {
+- (void)setUserWithDictionary:(NSDictionary *)userDictionary {
     self.userDictionary = userDictionary;
     self.username = userDictionary[@"username"];
     self.email = userDictionary[@"email"];
