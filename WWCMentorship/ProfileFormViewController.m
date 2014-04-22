@@ -13,9 +13,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *firstnameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastnameTextField;
 @property (weak, nonatomic) IBOutlet UITextView *summaryTextView;
-
+@property (weak, nonatomic) IBOutlet UISegmentedControl *isMentorControl;
 @property (nonatomic, strong) NSMutableArray *selectedList;
+
+@property (nonatomic, assign) BOOL isMentor;
+@property (nonatomic, strong) NSArray *selectedSkills;
+
 - (IBAction)onSave:(id)sender;
+- (IBAction)onTap:(id)sender;
 
 @end
 
@@ -34,19 +39,26 @@
 {
     [super viewDidLoad];
     
+    // hide navigation bar
+    [self.navigationController.navigationBar setHidden:YES];
+    
     NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
     NSString *bundleName = [NSString stringWithFormat:@"%@", [info objectForKey:@"CFbundleDisplayName"]];
     self.title = bundleName;
 }
 
-#pragma mark - Array list
-- (NSArray *)list
-{
-    return [NSArray arrayWithObjects:@"Objective-C", @"Android", @"Ruby", nil];
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)skillsButton:(id)sender
-{
+# pragma mark - Pop-up modal methods
+
+- (NSArray *)list {
+    return [NSArray arrayWithObjects:@"iOS / Objective-C", @"Android", @"Java", @"Ruby on Rails", @"Python", @"HTML / CSS", @"Javascript", @"Algorithms", nil];
+}
+
+- (IBAction)skillsButton:(id)sender {
     float paddingTopBottom = 20.0f;
     float paddingLeftRight = 20.0f;
     
@@ -60,43 +72,47 @@
     [listView showInView:self.navigationController.view animated:YES];
 }
 
-- (void)popupListView:(LPPopupListView *)popUpListView didSelectedIndex:(NSInteger)index
-{
+- (void)popupListView:(LPPopupListView *)popUpListView didSelectedIndex:(NSInteger)index {
     NSLog(@"popUpListView - didSelectedIndex: %d", index);
 }
 
-- (void)popupListViewDidHide:(LPPopupListView *)popUpListView selectedList:(NSArray *)list
-{
+- (void)popupListViewDidHide:(LPPopupListView *)popUpListView selectedList:(NSArray *)list {
     NSLog(@"popupListViewDidHide - selectedList: %@", list.description);
     
+    self.selectedSkills = list;
     self.selectedList = [NSMutableArray arrayWithArray:list];
-    
     self.textView.text = self.selectedList.description;
 }
 
+# pragma mark - Private methods
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.firstnameTextField resignFirstResponder];
     [self.lastnameTextField resignFirstResponder];
     [self.summaryTextView resignFirstResponder];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 - (IBAction)onSave:(id)sender {
-    // for testing
-    self.firstnameTextField.text = @"firstname - test";
-    self.lastnameTextField.text = @"lastname - test";
-    self.summaryTextView.text = @"test";
+    // for testing only
+    //self.firstnameTextField.text = @"firstname - test";
+    //self.lastnameTextField.text = @"lastname - test";
+    //self.summaryTextView.text = @"test";
     
     NSLog(@"Saving User Info");
     PFUser *user = [PFUser currentUser];
+    id isMentorObject;
+    if (self.isMentor) {
+        isMentorObject = @YES;
+    } else {
+        isMentorObject = @NO;
+    }
+    
+    // for testing only
+    NSLog(@"first name will be: %@", self.firstnameTextField.text);
+    NSLog(@"last name will be: %@", self.lastnameTextField.text);
+    NSLog(@"summary will be: %@", self.summaryTextView.text);
+    NSLog(@"isMentor will be: %@", isMentorObject);
+    
     
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     [query whereKey:@"objectId" equalTo:user.objectId];
@@ -105,13 +121,30 @@
     [object setObject:self.firstnameTextField.text forKey:@"firstName"];
     [object setObject:self.lastnameTextField.text forKey:@"lastName"];
     [object setObject:self.summaryTextView.text forKey:@"summary"];
-    [object setObject:@YES forKey:@"isMentor"];
+    [object setObject:isMentorObject forKey:@"isMentor"];
     
     // save to Parse
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        NSLog(@"User Saved to Parse");
+        NSLog(@"Success: saved to Parse!");
     }];
+    
+    for (NSString *skill in self.selectedSkills) {
+        NSLog(@"adding %@ to Skills table", skill);
+    }
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)onTap:(id)sender {
+    [self.view endEditing:YES]; 
+    
+    if (self.isMentorControl.selectedSegmentIndex == 0) {
+        self.isMentor = YES;
+        NSLog(@"setting to isMentor to YES");
+    } else if (self.isMentorControl.selectedSegmentIndex == 1) {
+        self.isMentor = NO;
+        NSLog(@"setting to isMentor to NO");
+    }
+}
+
 @end

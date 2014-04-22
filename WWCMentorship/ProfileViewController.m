@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *twitter;
 @property (weak, nonatomic) IBOutlet UILabel *github;
 @property (weak, nonatomic) IBOutlet UITextView *summary;
+@property (weak, nonatomic) IBOutlet UIButton *contactButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *toLearn1;
 @property (weak, nonatomic) IBOutlet UILabel *toLearn2;
@@ -39,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *toTeach6;
 
 - (IBAction)onContactButton:(id)sender;
+- (void)setUser;
 
 @end
 
@@ -48,7 +50,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.title = @"Profile";
     }
     return self;
 }
@@ -61,10 +63,16 @@
 //    userObject[@"foo"] = @"bar";
 //    [userObject saveInBackground];
     
+    
+    // populate values
+    [self setUser];
 
     // set up navigation menu
     [self setNavigationMenu];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
+    
+    // hide contact button if looking at self
+    [self.contactButton setHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -105,26 +113,29 @@
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     PFObject *userObject = [query getObjectWithId:user.objectId];
     
-    NSString *type = @"Matches";
-    if ([userObject objectForKey:@"isMentor"]) {
+    NSString *type = @"Matches", *singular_type = @"Match";
+    NSLog(@"isMentor: %@ // 1 is true", [userObject objectForKey:@"isMentor"]);
+    NSNumber *isMentorNumber = (NSNumber *) [userObject objectForKey:@"isMentor"];
+    int isMentor = [isMentorNumber intValue];
+    if (isMentor == 1) {
         type = @"Mentees";
-    } else {
+        singular_type = @"Mentee";
+    } else if (isMentor == 0) {
         type = @"Mentors";
+        singular_type = @"Mentor";
     }
     
     REMenuItem *profile = [[REMenuItem alloc] initWithTitle:@"Profile"
-                                                   subtitle:nil
+                                                   subtitle:@"View Your Profile"
                                                       image:nil
                                            highlightedImage:nil
                                                      action:^(REMenuItem *item) {
                                                          NSLog(@"item: %@", item);
                                                          NSLog(@"showing profile");
-                                                         ProfileViewController *pvc = [[ProfileViewController alloc] init];
-                                                         [self.navigationController pushViewController:pvc animated:NO];
                                                      }];
     
     REMenuItem *potentials = [[REMenuItem alloc] initWithTitle:@"Explore"
-                                                      subtitle:nil
+                                                      subtitle:[NSString stringWithFormat:@"Find a %@", singular_type]
                                                          image:nil
                                               highlightedImage:nil
                                                         action:^(REMenuItem *item) {
@@ -132,16 +143,16 @@
                                                             NSLog(@"showing potential users");
                                                             UserListViewController *ulvc = [[UserListViewController alloc] init];
                                                             ulvc.showMatch = NO;
-                                                            if ([userObject objectForKey:@"isMentor"]){
+                                                            if (isMentor == 1){
                                                                 ulvc.showMentor = NO;
-                                                            } else {
+                                                            } else if (isMentor == 0) {
                                                                 ulvc.showMentor = YES;
                                                             }
                                                             [self.navigationController pushViewController:ulvc animated:NO];
                                                         }];
     
     REMenuItem *matches = [[REMenuItem alloc] initWithTitle:type
-                                                   subtitle:nil
+                                                   subtitle:[NSString stringWithFormat:@"View Your %@", type]
                                                       image:nil
                                            highlightedImage:nil
                                                      action:^(REMenuItem *item) {
@@ -149,9 +160,9 @@
                                                          NSLog(@"showing matches");
                                                          UserListViewController *ulvc = [[UserListViewController alloc] init];
                                                          ulvc.showMatch = YES;
-                                                         if ([userObject objectForKey:@"isMentor"]){
+                                                         if (isMentor == 1){
                                                              ulvc.showMentor = NO;
-                                                         } else {
+                                                         } else if (isMentor == 0) {
                                                              ulvc.showMentor = YES;
                                                          }
                                                          [self.navigationController pushViewController:ulvc animated:NO];
@@ -179,4 +190,11 @@
     
     self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, signOut]];
 }
+
+# pragma mark - Private methods
+
+- (void)setUser {
+    
+}
+
 @end

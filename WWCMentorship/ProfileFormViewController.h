@@ -12,8 +12,9 @@
 
 @interface ProfileFormViewController : UIViewController <UITextFieldDelegate, PFLogInViewControllerDelegate,PFSignUpViewControllerDelegate, LPPopupListViewDelegate>
 
+@property (strong, nonatomic) IBOutlet UITextView *textView;
+
 - (IBAction)skillsButton:(id)sender;
 
-@property (strong, nonatomic) IBOutlet UITextView *textView;
 
 @end

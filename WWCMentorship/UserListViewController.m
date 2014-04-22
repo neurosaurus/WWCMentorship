@@ -16,7 +16,6 @@
 
 @interface UserListViewController ()
 
-@property (nonatomic, strong) PFUser *user;
 @property (nonatomic, strong, readwrite) REMenu *menu;
 @property (nonatomic, strong) NSMutableArray *skills;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -38,6 +37,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // set title
+    if (self.showMentor && self.showMatch) {
+        self.title = @"Mentors";
+    } else if (!self.showMentor && self.showMatch) {
+        self.title = @"Mentees";
+    } else if (self.showMentor && !self.showMatch) {
+        self.title = @"Find a Mentor";
+    } else if (!self.showMentor && !self.showMatch) {
+        self.title = @"Find a Mentee";
+    }
     
     // if not logged in, present login view controller
     PFUser *user = [PFUser currentUser];
@@ -61,7 +71,7 @@
     UINib *nib = [UINib nibWithNibName:@"UserCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"UserCell"];
     
-    self.showMatch = NO;
+    // populate list with potentials or matches
     if (self.showMatch) {
         [self loadMatches];
     } else {
@@ -82,6 +92,7 @@
 # pragma mark - Private methods
 
 - (void)loadPotentials {
+    PFUser *user = [PFUser currentUser];
     NSString *key, *type;
     if (self.showMentor) {
         key = @"MenteeID";
@@ -92,7 +103,7 @@
     }
     
     PFQuery *query = [PFQuery queryWithClassName:@"Skills"];
-    //[query whereKey:@"UserID" equalTo:self.user.objectId];
+    //[query whereKey:@"UserID" equalTo:user.objectId];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects) {
             NSLog(@"skills: %@", objects);
@@ -131,24 +142,28 @@
 }
 
 - (void)loadMatches {
+    PFUser *user = [PFUser currentUser];
     NSString *key, *type;
     if (self.showMentor) {
-        key = @"MenteeID";
+        key = @"MenteeID"; // if showing mentors, current user is a mentee
         type = @"mentors";
     } else {
-        key = @"MentorID";
+        key = @"MentorID"; // if showing mentees, current user is a mentor
         type = @"mentees";
     }
     
-    // perform query in relationships table where current UserID = mentorID
+    // perform query in relationships table where current UserID = mentorID if mentor, or current UserID = menteeID if mentee
     PFQuery *query = [PFQuery queryWithClassName:@"Relationships"];
-    [query whereKey:@"Name" equalTo:@"userID"];
+    [query whereKey:key equalTo:user.objectId];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             if (objects) {
                 NSLog(@"%@: %@", type, objects);
                 
                 // process messages object, initialize mlvc with array
+                for (id user in objects) {
+                    [self.users addObject:user];
+                }
                 
                 [self.tableView reloadData];
             } else {
@@ -176,6 +191,10 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 # pragma mark - Navigation methods
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
@@ -201,29 +220,36 @@
 }
 
 - (void)setNavigationMenu {
+    PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
-    PFObject *userObject = [query getObjectWithId:self.user.objectId];
+    PFObject *userObject = [query getObjectWithId:user.objectId];
     
-    NSString *type = @"Matches";
-    if ([userObject objectForKey:@"isMentor"]) {
+    NSString *type = @"Matches", *singular_type = @"Match";
+    NSLog(@"isMentor: %@ // 1 is true", [userObject objectForKey:@"isMentor"]);
+    NSNumber *isMentorNumber = (NSNumber *) [userObject objectForKey:@"isMentor"];
+    int isMentor = [isMentorNumber intValue];
+    if (isMentor == 1) {
         type = @"Mentees";
-    } else {
+        singular_type = @"Mentee";
+    } else if (isMentor == 0) {
         type = @"Mentors";
+        singular_type = @"Mentor";
     }
     
     REMenuItem *profile = [[REMenuItem alloc] initWithTitle:@"Profile"
-                                               subtitle:nil
+                                               subtitle:@"View Your Profile"
                                                   image:nil
                                        highlightedImage:nil
                                                  action:^(REMenuItem *item) {
                                                      NSLog(@"item: %@", item);
                                                      NSLog(@"showing profile");
                                                      ProfileViewController *pvc = [[ProfileViewController alloc] init];
+                                                     pvc.isSelf = YES;
                                                      [self.navigationController pushViewController:pvc animated:NO];
                                                  }];
     
     REMenuItem *potentials = [[REMenuItem alloc] initWithTitle:@"Explore"
-                                               subtitle:nil
+                                                      subtitle:[NSString stringWithFormat:@"Find a %@", singular_type]
                                                   image:nil
                                        highlightedImage:nil
                                                  action:^(REMenuItem *item) {
@@ -232,9 +258,9 @@
                                                      if (self.showMatch) {
                                                          UserListViewController *ulvc = [[UserListViewController alloc] init];
                                                          ulvc.showMatch = NO;
-                                                         if ([userObject objectForKey:@"isMentor"]){
+                                                         if (isMentor == 1){
                                                              ulvc.showMentor = NO;
-                                                         } else {
+                                                         } else if (isMentor == 0) {
                                                              ulvc.showMentor = YES;
                                                          }
                                                          [self.navigationController pushViewController:ulvc animated:NO];
@@ -242,7 +268,7 @@
                                                  }];
     
     REMenuItem *matches = [[REMenuItem alloc] initWithTitle:type
-                                                      subtitle:nil
+                                                      subtitle:[NSString stringWithFormat:@"View Your %@", type]
                                                          image:nil
                                               highlightedImage:nil
                                                         action:^(REMenuItem *item) {
@@ -252,9 +278,9 @@
                                                             if (!self.showMatch) {
                                                                 UserListViewController *ulvc = [[UserListViewController alloc] init];
                                                                 ulvc.showMatch = YES;
-                                                                if ([userObject objectForKey:@"isMentor"]){
+                                                                if (isMentor == 1){
                                                                     ulvc.showMentor = NO;
-                                                                } else {
+                                                                } else if (isMentor == 0) {
                                                                     ulvc.showMentor = YES;
                                                                 }
                                                                 [self.navigationController pushViewController:ulvc animated:NO];

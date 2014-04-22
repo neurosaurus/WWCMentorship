@@ -16,10 +16,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
-    //SkillsViewController *svc = [[SkillsViewController alloc] init];
-    //UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:svc];
-    //self.window.rootViewController = navigationController;
         
     [Parse setApplicationId:@"EFnYeM1PjDIus6gHu02UTOZ9XbbvuAXlv21ZxFnK"
                   clientKey:@"PQEtRTrB4PJ9A9KeKWQbw1OLGraXtVNOtU4cHHZl"];
@@ -30,7 +26,7 @@
     UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:ulvc];
     
     self.window.rootViewController = ulnc;
-
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

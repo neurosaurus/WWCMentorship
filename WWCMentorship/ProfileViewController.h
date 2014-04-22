@@ -11,4 +11,6 @@
 
 @interface ProfileViewController : UIViewController < PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate >
 
+@property (nonatomic, assign) BOOL isSelf;
+
 @end
