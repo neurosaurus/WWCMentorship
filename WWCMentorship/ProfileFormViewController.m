@@ -62,6 +62,7 @@
     float paddingTopBottom = 20.0f;
     float paddingLeftRight = 20.0f;
     
+    
     CGPoint point = CGPointMake(paddingLeftRight,
                                 (self.navigationController.navigationBar.frame.size.height + paddingTopBottom) + paddingTopBottom);
     CGSize size = CGSizeMake((self.view.frame.size.width - (paddingLeftRight * 2)), self.view.frame.size.height - ((self.navigationController.navigationBar.frame.size.height + paddingTopBottom) + (paddingTopBottom * 2)));
@@ -69,6 +70,7 @@
     LPPopupListView *listView = [[LPPopupListView alloc] initWithTitle:@"Skills" list:[self list] selectedList:self.selectedList point:point size:size multipleSelection:YES];
     listView.delegate = self;
     
+    [self.navigationController.view addSubview:listView];
     [listView showInView:self.navigationController.view animated:YES];
 }
 
@@ -93,12 +95,7 @@
 }
 
 - (IBAction)onSave:(id)sender {
-    // for testing only
-    //self.firstnameTextField.text = @"firstname - test";
-    //self.lastnameTextField.text = @"lastname - test";
-    //self.summaryTextView.text = @"test";
-    
-    NSLog(@"Saving User Info");
+    NSLog(@"starting to save");
     PFUser *user = [PFUser currentUser];
     id isMentorObject;
     if (self.isMentor) {
@@ -112,24 +109,29 @@
     NSLog(@"last name will be: %@", self.lastnameTextField.text);
     NSLog(@"summary will be: %@", self.summaryTextView.text);
     NSLog(@"isMentor will be: %@", isMentorObject);
-    
-    
+
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     [query whereKey:@"objectId" equalTo:user.objectId];
     PFObject *object = [query getObjectWithId:user.objectId];
-    NSLog(@"user: %@", object);
-    [object setObject:self.firstnameTextField.text forKey:@"firstName"];
-    [object setObject:self.lastnameTextField.text forKey:@"lastName"];
-    [object setObject:self.summaryTextView.text forKey:@"summary"];
-    [object setObject:isMentorObject forKey:@"isMentor"];
+    object[@"firstName"] = self.firstnameTextField.text;
+    object[@"lastName"] = self.lastnameTextField.text;
+    object[@"summary"] = self.summaryTextView.text;
+    object[@"isMentor"] = isMentorObject;
     
     // save to Parse
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        NSLog(@"Success: saved to Parse!");
+        NSLog(@"success: saved updated user to parse");
     }];
     
     for (NSString *skill in self.selectedSkills) {
         NSLog(@"adding %@ to Skills table", skill);
+        PFObject *skillObject = [PFObject objectWithClassName:@"Skills"];
+        skillObject[@"UserID"] = user;
+        skillObject[@"Name"] = skill;
+        skillObject[@"isMentor"] = isMentorObject;
+        [skillObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            NSLog(@"success: saved %@ in parse", skill);
+        }];
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];

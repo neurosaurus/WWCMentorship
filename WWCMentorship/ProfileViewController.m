@@ -95,7 +95,7 @@
     NSLog(@"signed up");
     [self dismissViewControllerAnimated:YES completion:^{
         ProfileFormViewController *pfvc = [[ProfileFormViewController alloc] init];
-        [self presentViewController:pfvc animated:NO completion:NULL];
+        [self.navigationController pushViewController:pfvc animated:NO];
     }];
 }
 
@@ -185,7 +185,7 @@
                                                          
                                                          pflvc.signUpController = pfsvc;
                                                          
-                                                         [self presentViewController:pflvc animated:YES completion:NULL];
+                                                         [self.navigationController pushViewController:pflvc animated:NO];
                                                      }];
     
     self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, signOut]];
