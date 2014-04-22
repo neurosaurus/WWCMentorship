@@ -13,6 +13,7 @@
 		900D56BB18FA0A87009EE8B5 /* FBMissingSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = 900D56BA18FA0A87009EE8B5 /* FBMissingSymbols.m */; };
 		902F513118FF665D00637BB1 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902F512F18FF665D00637BB1 /* UserCell.m */; };
 		902F513218FF665D00637BB1 /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 902F513018FF665D00637BB1 /* UserCell.xib */; };
+		90A8FC9719063354003603B1 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A8FC9619063354003603B1 /* User.m */; };
 		EB8798C318F3A36800B9CF72 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8798C218F3A36800B9CF72 /* Parse.framework */; };
 		EB8798C518F3A3B000B9CF72 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8798C418F3A3B000B9CF72 /* AudioToolbox.framework */; };
 		EB8798C718F3A3B700B9CF72 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8798C618F3A3B700B9CF72 /* CFNetwork.framework */; };
@@ -66,6 +67,8 @@
 		902F512E18FF665D00637BB1 /* UserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCell.h; sourceTree = "<group>"; };
 		902F512F18FF665D00637BB1 /* UserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
 		902F513018FF665D00637BB1 /* UserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCell.xib; sourceTree = "<group>"; };
+		90A8FC9519063354003603B1 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		90A8FC9619063354003603B1 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		D00B8A0CF10D4A8EA28288E5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		EB8798C218F3A36800B9CF72 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		EB8798C418F3A3B000B9CF72 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -155,6 +158,8 @@
 		EB06982A1900DDC90054175E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				90A8FC9519063354003603B1 /* User.h */,
+				90A8FC9619063354003603B1 /* User.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -427,6 +432,7 @@
 				EB8798D918F3A46C00B9CF72 /* ProfileViewController.m in Sources */,
 				EBE0B24B18F9F2F200E2122E /* MessageViewController.m in Sources */,
 				EBE0B22D18F9F2A800E2122E /* ProfileFormViewController.m in Sources */,
+				90A8FC9719063354003603B1 /* User.m in Sources */,
 				EBE794C418EC78FA00733D5F /* main.m in Sources */,
 				EBEA220E1904839A00F9880C /* CustomParseLoginViewController.m in Sources */,
 				902F513118FF665D00637BB1 /* UserCell.m in Sources */,

@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController">
             <connections>
                 <outlet property="avatar" destination="sKG-U5-1Qt" id="yLM-s4-kLg"/>
+                <outlet property="contactButton" destination="JrI-92-Duo" id="R69-Vs-Cvf"/>
                 <outlet property="github" destination="FQT-JZ-gRO" id="Gha-4c-peV"/>
                 <outlet property="name" destination="jS1-ZJ-DIt" id="OYA-05-3os"/>
                 <outlet property="summary" destination="7nt-Hr-mTZ" id="IX7-lL-LZb"/>

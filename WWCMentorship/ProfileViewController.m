@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *twitter;
 @property (weak, nonatomic) IBOutlet UILabel *github;
 @property (weak, nonatomic) IBOutlet UITextView *summary;
+@property (weak, nonatomic) IBOutlet UIButton *contactButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *toLearn1;
 @property (weak, nonatomic) IBOutlet UILabel *toLearn2;
@@ -39,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *toTeach6;
 
 - (IBAction)onContactButton:(id)sender;
+- (void)setUser;
 
 @end
 
@@ -48,7 +50,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.title = @"Profile";
     }
     return self;
 }
@@ -61,10 +63,16 @@
 //    userObject[@"foo"] = @"bar";
 //    [userObject saveInBackground];
     
+    
+    // populate values
+    [self setUser];
 
     // set up navigation menu
     [self setNavigationMenu];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
+    
+    // hide contact button if looking at self
+    [self.contactButton setHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -119,8 +127,6 @@
                                                      action:^(REMenuItem *item) {
                                                          NSLog(@"item: %@", item);
                                                          NSLog(@"showing profile");
-                                                         ProfileViewController *pvc = [[ProfileViewController alloc] init];
-                                                         [self.navigationController pushViewController:pvc animated:NO];
                                                      }];
     
     REMenuItem *potentials = [[REMenuItem alloc] initWithTitle:@"Explore"
@@ -179,4 +185,11 @@
     
     self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, signOut]];
 }
+
+# pragma mark - Private methods
+
+- (void)setUser {
+    
+}
+
 @end
