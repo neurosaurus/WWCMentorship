@@ -11,6 +11,7 @@
 #import "ProfileFormViewController.h"
 #import "CustomParseLoginViewController.h"
 #import "CustomParseSignupViewController.h"
+#import "User.h"
 #import "UserCell.h"
 #import "REMenu.h"
 
@@ -19,7 +20,8 @@
 @property (nonatomic, strong, readwrite) REMenu *menu;
 @property (nonatomic, strong) NSMutableArray *skills;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *users;
+@property (nonatomic, strong) NSMutableSet *users;
+@property (nonatomic, strong) NSMutableArray *usersArray;
 
 @end
 
@@ -29,7 +31,9 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.users = [[NSMutableArray alloc] init];
+        self.skills = [[NSMutableArray alloc] init];
+        self.users = [[NSMutableSet alloc] init];
+        self.usersArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -37,6 +41,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    PFUser *user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    PFObject *userObject = [query getObjectWithId:user.objectId];
+    NSNumber *isMentorNumber = (NSNumber *) [userObject objectForKey:@"isMentor"];
+    int isMentor = [isMentorNumber intValue];
+    if (isMentor == 1) {
+        self.showMentor = NO;
+    } else if (isMentor == 0) {
+        self.showMentor = YES;
+    }
     
     // set title
     if (self.showMentor && self.showMatch) {
@@ -50,7 +65,6 @@
     }
     
     // if not logged in, present login view controller
-    PFUser *user = [PFUser currentUser];
     if (!user) {
         CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
         CustomParseSignupViewController *pfsvc = [[CustomParseSignupViewController alloc] init];
@@ -101,44 +115,62 @@
         key = @"MentorID";
         type = @"mentees";
     }
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"Skills"];
-    //[query whereKey:@"UserID" equalTo:user.objectId];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+
+    // retrieve current user's skills
+    PFQuery *skillQuery = [PFQuery queryWithClassName:@"Skills"];
+    [skillQuery whereKey:@"UserID" equalTo:user];
+    [skillQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects) {
-            NSLog(@"skills: %@", objects);
-            for (NSString *skill in objects) {
+            for (PFObject *skillObject in objects) {
+                NSString *skill = skillObject[@"Name"];
                 [self.skills addObject:skill];
             }
+            NSLog(@"self.skills: %@", self.skills);
+            
+            // perform query to find potential matches
+            NSMutableArray *subqueries = [[NSMutableArray alloc] init];
+            for (NSString *skill in self.skills) {
+                PFQuery *subquery = [PFQuery queryWithClassName:@"Skills"];
+                [subquery whereKey:@"Name" equalTo:skill];
+                if (self.showMentor) {
+                    [subquery whereKey:@"isMentor" equalTo:@YES];
+                } else {
+                    [subquery whereKey:@"isMentor" equalTo:@NO];
+                }
+                [subqueries addObject:subquery];
+            }
+            PFQuery *matchQuery = [PFQuery orQueryWithSubqueries:[[NSArray alloc] initWithArray:subqueries]];
+                
+                [matchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    if (objects && !error) {
+                        NSLog(@"%@: %@", type, objects);
+                        
+                        for (PFObject *userObject in objects) {
+                            PFUser *pfUser = userObject[@"UserID"];
+                            [self.users addObject:pfUser.objectId];
+                        }
+                        NSLog(@"self.users: %@", self.users);
+                        
+                        for (NSString *userId in self.users) {
+                            PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
+                            PFObject *fullUserObject = [userQuery getObjectWithId:userId];
+                            
+                            NSDictionary *parameters = @{@"firstName" : fullUserObject[@"firstName"], @"lastName" : fullUserObject[@"lastName"]};
+                            NSLog(@"params: %@", parameters);
+                            User *potential = [[User alloc] init];
+                            [potential setuserWithDictionary:parameters];
+                            [self.usersArray addObject:potential];
+                        }
+                        [self.tableView reloadData];
+                    } else if (error){
+                        NSLog(@"error in retrieving potential %@: %@", type, error.description);
+                    }
+                }];
+            
         } else if (error) {
             NSLog(@"error: %@", error.description);
         }
     }];
-    
-    for (NSString *skill in self.skills) {
-        // perform query to find potential matches
-        PFQuery *query = [PFQuery queryWithClassName:@"Skills"];
-        //[query whereKey:@"Name" equalTo:skill];
-        if (self.showMentor) {
-            [query whereKey:@"isMentor" equalTo:@YES];
-        } else {
-            [query whereKey:@"isMentor" equalTo:@NO];
-        }
-        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            if (!error && objects) {
-                NSLog(@"%@: %@", type, objects);
-                    
-                // process messages object, initialize mlvc with array
-                for (id user in objects) {
-                    [self.users addObject:user];
-                }
-                [self.tableView reloadData];
-            } else if (error){
-                NSLog(@"error in retrieving potential %@: %@", type, error.description);
-            }
-        }];
-    }
-
 }
 
 - (void)loadMatches {
