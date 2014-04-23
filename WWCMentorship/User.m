@@ -12,13 +12,43 @@
 
 - (void)setUserWithDictionary:(NSDictionary *)userDictionary {
     self.userDictionary = userDictionary;
+    self.objectId = userDictionary[@"objectId"];
     self.username = userDictionary[@"username"];
     self.email = userDictionary[@"email"];
     self.firstName = userDictionary[@"firstName"];
     self.lastName = userDictionary[@"lastName"];
     self.summary = userDictionary[@"summary"];
-    self.avatarURL = [NSURL URLWithString:userDictionary[@"avatarURL"]];
-    //self.isMentor = userDictionary[@"isMentor"];
+    //self.avatarURL = [NSURL URLWithString:userDictionary[@"avatarURL"]];
+    
+    NSNumber *isMentorNumber = (NSNumber *) userDictionary[@"isMentor"];
+    int isMentorInt = [isMentorNumber intValue];
+    if (isMentorInt == 1) {
+        self.isMentor = YES;
+    } else if (isMentorInt == 0){
+        self.isMentor = NO;
+    }
+    
+    [self loadSkills];
+}
+
+- (void)loadSkills {
+    NSMutableArray *skills = [[NSMutableArray alloc] init];
+    
+    // retrieve current user's skills
+    PFQuery *skillQuery = [PFQuery queryWithClassName:@"Skills"];
+    [skillQuery whereKey:@"UserID" equalTo:self.objectId];
+    [skillQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error && objects) {
+            // save skill names
+            for (PFObject *skillObject in objects) {
+                NSString *skill = skillObject[@"Name"];
+                [skills addObject:skill];
+            }
+            self.skills = [NSArray arrayWithArray:skills];
+        } else if (error) {
+            NSLog(@"error: %@", error.description);
+        }
+    }];
 }
 
 @end

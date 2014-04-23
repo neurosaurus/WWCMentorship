@@ -32,4 +32,15 @@
     // Configure the view for the selected state
 }
 
+- (void)setUser:(User *)user {
+    self.name.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    NSString *skillsText = [user.skills componentsJoinedByString:@", "];
+    self.skills.text = skillsText;
+    self.summary.text = user.summary;
+    
+    // for testing only
+    NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];
+    [self.avatar setImageWithURL:tim];
+}
+
 @end

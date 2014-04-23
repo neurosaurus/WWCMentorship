@@ -189,6 +189,7 @@
 - (void)setUser:(User *)user {
     self.user = user;
     
+    
 }
 
 @end

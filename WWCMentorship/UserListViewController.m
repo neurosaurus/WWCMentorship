@@ -20,8 +20,7 @@
 @property (nonatomic, strong, readwrite) REMenu *menu;
 @property (nonatomic, strong) NSMutableArray *skills;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) NSMutableSet *users;
-@property (nonatomic, strong) NSMutableArray *usersArray;
+@property (nonatomic, strong) NSMutableArray *users;
 
 @end
 
@@ -32,8 +31,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.skills = [[NSMutableArray alloc] init];
-        self.users = [[NSMutableSet alloc] init];
-        self.usersArray = [[NSMutableArray alloc] init];
+        self.users = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -121,13 +119,14 @@
     [skillQuery whereKey:@"UserID" equalTo:user];
     [skillQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects) {
+            // save skill names
             for (PFObject *skillObject in objects) {
                 NSString *skill = skillObject[@"Name"];
                 [self.skills addObject:skill];
             }
             NSLog(@"self.skills: %@", self.skills);
             
-            // perform query to find potential matches
+            // then find all potential matches with the same skills
             NSMutableArray *subqueries = [[NSMutableArray alloc] init];
             for (NSString *skill in self.skills) {
                 PFQuery *subquery = [PFQuery queryWithClassName:@"Skills"];
@@ -141,35 +140,41 @@
             }
             PFQuery *matchQuery = [PFQuery orQueryWithSubqueries:[[NSArray alloc] initWithArray:subqueries]];
                 
-                [matchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    if (objects && !error) {
-                        NSLog(@"%@: %@", type, objects);
-                        
-                        for (PFObject *userObject in objects) {
-                            PFUser *pfUser = userObject[@"UserID"];
-                            [self.users addObject:pfUser.objectId];
-                        }
-                        NSLog(@"self.users: %@", self.users);
-                        
-                        for (NSString *userId in self.users) {
-                            PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
-                            PFObject *fullUserObject = [userQuery getObjectWithId:userId];
-                            
-                            NSDictionary *parameters = @{@"firstName" : fullUserObject[@"firstName"],
-                                                         @"lastName" : fullUserObject[@"lastName"],
-                                                         @"summary" : fullUserObject[@"summary"],
-                                                         @"avatarURL" : fullUserObject[@"avatarURL"]};
-                            NSLog(@"params: %@", parameters);
-                            User *potential = [[User alloc] init];
-                            [potential setUserWithDictionary:parameters];
-                            [self.usersArray addObject:potential];
-                        }
-                        [self.tableView reloadData];
-                    } else if (error){
-                        NSLog(@"error in retrieving potential %@: %@", type, error.description);
+            [matchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                if (objects && !error) {
+                    NSLog(@"%@: %@", type, objects);
+                    
+                    NSMutableSet *userIds = [[NSMutableSet alloc] init];
+                    // then add match userID's to userIds set
+                    for (PFObject *userObject in objects) {
+                        PFUser *pfUser = userObject[@"UserID"];
+                        [userIds addObject:pfUser.objectId];
                     }
-                }];
-            
+                    NSLog(@"userIDs: %@", userIds);
+                    
+                    // then retrieve full user objects for all userIds
+                    for (NSString *userId in userIds) {
+                        PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
+                        PFObject *fullUserObject = [userQuery getObjectWithId:userId];
+                        NSLog(@"retrieved user: %@", fullUserObject);
+                        
+                        NSDictionary *parameters = @{@"objectId" : userId,
+                                                     @"username" : fullUserObject[@"username"],
+                                                     @"email" : fullUserObject[@"email"],
+                                                     @"firstName" : fullUserObject[@"firstName"],
+                                                     @"lastName" : fullUserObject[@"lastName"],
+                                                     @"summary" : fullUserObject[@"summary"],
+                                                     @"isMentor" : fullUserObject[@"isMentor"]};
+                        NSLog(@"params: %@", parameters);
+                        User *potentialMatch = [[User alloc] init];
+                        [potentialMatch setUserWithDictionary:parameters];
+                        [self.users addObject:potentialMatch];
+                    }
+                    [self.tableView reloadData];
+                } else if (error){
+                    NSLog(@"error in retrieving potential %@: %@", type, error.description);
+                }
+            }];
         } else if (error) {
             NSLog(@"error: %@", error.description);
         }
@@ -217,12 +222,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
-    //return self.users.count;
+    return self.users.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UserCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserCell" forIndexPath:indexPath];
+    User *user = self.users[indexPath.row];
+    [cell setUser:user];
     return cell;
 }
 

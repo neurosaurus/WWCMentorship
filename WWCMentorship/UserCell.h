@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 @interface UserCell : UITableViewCell
+
+@property (nonatomic, strong) User *user;
+
+- (void)setUser:(User *)user;
 
 @end

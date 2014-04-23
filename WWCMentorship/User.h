@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
 @interface User : NSObject
 
 @property (nonatomic, strong) NSDictionary *userDictionary;
+@property (nonatomic, strong) NSString *objectId;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *firstName;
@@ -18,7 +20,9 @@
 @property (nonatomic, strong) NSString *summary;
 @property (nonatomic, strong) NSURL *avatarURL;
 @property (nonatomic, assign) BOOL isMentor;
+@property (nonatomic, assign) NSArray *skills;
 
 - (void)setUserWithDictionary:(NSDictionary *)userDictionary;
+- (void)loadSkills;
 
 @end
