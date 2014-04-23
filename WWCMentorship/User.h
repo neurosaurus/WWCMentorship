@@ -20,7 +20,8 @@
 @property (nonatomic, strong) NSString *summary;
 @property (nonatomic, strong) NSURL *avatarURL;
 @property (nonatomic, assign) BOOL isMentor;
-@property (nonatomic, assign) NSArray *skills;
+@property (nonatomic, strong) NSArray *mentorSkills;
+@property (nonatomic, strong) NSArray *menteeSkills;
 
 - (void)setUserWithDictionary:(NSDictionary *)userDictionary;
 - (void)loadSkills;

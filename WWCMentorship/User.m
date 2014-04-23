@@ -20,6 +20,8 @@
     self.summary = userDictionary[@"summary"];
     //self.avatarURL = [NSURL URLWithString:userDictionary[@"avatarURL"]];
     
+    [self loadSkills];
+    
     NSNumber *isMentorNumber = (NSNumber *) userDictionary[@"isMentor"];
     int isMentorInt = [isMentorNumber intValue];
     if (isMentorInt == 1) {
@@ -27,8 +29,6 @@
     } else if (isMentorInt == 0){
         self.isMentor = NO;
     }
-    
-    [self loadSkills];
 }
 
 - (void)loadSkills {
@@ -44,7 +44,13 @@
                 NSString *skill = skillObject[@"Name"];
                 [skills addObject:skill];
             }
-            self.skills = [NSArray arrayWithArray:skills];
+            
+            // save skills in right property
+            if (self.isMentor) {
+                self.mentorSkills = skills;
+            } else {
+                self.menteeSkills = skills;
+            }
         } else if (error) {
             NSLog(@"error: %@", error.description);
         }

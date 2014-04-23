@@ -41,6 +41,20 @@
     [super viewDidLoad];
     
     PFUser *user = [PFUser currentUser];
+    
+    // if not logged in, present login view controller
+    if (!user) {
+        CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
+        CustomParseSignupViewController *pfsvc = [[CustomParseSignupViewController alloc] init];
+        
+        pflvc.delegate = self;
+        pfsvc.delegate = self;
+        
+        pflvc.signUpController = pfsvc;
+        
+        [self presentViewController:pflvc animated:YES completion:NULL];
+    }
+    
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     PFObject *userObject = [query getObjectWithId:user.objectId];
     NSNumber *isMentorNumber = (NSNumber *) [userObject objectForKey:@"isMentor"];
@@ -62,19 +76,6 @@
         self.title = @"Find a Mentee";
     }
     
-    // if not logged in, present login view controller
-    if (!user) {
-        CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
-        CustomParseSignupViewController *pfsvc = [[CustomParseSignupViewController alloc] init];
-        
-        pflvc.delegate = self;
-        pfsvc.delegate = self;
-
-        pflvc.signUpController = pfsvc;
-        
-        [self presentViewController:pflvc animated:YES completion:NULL];
-    }
-    
     // assign table view's delegate, data source
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -91,6 +92,7 @@
     }
     
     // set up navigation menu
+    [self.navigationController.navigationBar setHidden:NO];
     [self setNavigationMenu];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
 }
@@ -126,55 +128,57 @@
             }
             NSLog(@"self.skills: %@", self.skills);
             
-            // then find all potential matches with the same skills
-            NSMutableArray *subqueries = [[NSMutableArray alloc] init];
-            for (NSString *skill in self.skills) {
-                PFQuery *subquery = [PFQuery queryWithClassName:@"Skills"];
-                [subquery whereKey:@"Name" equalTo:skill];
-                if (self.showMentor) {
-                    [subquery whereKey:@"isMentor" equalTo:@YES];
-                } else {
-                    [subquery whereKey:@"isMentor" equalTo:@NO];
+            if (self.skills.count > 0) {
+                // then find all potential matches with the same skills
+                NSMutableArray *subqueries = [[NSMutableArray alloc] init];
+                for (NSString *skill in self.skills) {
+                    PFQuery *subquery = [PFQuery queryWithClassName:@"Skills"];
+                    [subquery whereKey:@"Name" equalTo:skill];
+                    if (self.showMentor) {
+                        [subquery whereKey:@"isMentor" equalTo:@YES];
+                    } else {
+                        [subquery whereKey:@"isMentor" equalTo:@NO];
+                    }
+                    [subqueries addObject:subquery];
                 }
-                [subqueries addObject:subquery];
-            }
-            PFQuery *matchQuery = [PFQuery orQueryWithSubqueries:[[NSArray alloc] initWithArray:subqueries]];
+                PFQuery *matchQuery = [PFQuery orQueryWithSubqueries:[[NSArray alloc] initWithArray:subqueries]];
                 
-            [matchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                if (objects && !error) {
-                    NSLog(@"%@: %@", type, objects);
-                    
-                    NSMutableSet *userIds = [[NSMutableSet alloc] init];
-                    // then add match userID's to userIds set
-                    for (PFObject *userObject in objects) {
-                        PFUser *pfUser = userObject[@"UserID"];
-                        [userIds addObject:pfUser.objectId];
-                    }
-                    NSLog(@"userIDs: %@", userIds);
-                    
-                    // then retrieve full user objects for all userIds
-                    for (NSString *userId in userIds) {
-                        PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
-                        PFObject *fullUserObject = [userQuery getObjectWithId:userId];
-                        NSLog(@"retrieved user: %@", fullUserObject);
+                [matchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    if (objects && !error) {
+                        NSLog(@"%@: %@", type, objects);
                         
-                        NSDictionary *parameters = @{@"objectId" : userId,
-                                                     @"username" : fullUserObject[@"username"],
-                                                     @"email" : fullUserObject[@"email"],
-                                                     @"firstName" : fullUserObject[@"firstName"],
-                                                     @"lastName" : fullUserObject[@"lastName"],
-                                                     @"summary" : fullUserObject[@"summary"],
-                                                     @"isMentor" : fullUserObject[@"isMentor"]};
-                        NSLog(@"params: %@", parameters);
-                        User *potentialMatch = [[User alloc] init];
-                        [potentialMatch setUserWithDictionary:parameters];
-                        [self.users addObject:potentialMatch];
+                        NSMutableSet *userIds = [[NSMutableSet alloc] init];
+                        // then add match userID's to userIds set
+                        for (PFObject *userObject in objects) {
+                            PFUser *pfUser = userObject[@"UserID"];
+                            [userIds addObject:pfUser.objectId];
+                        }
+                        NSLog(@"userIDs: %@", userIds);
+        
+                        // then retrieve full user objects for all userIds
+                        for (NSString *userId in userIds) {
+                            PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
+                            PFObject *fullUserObject = [userQuery getObjectWithId:userId];
+                            NSLog(@"retrieved user: %@", fullUserObject);
+                            
+                            NSDictionary *parameters = @{@"objectId" : userId,
+                                                         @"username" : fullUserObject[@"username"],
+                                                         @"email" : fullUserObject[@"email"],
+                                                         @"firstName" : fullUserObject[@"firstName"],
+                                                         @"lastName" : fullUserObject[@"lastName"],
+                                                         @"summary" : fullUserObject[@"summary"],
+                                                         @"isMentor" : fullUserObject[@"isMentor"]};
+                            NSLog(@"params: %@", parameters);
+                            User *potentialMatch = [[User alloc] init];
+                            [potentialMatch setUserWithDictionary:parameters];
+                            [self.users addObject:potentialMatch];
+                        }
+                        [self.tableView reloadData];
+                    } else if (error){
+                        NSLog(@"error in retrieving potential %@: %@", type, error.description);
                     }
-                    [self.tableView reloadData];
-                } else if (error){
-                    NSLog(@"error in retrieving potential %@: %@", type, error.description);
-                }
-            }];
+                }];
+            }
         } else if (error) {
             NSLog(@"error: %@", error.description);
         }

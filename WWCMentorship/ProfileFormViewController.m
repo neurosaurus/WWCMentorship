@@ -69,7 +69,7 @@
     
     LPPopupListView *listView = [[LPPopupListView alloc] initWithTitle:@"Skills" list:[self list] selectedList:self.selectedList point:point size:size multipleSelection:YES];
     listView.delegate = self;
-    
+
     [self.navigationController.view addSubview:listView];
     [listView showInView:self.navigationController.view animated:YES];
 }
@@ -133,7 +133,9 @@
             NSLog(@"success: saved %@ in parse", skill);
         }];
     }
+    
     [self.navigationController popToRootViewControllerAnimated:NO];
+    [self.navigationController.navigationBar setHidden:NO];
 }
 
 - (IBAction)onTap:(id)sender {

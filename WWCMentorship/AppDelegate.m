@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "UserListViewController.h"
+#import "CustomParseLoginViewController.h"
 #import "ProfileFormViewController.h"
 
 @implementation AppDelegate
@@ -24,6 +25,8 @@
 
     UserListViewController *ulvc = [[UserListViewController alloc] init];
     UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:ulvc];
+    
+    CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
     
     self.window.rootViewController = ulnc;
     

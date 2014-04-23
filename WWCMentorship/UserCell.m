@@ -34,7 +34,13 @@
 
 - (void)setUser:(User *)user {
     self.name.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
-    NSString *skillsText = [user.skills componentsJoinedByString:@", "];
+    NSArray *skills;
+    if (user.menteeSkills) {
+        skills = user.menteeSkills;
+    } else if (user.mentorSkills) {
+        skills = user.mentorSkills;
+    }
+    NSString *skillsText = [skills componentsJoinedByString:@", "];
     self.skills.text = skillsText;
     self.summary.text = user.summary;
     
