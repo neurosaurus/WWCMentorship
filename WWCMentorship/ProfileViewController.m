@@ -98,6 +98,7 @@
                                  @"firstName" : fullUserObject[@"firstName"],
                                  @"lastName" : fullUserObject[@"lastName"],
                                  @"summary" : fullUserObject[@"summary"],
+                                 @"avatarURL" : fullUserObject[@"avatarURL"],
                                  @"isMentor" : fullUserObject[@"isMentor"]};
     
     self.me = [[User alloc] init];
@@ -109,8 +110,8 @@
     self.summary.text = user.summary;
     
     // for testing only
-    NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];
-    [self.avatar setImageWithURL:tim]; // user.avatarURL
+    //NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];
+    [self.avatar setImageWithURL:user.avatarURL];
     
     NSArray *skills = user.skills;
     if (user.menteeSkills) {
@@ -144,7 +145,7 @@
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
     NSLog(@"i'm in!");
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
@@ -190,20 +191,6 @@
                                                          NSLog(@"showing profile");
                                                          
                                                          if (!self.isSelf) {
-//                                                             PFObject *fullUserObject = userObject;
-//                                                             
-//                                                             NSDictionary *parameters = @{@"pfUser" : fullUserObject,
-//                                                                                          @"objectId" : user.objectId,
-//                                                                                          @"username" : fullUserObject[@"username"],
-//                                                                                          @"email" : fullUserObject[@"email"],
-//                                                                                          @"firstName" : fullUserObject[@"firstName"],
-//                                                                                          @"lastName" : fullUserObject[@"lastName"],
-//                                                                                          @"summary" : fullUserObject[@"summary"],
-//                                                                                          @"isMentor" : fullUserObject[@"isMentor"]};
-//                                                             
-//                                                             User *myself = [[User alloc] init];
-//                                                             [myself setUserWithDictionary:parameters];
-                                                             
                                                              ProfileViewController *pvc = [[ProfileViewController alloc] init];
                                                              pvc.user = self.me;
                                                              pvc.isSelf = YES;

@@ -19,7 +19,7 @@
     self.firstName = userDictionary[@"firstName"];
     self.lastName = userDictionary[@"lastName"];
     self.summary = userDictionary[@"summary"];
-    //self.avatarURL = [NSURL URLWithString:userDictionary[@"avatarURL"]];
+    self.avatarURL = [NSURL URLWithString:userDictionary[@"avatarURL"]];
     
     [self loadSkills];
     

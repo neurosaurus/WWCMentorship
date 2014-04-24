@@ -68,6 +68,7 @@
                                      @"firstName" : userObject[@"firstName"],
                                      @"lastName" : userObject[@"lastName"],
                                      @"summary" : userObject[@"summary"],
+                                     @"avatarURL" : userObject[@"avatarURL"],
                                      @"isMentor" : userObject[@"isMentor"]};
         
         self.me = [[User alloc] init];
@@ -200,6 +201,7 @@
                                                          @"firstName" : fullUserObject[@"firstName"],
                                                          @"lastName" : fullUserObject[@"lastName"],
                                                          @"summary" : fullUserObject[@"summary"],
+                                                         @"avatarURL" : fullUserObject[@"avatarURL"],
                                                          @"isMentor" : fullUserObject[@"isMentor"]};
                             NSLog(@"params: %@", parameters);
                             User *potentialMatch = [[User alloc] init];
@@ -260,6 +262,7 @@
                                                  @"firstName" : fullUserObject[@"firstName"],
                                                  @"lastName" : fullUserObject[@"lastName"],
                                                  @"summary" : fullUserObject[@"summary"],
+                                                 @"avatarURL" : fullUserObject[@"avatarURL"],
                                                  @"isMentor" : fullUserObject[@"isMentor"]};
                     NSLog(@"params: %@", parameters);
                     User *actualMatch = [[User alloc] init];

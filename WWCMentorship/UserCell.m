@@ -51,8 +51,8 @@
     self.summary.text = user.summary;
     
     // for testing only
-    NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];
-    [self.avatar setImageWithURL:tim];
+    //NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];
+    [self.avatar setImageWithURL:user.avatarURL];
 }
 
 @end
