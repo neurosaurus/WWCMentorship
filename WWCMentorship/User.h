@@ -11,6 +11,7 @@
 
 @interface User : NSObject
 
+@property (nonatomic, strong) PFUser *pfUser;
 @property (nonatomic, strong) NSDictionary *userDictionary;
 @property (nonatomic, strong) NSString *objectId;
 @property (nonatomic, strong) NSString *username;
@@ -22,6 +23,7 @@
 @property (nonatomic, assign) BOOL isMentor;
 @property (nonatomic, strong) NSArray *mentorSkills;
 @property (nonatomic, strong) NSArray *menteeSkills;
+@property (nonatomic, strong) NSArray *skills;
 
 - (void)setUserWithDictionary:(NSDictionary *)userDictionary;
 - (void)loadSkills;

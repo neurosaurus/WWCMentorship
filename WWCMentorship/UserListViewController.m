@@ -22,9 +22,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *users;
 
-@property (nonatomic, strong) User *user;
-@property (nonatomic, assign) BOOL isComplete;
-
 @end
 
 @implementation UserListViewController
@@ -35,7 +32,6 @@
     if (self) {
         self.skills = [[NSMutableArray alloc] init];
         self.users = [NSMutableArray array];
-        self.isComplete = NO;
     }
     return self;
 }
@@ -54,6 +50,8 @@
         pflvc.signUpController = pfsvc;
         
         [self presentViewController:pflvc animated:YES completion:NULL];
+        
+    // otherwise, present user list view controller
     } else {
         PFQuery *query = [PFQuery queryWithClassName:@"_User"];
         PFObject *userObject = [query getObjectWithId:user.objectId];
@@ -170,7 +168,8 @@
                             PFObject *fullUserObject = [userQuery getObjectWithId:userId];
                             NSLog(@"retrieved user: %@", fullUserObject);
                             
-                            NSDictionary *parameters = @{@"objectId" : userId,
+                            NSDictionary *parameters = @{@"pfUser" : fullUserObject,
+                                                         @"objectId" : userId,
                                                          @"username" : fullUserObject[@"username"],
                                                          @"email" : fullUserObject[@"email"],
                                                          @"firstName" : fullUserObject[@"firstName"],
@@ -184,7 +183,6 @@
                         }
                         
                         [self.tableView reloadData];
-                        self.isComplete = YES;
                     } else if (error){
                         NSLog(@"error in retrieving potential %@: %@", type, error.description);
                     }
@@ -198,33 +196,54 @@
 
 - (void)loadMatches {
     PFUser *user = [PFUser currentUser];
-    NSString *key, *type;
+    NSString *key1, *key2, *type;
     if (self.showMentor) {
-        key = @"MenteeID"; // if showing mentors, current user is a mentee
+        key1 = @"MenteeID"; // if showing mentors, current user is a mentee
+        key2 = @"MentorID";
         type = @"mentors";
     } else {
-        key = @"MentorID"; // if showing mentees, current user is a mentor
+        key1 = @"MentorID"; // if showing mentees, current user is a mentor
+        key2 = @"MenteeID";
         type = @"mentees";
     }
     
     // perform query in relationships table where current UserID = mentorID if mentor, or current UserID = menteeID if mentee
     PFQuery *query = [PFQuery queryWithClassName:@"Relationships"];
-    [query whereKey:key equalTo:user.objectId];
+    [query whereKey:key1 equalTo:user.objectId];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            if (objects) {
+        if (!error && objects) {
                 NSLog(@"%@: %@", type, objects);
                 
-                // process messages object, initialize mlvc with array
-                for (id user in objects) {
-                    [self.users addObject:user];
+                NSMutableArray *userIds = [[NSMutableArray alloc] init];
+                // then add match userID's to userIds set
+                for (PFObject *userObject in objects) {
+                    PFUser *pfUser = userObject[key2];
+                    [userIds addObject:pfUser.objectId];
+                }
+                NSLog(@"userIDs: %@", userIds);
+                
+                // then retrieve full user objects for all userIds
+                for (NSString *userId in userIds) {
+                    PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
+                    PFObject *fullUserObject = [userQuery getObjectWithId:userId];
+                    NSLog(@"retrieved user: %@", fullUserObject);
+                    
+                    NSDictionary *parameters = @{@"pfUser" : fullUserObject,
+                                                 @"objectId" : userId,
+                                                 @"username" : fullUserObject[@"username"],
+                                                 @"email" : fullUserObject[@"email"],
+                                                 @"firstName" : fullUserObject[@"firstName"],
+                                                 @"lastName" : fullUserObject[@"lastName"],
+                                                 @"summary" : fullUserObject[@"summary"],
+                                                 @"isMentor" : fullUserObject[@"isMentor"]};
+                    NSLog(@"params: %@", parameters);
+                    User *actualMatch = [[User alloc] init];
+                    [actualMatch setUserWithDictionary:parameters];
+                    [self.users addObject:actualMatch];
                 }
                 
                 [self.tableView reloadData];
-            } else {
-                NSLog(@"no %@ :(", type);
-            }
-        } else {
+        } else if (error) {
             NSLog(@"error in retrieving %@: %@", type, error.description);
         }
     }];
@@ -248,21 +267,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.isComplete) {
-        NSLog(@"load complete");
-    } else {
-        NSLog(@"load in progress");
-    }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.user = self.users[indexPath.row];
-    NSLog(@"the chosen one: %@", self.user.firstName);
+    User *user = self.users[indexPath.row];
+    NSLog(@"the chosen one: %@", user.firstName);
     
     ProfileViewController *pvc = [[ProfileViewController alloc] init];
-    //[pvc setUser:self.user];
-    pvc.user = self.user;
-    pvc.userId = self.user.objectId;
+    pvc.user = user;
     pvc.isSelf = NO;
-    
     [self.navigationController pushViewController:pvc animated:YES];
 }
 
@@ -327,14 +338,11 @@
                                                                                   @"summary" : fullUserObject[@"summary"],
                                                                                   @"isMentor" : fullUserObject[@"isMentor"]};
                                                      
-                                                     
                                                      ProfileViewController *pvc = [[ProfileViewController alloc] init];
                                                      User *myself = [[User alloc] init];
                                                      [myself setUserWithDictionary:parameters];
                                                      NSLog(@"user/myself: %@", myself);
-                                                     //[pvc setUser:myself];
                                                      pvc.user = myself;
-                                                     pvc.userId = user.objectId;
                                                      pvc.isSelf = YES;
                                                      
                                                      [self.navigationController pushViewController:pvc animated:NO];
