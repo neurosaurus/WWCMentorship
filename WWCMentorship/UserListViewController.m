@@ -108,6 +108,13 @@
     PFUser *user = [PFUser currentUser];
     NSLog(@"user is: %@", user);
     
+    // coloring
+    self.tableView.backgroundColor = [UIColor blackColor];
+    self.tableView.separatorColor = [UIColor colorWithWhite:1.0 alpha:0.3];
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    
     // assign table view's delegate, data source
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -270,7 +277,7 @@
 # pragma mark - Table view methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100;
+    return 110;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -281,6 +288,7 @@
     UserCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserCell" forIndexPath:indexPath];
     User *user = self.users[indexPath.row];
     [cell setUser:user];
+    cell.backgroundColor = [UIColor blackColor];
     return cell;
 }
 

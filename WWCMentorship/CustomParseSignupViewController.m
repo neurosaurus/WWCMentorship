@@ -37,11 +37,20 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"WWC Icon"]];
-    self.signUpView.usernameField.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];
-    self.signUpView.passwordField.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];
-    self.signUpView.emailField.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];
-    self.signUpView.logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"None"]];
+    UIImage *logo = [UIImage imageNamed:@"WWC Icon"];
+    CGRect rect = CGRectMake(0.0f, 40.0f, logo.size.width, logo.size.height);
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:rect];
+    [logoView setImage:logo];
+    self.signUpView.logo = logoView;
+    
+    self.view.backgroundColor = [UIColor blackColor];
+    self.signUpView.usernameField.backgroundColor = [UIColor blackColor];
+    self.signUpView.passwordField.backgroundColor = [UIColor blackColor];
+    self.signUpView.emailField.backgroundColor = [UIColor blackColor];
+    //self.signUpView.usernameField.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];
+    //self.signUpView.passwordField.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];
+    //self.signUpView.emailField.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];
+    //self.signUpView.logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"WWC Icon"]];
 }
 
 - (void)didReceiveMemoryWarning

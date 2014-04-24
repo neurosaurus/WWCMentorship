@@ -22,7 +22,7 @@
 
 - (void)awakeFromNib
 {
-    // Initialization code
+    // do something
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -33,8 +33,14 @@
 }
 
 - (void)setUser:(User *)user {
+    // coloring
+    self.name.textColor = [UIColor whiteColor];
+    self.skills.textColor = [UIColor whiteColor];
+    self.summary.textColor = [UIColor whiteColor];
+    
+    // set values
     self.name.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
-    NSArray *skills;
+    NSArray *skills = user.skills;
     if (user.menteeSkills) {
         skills = user.menteeSkills;
     } else if (user.mentorSkills) {
