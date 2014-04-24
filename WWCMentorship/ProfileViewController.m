@@ -26,26 +26,26 @@
 @property (weak, nonatomic) IBOutlet UITextView *summary;
 @property (weak, nonatomic) IBOutlet UIButton *contactButton;
 
-@property (weak, nonatomic) IBOutlet UILabel *toLearn1;
-@property (weak, nonatomic) IBOutlet UILabel *toLearn2;
-@property (weak, nonatomic) IBOutlet UILabel *toLearn3;
-@property (weak, nonatomic) IBOutlet UILabel *toLearn4;
-@property (weak, nonatomic) IBOutlet UILabel *toLearn5;
-@property (weak, nonatomic) IBOutlet UILabel *toLearn6;
-
-@property (weak, nonatomic) IBOutlet UILabel *toTeach1;
-@property (weak, nonatomic) IBOutlet UILabel *toTeach2;
-@property (weak, nonatomic) IBOutlet UILabel *toTeach3;
-@property (weak, nonatomic) IBOutlet UILabel *toTeach4;
-@property (weak, nonatomic) IBOutlet UILabel *toTeach5;
-@property (weak, nonatomic) IBOutlet UILabel *toTeach6;
+@property (weak, nonatomic) IBOutlet UILabel *skill1;
+@property (weak, nonatomic) IBOutlet UILabel *skill2;
+@property (weak, nonatomic) IBOutlet UILabel *skill3;
+@property (weak, nonatomic) IBOutlet UILabel *skill4;
+@property (weak, nonatomic) IBOutlet UILabel *skill5;
+@property (weak, nonatomic) IBOutlet UILabel *skill6;
 
 - (IBAction)onContactButton:(id)sender;
-- (void)setUser;
 
 @end
 
 @implementation ProfileViewController
+
+- (id)initWithUser:(User *)user {
+    self = [super init];
+    if (self) {
+        self.user = user;
+    }
+    return self;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,6 +66,30 @@
     
     // hide contact button if looking at self
     [self.contactButton setHidden:YES];
+    
+    User *user = self.user;
+    self.name.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    self.summary.text = user.summary;
+    
+    // for testing only
+    NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];
+    [self.avatar setImageWithURL:tim]; // user.avatarURL
+    
+    NSArray *skills;
+    if (user.menteeSkills) {
+        skills = user.menteeSkills;
+    } else if (user.mentorSkills) {
+        skills = user.mentorSkills;
+    }
+    NSArray *skillLabels = @[self.skill1, self.skill2, self.skill3, self.skill4, self.skill5, self.skill6];
+    for (int i = 0; i == skillLabels.count; i++) {
+        UILabel *skill = skillLabels[i];
+        if (skills[i]) {
+            skill.text = skills[i];
+        } else {
+            [skill setHidden:YES];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -184,12 +208,46 @@
     self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, signOut]];
 }
 
-# pragma mark - Private methods
+//- (void)loadUser {
+//    PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
+//    PFObject *fullUserObject = [userQuery getObjectWithId:self.userId];
+//    
+//    NSDictionary *parameters = @{@"objectId" : self.userId,
+//                                 @"username" : fullUserObject[@"username"],
+//                                 @"email" : fullUserObject[@"email"],
+//                                 @"firstName" : fullUserObject[@"firstName"],
+//                                 @"lastName" : fullUserObject[@"lastName"],
+//                                 @"summary" : fullUserObject[@"summary"],
+//                                 @"isMentor" : fullUserObject[@"isMentor"]};
+//    User *myself = [[User alloc] init];
+//    [myself setUserWithDictionary:parameters];
+//    [self setUser:myself];
+//}
 
-- (void)setUser:(User *)user {
+- (void)loadUser:(User *)user {
     self.user = user;
+    self.name.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    self.summary.text = user.summary;
     
+    // for testing only
+    NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];
+    [self.avatar setImageWithURL:tim]; // user.avatarURL
     
+    NSArray *skills;
+    if (user.menteeSkills) {
+        skills = user.menteeSkills;
+    } else if (user.mentorSkills) {
+        skills = user.mentorSkills;
+    }
+    NSArray *skillLabels = @[self.skill1, self.skill2, self.skill3, self.skill4, self.skill5, self.skill6];
+    for (int i = 0; i == skillLabels.count; i++) {
+        UILabel *skill = skillLabels[i];
+        if (skills[i]) {
+            skill.text = skills[i];
+        } else {
+            [skill setHidden:YES];
+        }
+    }
 }
 
 @end

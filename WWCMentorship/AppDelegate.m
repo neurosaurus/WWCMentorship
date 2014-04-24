@@ -29,7 +29,6 @@
     CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
     
     self.window.rootViewController = ulnc;
-    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

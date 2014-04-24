@@ -27,6 +27,9 @@
 {
     [super viewDidLoad];
     
+    // hide navigation bar
+    [self.navigationController.navigationBar setHidden:YES];
+    
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"WWC Icon"]];
     self.signUpView.usernameField.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];
     self.signUpView.passwordField.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];

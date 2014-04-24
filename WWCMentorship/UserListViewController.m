@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *users;
 
+@property (nonatomic, strong) User *user;
+@property (nonatomic, assign) BOOL isComplete;
+
 @end
 
 @implementation UserListViewController
@@ -31,15 +34,13 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.skills = [[NSMutableArray alloc] init];
-        self.users = [[NSMutableArray alloc] init];
+        self.users = [NSMutableArray array];
+        self.isComplete = NO;
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
+- (void)viewWillAppear:(BOOL)animated {
     PFUser *user = [PFUser currentUser];
     
     // if not logged in, present login view controller
@@ -53,28 +54,43 @@
         pflvc.signUpController = pfsvc;
         
         [self presentViewController:pflvc animated:YES completion:NULL];
+    } else {
+        PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+        PFObject *userObject = [query getObjectWithId:user.objectId];
+        NSNumber *isMentorNumber = (NSNumber *) [userObject objectForKey:@"isMentor"];
+        int isMentor = [isMentorNumber intValue];
+        if (isMentor == 1) {
+            self.showMentor = NO;
+        } else if (isMentor == 0) {
+            self.showMentor = YES;
+        }
+        
+        // set title
+        if (self.showMentor && self.showMatch) {
+            self.title = @"Mentors";
+        } else if (!self.showMentor && self.showMatch) {
+            self.title = @"Mentees";
+        } else if (self.showMentor && !self.showMatch) {
+            self.title = @"Find a Mentor";
+        } else if (!self.showMentor && !self.showMatch) {
+            self.title = @"Find a Mentee";
+        }
+        
+        // populate list with potentials or matches
+        if (self.showMatch) {
+            [self loadMatches];
+        } else {
+            [self loadPotentials];
+        }
     }
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     
-    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
-    PFObject *userObject = [query getObjectWithId:user.objectId];
-    NSNumber *isMentorNumber = (NSNumber *) [userObject objectForKey:@"isMentor"];
-    int isMentor = [isMentorNumber intValue];
-    if (isMentor == 1) {
-        self.showMentor = NO;
-    } else if (isMentor == 0) {
-        self.showMentor = YES;
-    }
-    
-    // set title
-    if (self.showMentor && self.showMatch) {
-        self.title = @"Mentors";
-    } else if (!self.showMentor && self.showMatch) {
-        self.title = @"Mentees";
-    } else if (self.showMentor && !self.showMatch) {
-        self.title = @"Find a Mentor";
-    } else if (!self.showMentor && !self.showMatch) {
-        self.title = @"Find a Mentee";
-    }
+    PFUser *user = [PFUser currentUser];
+    NSLog(@"user is: %@", user);
     
     // assign table view's delegate, data source
     self.tableView.delegate = self;
@@ -83,13 +99,6 @@
     // register user cell nib
     UINib *nib = [UINib nibWithNibName:@"UserCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"UserCell"];
-    
-    // populate list with potentials or matches
-    if (self.showMatch) {
-        [self loadMatches];
-    } else {
-        [self loadPotentials];
-    }
     
     // set up navigation menu
     [self.navigationController.navigationBar setHidden:NO];
@@ -173,7 +182,9 @@
                             [potentialMatch setUserWithDictionary:parameters];
                             [self.users addObject:potentialMatch];
                         }
+                        
                         [self.tableView reloadData];
+                        self.isComplete = YES;
                     } else if (error){
                         NSLog(@"error in retrieving potential %@: %@", type, error.description);
                     }
@@ -237,7 +248,22 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.isComplete) {
+        NSLog(@"load complete");
+    } else {
+        NSLog(@"load in progress");
+    }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    self.user = self.users[indexPath.row];
+    NSLog(@"the chosen one: %@", self.user.firstName);
+    
+    ProfileViewController *pvc = [[ProfileViewController alloc] init];
+    //[pvc setUser:self.user];
+    pvc.user = self.user;
+    pvc.userId = self.user.objectId;
+    pvc.isSelf = NO;
+    
+    [self.navigationController pushViewController:pvc animated:YES];
 }
 
 # pragma mark - Navigation methods
@@ -288,8 +314,29 @@
                                                  action:^(REMenuItem *item) {
                                                      NSLog(@"item: %@", item);
                                                      NSLog(@"showing profile");
+                                                     
+                                                     PFUser *user = [PFUser currentUser];
+                                                     PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
+                                                     PFObject *fullUserObject = [userQuery getObjectWithId:user.objectId];
+                                                     
+                                                     NSDictionary *parameters = @{@"objectId" : user.objectId,
+                                                                                  @"username" : fullUserObject[@"username"],
+                                                                                  @"email" : fullUserObject[@"email"],
+                                                                                  @"firstName" : fullUserObject[@"firstName"],
+                                                                                  @"lastName" : fullUserObject[@"lastName"],
+                                                                                  @"summary" : fullUserObject[@"summary"],
+                                                                                  @"isMentor" : fullUserObject[@"isMentor"]};
+                                                     
+                                                     
                                                      ProfileViewController *pvc = [[ProfileViewController alloc] init];
+                                                     User *myself = [[User alloc] init];
+                                                     [myself setUserWithDictionary:parameters];
+                                                     NSLog(@"user/myself: %@", myself);
+                                                     //[pvc setUser:myself];
+                                                     pvc.user = myself;
+                                                     pvc.userId = user.objectId;
                                                      pvc.isSelf = YES;
+                                                     
                                                      [self.navigationController pushViewController:pvc animated:NO];
                                                  }];
     
