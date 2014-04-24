@@ -42,6 +42,8 @@
     [skillQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects) {
             // save skill names
+            NSLog(@"loading skills for %@", self.firstName);
+            NSLog(@"objects: %@", objects);
             for (PFObject *skillObject in objects) {
                 NSString *skill = skillObject[@"Name"];
                 [skills addObject:skill];

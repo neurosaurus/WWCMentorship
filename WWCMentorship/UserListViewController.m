@@ -18,6 +18,7 @@
 @interface UserListViewController ()
 
 @property (nonatomic, strong, readwrite) REMenu *menu;
+@property (nonatomic, strong) User *me;
 @property (nonatomic, strong) NSMutableArray *skills;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *users;
@@ -53,8 +54,22 @@
         
     // otherwise, present user list view controller
     } else {
+        
         PFQuery *query = [PFQuery queryWithClassName:@"_User"];
         PFObject *userObject = [query getObjectWithId:user.objectId];
+        
+        NSDictionary *parameters = @{@"pfUser" : userObject,
+                                     @"objectId" : user.objectId,
+                                     @"username" : userObject[@"username"],
+                                     @"email" : userObject[@"email"],
+                                     @"firstName" : userObject[@"firstName"],
+                                     @"lastName" : userObject[@"lastName"],
+                                     @"summary" : userObject[@"summary"],
+                                     @"isMentor" : userObject[@"isMentor"]};
+        
+        self.me = [[User alloc] init];
+        [self.me setUserWithDictionary:parameters];
+        
         NSNumber *isMentorNumber = (NSNumber *) [userObject objectForKey:@"isMentor"];
         int isMentor = [isMentorNumber intValue];
         if (isMentor == 1) {
@@ -325,23 +340,8 @@
                                                      NSLog(@"item: %@", item);
                                                      NSLog(@"showing profile");
                                                      
-                                                     PFUser *user = [PFUser currentUser];
-                                                     PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
-                                                     PFObject *fullUserObject = [userQuery getObjectWithId:user.objectId];
-                                                     
-                                                     NSDictionary *parameters = @{@"pfUser" : fullUserObject,
-                                                                                  @"objectId" : user.objectId,
-                                                                                  @"username" : fullUserObject[@"username"],
-                                                                                  @"email" : fullUserObject[@"email"],
-                                                                                  @"firstName" : fullUserObject[@"firstName"],
-                                                                                  @"lastName" : fullUserObject[@"lastName"],
-                                                                                  @"summary" : fullUserObject[@"summary"],
-                                                                                  @"isMentor" : fullUserObject[@"isMentor"]};
-                                                     
                                                      ProfileViewController *pvc = [[ProfileViewController alloc] init];
-                                                     User *myself = [[User alloc] init];
-                                                     [myself setUserWithDictionary:parameters];
-                                                     pvc.user = myself;
+                                                     pvc.user = self.me;
                                                      pvc.isSelf = YES;
                                                      
                                                      [self.navigationController pushViewController:pvc animated:NO];

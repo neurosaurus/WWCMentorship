@@ -17,6 +17,7 @@
 
 @interface ProfileViewController ()
 
+@property (nonatomic, strong) User *me;
 @property (nonatomic, strong, readwrite) REMenu *menu;
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
@@ -65,7 +66,26 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
     
     // hide contact button if looking at self
-    [self.contactButton setHidden:YES];
+    if (self.isSelf) {
+        [self.contactButton setHidden:YES];
+    }
+    
+    PFUser *myself = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    PFObject *userObject = [query getObjectWithId:myself.objectId];
+    PFObject *fullUserObject = userObject;
+    
+    NSDictionary *parameters = @{@"pfUser" : fullUserObject,
+                                 @"objectId" : myself.objectId,
+                                 @"username" : fullUserObject[@"username"],
+                                 @"email" : fullUserObject[@"email"],
+                                 @"firstName" : fullUserObject[@"firstName"],
+                                 @"lastName" : fullUserObject[@"lastName"],
+                                 @"summary" : fullUserObject[@"summary"],
+                                 @"isMentor" : fullUserObject[@"isMentor"]};
+    
+    self.me = [[User alloc] init];
+    [self.me setUserWithDictionary:parameters];
     
     User *user = self.user;
     self.name.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
@@ -75,12 +95,14 @@
     NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];
     [self.avatar setImageWithURL:tim]; // user.avatarURL
     
-    NSArray *skills;
+    NSArray *skills = user.skills;
     if (user.menteeSkills) {
         skills = user.menteeSkills;
     } else if (user.mentorSkills) {
         skills = user.mentorSkills;
     }
+    NSLog(@"this is %@", self.name.text);
+    NSLog(@"skills: %@", skills);
     NSArray *skillLabels = @[self.skill1, self.skill2, self.skill3, self.skill4, self.skill5, self.skill6];
     for (int i = 0; i < skillLabels.count; i++) {
         UILabel *skill = skillLabels[i];
@@ -151,21 +173,22 @@
                                                          NSLog(@"showing profile");
                                                          
                                                          if (!self.isSelf) {
-                                                             PFObject *fullUserObject = userObject;
-                                                             
-                                                             NSDictionary *parameters = @{@"pfUser" : fullUserObject,
-                                                                                          @"objectId" : user.objectId,
-                                                                                          @"username" : fullUserObject[@"username"],
-                                                                                          @"email" : fullUserObject[@"email"],
-                                                                                          @"firstName" : fullUserObject[@"firstName"],
-                                                                                          @"lastName" : fullUserObject[@"lastName"],
-                                                                                          @"summary" : fullUserObject[@"summary"],
-                                                                                          @"isMentor" : fullUserObject[@"isMentor"]};
+//                                                             PFObject *fullUserObject = userObject;
+//                                                             
+//                                                             NSDictionary *parameters = @{@"pfUser" : fullUserObject,
+//                                                                                          @"objectId" : user.objectId,
+//                                                                                          @"username" : fullUserObject[@"username"],
+//                                                                                          @"email" : fullUserObject[@"email"],
+//                                                                                          @"firstName" : fullUserObject[@"firstName"],
+//                                                                                          @"lastName" : fullUserObject[@"lastName"],
+//                                                                                          @"summary" : fullUserObject[@"summary"],
+//                                                                                          @"isMentor" : fullUserObject[@"isMentor"]};
+//                                                             
+//                                                             User *myself = [[User alloc] init];
+//                                                             [myself setUserWithDictionary:parameters];
                                                              
                                                              ProfileViewController *pvc = [[ProfileViewController alloc] init];
-                                                             User *myself = [[User alloc] init];
-                                                             [myself setUserWithDictionary:parameters];
-                                                             pvc.user = myself;
+                                                             pvc.user = self.me;
                                                              pvc.isSelf = YES;
                                                              
                                                              [self.navigationController pushViewController:pvc animated:NO];
