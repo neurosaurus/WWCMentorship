@@ -269,7 +269,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     User *user = self.users[indexPath.row];
-    NSLog(@"the chosen one: %@", user.firstName);
     
     ProfileViewController *pvc = [[ProfileViewController alloc] init];
     pvc.user = user;
@@ -330,7 +329,8 @@
                                                      PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
                                                      PFObject *fullUserObject = [userQuery getObjectWithId:user.objectId];
                                                      
-                                                     NSDictionary *parameters = @{@"objectId" : user.objectId,
+                                                     NSDictionary *parameters = @{@"pfUser" : fullUserObject,
+                                                                                  @"objectId" : user.objectId,
                                                                                   @"username" : fullUserObject[@"username"],
                                                                                   @"email" : fullUserObject[@"email"],
                                                                                   @"firstName" : fullUserObject[@"firstName"],
@@ -341,7 +341,6 @@
                                                      ProfileViewController *pvc = [[ProfileViewController alloc] init];
                                                      User *myself = [[User alloc] init];
                                                      [myself setUserWithDictionary:parameters];
-                                                     NSLog(@"user/myself: %@", myself);
                                                      pvc.user = myself;
                                                      pvc.isSelf = YES;
                                                      

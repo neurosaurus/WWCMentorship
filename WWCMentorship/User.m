@@ -34,15 +34,14 @@
 
 - (void)loadSkills {
     NSMutableArray *skills = [[NSMutableArray alloc] init];
+    NSLog(@"pfUser: %@", self.pfUser);
     
     // retrieve current user's skills
     PFQuery *skillQuery = [PFQuery queryWithClassName:@"Skills"];
     [skillQuery whereKey:@"UserID" equalTo:self.pfUser];
-    NSLog(@"finding skills for user %@", self.objectId);
     [skillQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects) {
             // save skill names
-            NSLog(@"skills of user: %@", objects);
             for (PFObject *skillObject in objects) {
                 NSString *skill = skillObject[@"Name"];
                 [skills addObject:skill];

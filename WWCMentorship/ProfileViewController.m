@@ -76,27 +76,18 @@
     [self.avatar setImageWithURL:tim]; // user.avatarURL
     
     NSArray *skills;
-    NSLog(@"skillz: %@", user.skills);
-    NSLog(@"skillz/mentee: %@", user.menteeSkills);
-    NSLog(@"skillz/mentor: %@", user.mentorSkills);
     if (user.menteeSkills) {
         skills = user.menteeSkills;
-        NSLog(@"mentee skills: %@", user.menteeSkills);
     } else if (user.mentorSkills) {
         skills = user.mentorSkills;
-        NSLog(@"mentor skills: %@", user.mentorSkills);
     }
     NSArray *skillLabels = @[self.skill1, self.skill2, self.skill3, self.skill4, self.skill5, self.skill6];
-    NSLog(@"about to go into for loop");
     for (int i = 0; i < skillLabels.count; i++) {
-        NSLog(@"this is i: %d", i);
         UILabel *skill = skillLabels[i];
         if (i < skills.count) {
             skill.text = skills[i];
-            NSLog(@"setting text to be %@", skill.text);
         } else {
             [skill setHidden:YES];
-            NSLog(@"hiding skill");
         }
     }
 }
@@ -158,6 +149,27 @@
                                                      action:^(REMenuItem *item) {
                                                          NSLog(@"item: %@", item);
                                                          NSLog(@"showing profile");
+                                                         
+                                                         if (!self.isSelf) {
+                                                             PFObject *fullUserObject = userObject;
+                                                             
+                                                             NSDictionary *parameters = @{@"pfUser" : fullUserObject,
+                                                                                          @"objectId" : user.objectId,
+                                                                                          @"username" : fullUserObject[@"username"],
+                                                                                          @"email" : fullUserObject[@"email"],
+                                                                                          @"firstName" : fullUserObject[@"firstName"],
+                                                                                          @"lastName" : fullUserObject[@"lastName"],
+                                                                                          @"summary" : fullUserObject[@"summary"],
+                                                                                          @"isMentor" : fullUserObject[@"isMentor"]};
+                                                             
+                                                             ProfileViewController *pvc = [[ProfileViewController alloc] init];
+                                                             User *myself = [[User alloc] init];
+                                                             [myself setUserWithDictionary:parameters];
+                                                             pvc.user = myself;
+                                                             pvc.isSelf = YES;
+                                                             
+                                                             [self.navigationController pushViewController:pvc animated:NO];
+                                                         }
                                                      }];
     
     REMenuItem *potentials = [[REMenuItem alloc] initWithTitle:@"Explore"
@@ -216,22 +228,6 @@
     
     self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, signOut]];
 }
-
-//- (void)loadUser {
-//    PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
-//    PFObject *fullUserObject = [userQuery getObjectWithId:self.userId];
-//    
-//    NSDictionary *parameters = @{@"objectId" : self.userId,
-//                                 @"username" : fullUserObject[@"username"],
-//                                 @"email" : fullUserObject[@"email"],
-//                                 @"firstName" : fullUserObject[@"firstName"],
-//                                 @"lastName" : fullUserObject[@"lastName"],
-//                                 @"summary" : fullUserObject[@"summary"],
-//                                 @"isMentor" : fullUserObject[@"isMentor"]};
-//    User *myself = [[User alloc] init];
-//    [myself setUserWithDictionary:parameters];
-//    [self setUser:myself];
-//}
 
 - (void)loadUser:(User *)user {
     self.user = user;
