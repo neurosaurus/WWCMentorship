@@ -76,18 +76,27 @@
     [self.avatar setImageWithURL:tim]; // user.avatarURL
     
     NSArray *skills;
+    NSLog(@"skillz: %@", user.skills);
+    NSLog(@"skillz/mentee: %@", user.menteeSkills);
+    NSLog(@"skillz/mentor: %@", user.mentorSkills);
     if (user.menteeSkills) {
         skills = user.menteeSkills;
+        NSLog(@"mentee skills: %@", user.menteeSkills);
     } else if (user.mentorSkills) {
         skills = user.mentorSkills;
+        NSLog(@"mentor skills: %@", user.mentorSkills);
     }
     NSArray *skillLabels = @[self.skill1, self.skill2, self.skill3, self.skill4, self.skill5, self.skill6];
-    for (int i = 0; i == skillLabels.count; i++) {
+    NSLog(@"about to go into for loop");
+    for (int i = 0; i < skillLabels.count; i++) {
+        NSLog(@"this is i: %d", i);
         UILabel *skill = skillLabels[i];
-        if (skills[i]) {
+        if (i < skills.count) {
             skill.text = skills[i];
+            NSLog(@"setting text to be %@", skill.text);
         } else {
             [skill setHidden:YES];
+            NSLog(@"hiding skill");
         }
     }
 }

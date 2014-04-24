@@ -11,6 +11,7 @@
 @implementation User
 
 - (void)setUserWithDictionary:(NSDictionary *)userDictionary {
+    self.pfUser = userDictionary[@"pfUser"];
     self.userDictionary = userDictionary;
     self.objectId = userDictionary[@"objectId"];
     self.username = userDictionary[@"username"];
@@ -36,15 +37,18 @@
     
     // retrieve current user's skills
     PFQuery *skillQuery = [PFQuery queryWithClassName:@"Skills"];
-    [skillQuery whereKey:@"UserID" equalTo:self.objectId];
+    [skillQuery whereKey:@"UserID" equalTo:self.pfUser];
+    NSLog(@"finding skills for user %@", self.objectId);
     [skillQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects) {
             // save skill names
+            NSLog(@"skills of user: %@", objects);
             for (PFObject *skillObject in objects) {
                 NSString *skill = skillObject[@"Name"];
                 [skills addObject:skill];
             }
             
+            self.skills = skills;
             // save skills in right property
             if (self.isMentor) {
                 self.mentorSkills = skills;
