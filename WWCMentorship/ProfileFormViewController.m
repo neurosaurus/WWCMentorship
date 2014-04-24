@@ -35,12 +35,19 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    // hide navigation bar
+    self.navigationController.navigationBarHidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    // unhide navigation bar
+    self.navigationController.navigationBarHidden = NO;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // hide navigation bar
-    [self.navigationController.navigationBar setHidden:YES];
     
     NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
     NSString *bundleName = [NSString stringWithFormat:@"%@", [info objectForKey:@"CFbundleDisplayName"]];

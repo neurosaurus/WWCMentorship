@@ -55,6 +55,9 @@
     // otherwise, present user list view controller
     } else {
         
+        [self.skills removeAllObjects];
+        [self.users removeAllObjects];
+        
         PFQuery *query = [PFQuery queryWithClassName:@"_User"];
         PFObject *userObject = [query getObjectWithId:user.objectId];
         
@@ -295,7 +298,10 @@
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
     NSLog(@"i'm in!");
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [self dismissViewControllerAnimated:YES completion:^{
+        NSLog(@"dismissed");
+    }];
 }
 
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {

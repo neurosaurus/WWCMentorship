@@ -23,12 +23,19 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    // hide navigation bar
+    self.navigationController.navigationBarHidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    // unhide navigation bar
+    self.navigationController.navigationBarHidden = NO;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // hide navigation bar
-    [self.navigationController.navigationBar setHidden:YES];
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"WWC Icon"]];
     self.logInView.usernameField.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];
