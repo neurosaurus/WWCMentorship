@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DC172F9297F84073BE2E6349"
-               BuildableName = "libPods-LPPopupListView.a"
-               BlueprintName = "Pods-LPPopupListView"
+               BlueprintIdentifier = "3B6E98AC3CA94F5BB6A6178D"
+               BuildableName = "libPods-TPKeyboardAvoiding.a"
+               BlueprintName = "Pods-TPKeyboardAvoiding"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
