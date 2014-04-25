@@ -26,6 +26,6 @@
 @property (nonatomic, strong) NSArray *skills;
 
 - (void)setUserWithDictionary:(NSDictionary *)userDictionary;
-- (void)loadSkills;
+- (void)loadSkills:(PFUser *)user;
 
 @end

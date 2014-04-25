@@ -9,6 +9,7 @@
 #import "UserListViewController.h"
 #import "ProfileViewController.h"
 #import "ProfileFormViewController.h"
+#import "MessageListViewController.h"
 #import "CustomParseLoginViewController.h"
 #import "CustomParseSignupViewController.h"
 #import "User.h"
@@ -205,6 +206,7 @@
                                                          @"isMentor" : fullUserObject[@"isMentor"]};
                             NSLog(@"params: %@", parameters);
                             User *potentialMatch = [[User alloc] init];
+                            [potentialMatch loadSkills:(PFUser *)fullUserObject];
                             [potentialMatch setUserWithDictionary:parameters];
                             [self.users addObject:potentialMatch];
                         }
@@ -266,10 +268,10 @@
                                                  @"isMentor" : fullUserObject[@"isMentor"]};
                     NSLog(@"params: %@", parameters);
                     User *actualMatch = [[User alloc] init];
+                    [actualMatch loadSkills:(PFUser *)fullUserObject];
                     [actualMatch setUserWithDictionary:parameters];
                     [self.users addObject:actualMatch];
                 }
-                
                 [self.tableView reloadData];
         } else if (error) {
             NSLog(@"error in retrieving %@: %@", type, error.description);
@@ -403,6 +405,18 @@
                                                             }
                                                         }];
     
+    REMenuItem *messages = [[REMenuItem alloc] initWithTitle:@"Messages"
+                                                   subtitle:@"View Your Messages"
+                                                      image:nil
+                                           highlightedImage:nil
+                                                     action:^(REMenuItem *item) {
+                                                         NSLog(@"item: %@", item);
+                                                         NSLog(@"showing messages");
+                                                         
+                                                         MessageListViewController *mlvc = [[MessageListViewController alloc] init];
+                                                         [self.navigationController pushViewController:mlvc animated:NO];
+                                                     }];
+    
     REMenuItem *signOut = [[REMenuItem alloc] initWithTitle:@"Sign Out"
                                                subtitle:nil
                                                   image:nil
@@ -423,7 +437,15 @@
                                                      [self.navigationController pushViewController:pflvc animated:NO];
                                                  }];
     
-    self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, signOut]];
+    self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, messages, signOut]];
+    UIColor * color = [UIColor colorWithRed:33/255.0f green:33/255.0f blue:33/255.0f alpha:1.0f];
+    self.menu.backgroundColor = color;
+    self.menu.textColor = [UIColor whiteColor];
+    self.menu.subtitleTextColor = [UIColor whiteColor];
+    self.menu.separatorColor = [UIColor colorWithWhite:1.0 alpha:0.3];
+    self.menu.shadowOffset = CGSizeZero;
+    self.menu.subtitleTextShadowOffset = CGSizeZero;
+    self.menu.separatorHeight = 0.8;
 }
 
 @end

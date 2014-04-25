@@ -21,7 +21,7 @@
     self.summary = userDictionary[@"summary"];
     self.avatarURL = [NSURL URLWithString:userDictionary[@"avatarURL"]];
     
-    [self loadSkills];
+    //[self loadSkills];
     
     NSNumber *isMentorNumber = (NSNumber *) userDictionary[@"isMentor"];
     int isMentorInt = [isMentorNumber intValue];
@@ -32,13 +32,12 @@
     }
 }
 
-- (void)loadSkills {
+- (void)loadSkills:(PFUser *)user {
     NSMutableArray *skills = [[NSMutableArray alloc] init];
-    NSLog(@"pfUser: %@", self.pfUser);
     
     // retrieve current user's skills
     PFQuery *skillQuery = [PFQuery queryWithClassName:@"Skills"];
-    [skillQuery whereKey:@"UserID" equalTo:self.pfUser];
+    [skillQuery whereKey:@"UserID" equalTo:user];
     [skillQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects) {
             // save skill names
@@ -48,8 +47,9 @@
                 NSString *skill = skillObject[@"Name"];
                 [skills addObject:skill];
             }
-            
+
             self.skills = skills;
+            NSLog(@"skills: %@", self.skills);
             // save skills in right property
             if (self.isMentor) {
                 self.mentorSkills = skills;

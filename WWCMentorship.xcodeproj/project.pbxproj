@@ -13,6 +13,16 @@
 		900D56BB18FA0A87009EE8B5 /* FBMissingSymbols.m in Sources */ = {isa = PBXBuildFile; fileRef = 900D56BA18FA0A87009EE8B5 /* FBMissingSymbols.m */; };
 		902F513118FF665D00637BB1 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902F512F18FF665D00637BB1 /* UserCell.m */; };
 		902F513218FF665D00637BB1 /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 902F513018FF665D00637BB1 /* UserCell.xib */; };
+		90A0F39C190A124B009B160C /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A0F39A190A124B009B160C /* ComposeViewController.m */; };
+		90A0F39D190A124B009B160C /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90A0F39B190A124B009B160C /* ComposeViewController.xib */; };
+		90A0F3AA190A1C94009B160C /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A0F3A0190A1C94009B160C /* ChatController.m */; };
+		90A0F3AB190A1C94009B160C /* ChatInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A0F3A2190A1C94009B160C /* ChatInput.m */; };
+		90A0F3AC190A1C94009B160C /* License in Resources */ = {isa = PBXBuildFile; fileRef = 90A0F3A3190A1C94009B160C /* License */; };
+		90A0F3AD190A1C94009B160C /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A0F3A5190A1C94009B160C /* MessageCell.m */; };
+		90A0F3AE190A1C94009B160C /* Previous.png in Resources */ = {isa = PBXBuildFile; fileRef = 90A0F3A7190A1C94009B160C /* Previous.png */; };
+		90A0F3AF190A1C94009B160C /* TopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A0F3A9190A1C94009B160C /* TopBar.m */; };
+		90A0F3B8190A3500009B160C /* MessageRowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A0F3B6190A3500009B160C /* MessageRowCell.m */; };
+		90A0F3B9190A3500009B160C /* MessageRowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90A0F3B7190A3500009B160C /* MessageRowCell.xib */; };
 		90A8FC9719063354003603B1 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A8FC9619063354003603B1 /* User.m */; };
 		EB8798C318F3A36800B9CF72 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8798C218F3A36800B9CF72 /* Parse.framework */; };
 		EB8798C518F3A3B000B9CF72 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8798C418F3A3B000B9CF72 /* AudioToolbox.framework */; };
@@ -32,8 +42,6 @@
 		EBE0B23318F9F2B800E2122E /* MessageListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B23118F9F2B800E2122E /* MessageListViewController.xib */; };
 		EBE0B24618F9F2E400E2122E /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B24418F9F2E400E2122E /* UserListViewController.m */; };
 		EBE0B24718F9F2E400E2122E /* UserListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B24518F9F2E400E2122E /* UserListViewController.xib */; };
-		EBE0B24B18F9F2F200E2122E /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B24918F9F2F200E2122E /* MessageViewController.m */; };
-		EBE0B24C18F9F2F200E2122E /* MessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B24A18F9F2F200E2122E /* MessageViewController.xib */; };
 		EBE794B818EC78FA00733D5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE794B718EC78F900733D5F /* Foundation.framework */; };
 		EBE794BA18EC78FA00733D5F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE794B918EC78FA00733D5F /* CoreGraphics.framework */; };
 		EBE794BC18EC78FA00733D5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE794BB18EC78FA00733D5F /* UIKit.framework */; };
@@ -67,6 +75,23 @@
 		902F512E18FF665D00637BB1 /* UserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCell.h; sourceTree = "<group>"; };
 		902F512F18FF665D00637BB1 /* UserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
 		902F513018FF665D00637BB1 /* UserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCell.xib; sourceTree = "<group>"; };
+		90A0F399190A124B009B160C /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
+		90A0F39A190A124B009B160C /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
+		90A0F39B190A124B009B160C /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
+		90A0F39F190A1C94009B160C /* ChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatController.h; sourceTree = "<group>"; };
+		90A0F3A0190A1C94009B160C /* ChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatController.m; sourceTree = "<group>"; };
+		90A0F3A1190A1C94009B160C /* ChatInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatInput.h; sourceTree = "<group>"; };
+		90A0F3A2190A1C94009B160C /* ChatInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatInput.m; sourceTree = "<group>"; };
+		90A0F3A3190A1C94009B160C /* License */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License; sourceTree = "<group>"; };
+		90A0F3A4190A1C94009B160C /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
+		90A0F3A5190A1C94009B160C /* MessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCell.m; sourceTree = "<group>"; };
+		90A0F3A6190A1C94009B160C /* MyMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMacros.h; sourceTree = "<group>"; };
+		90A0F3A7190A1C94009B160C /* Previous.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Previous.png; sourceTree = "<group>"; };
+		90A0F3A8190A1C94009B160C /* TopBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopBar.h; sourceTree = "<group>"; };
+		90A0F3A9190A1C94009B160C /* TopBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopBar.m; sourceTree = "<group>"; };
+		90A0F3B5190A3500009B160C /* MessageRowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageRowCell.h; sourceTree = "<group>"; };
+		90A0F3B6190A3500009B160C /* MessageRowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageRowCell.m; sourceTree = "<group>"; };
+		90A0F3B7190A3500009B160C /* MessageRowCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageRowCell.xib; sourceTree = "<group>"; };
 		90A8FC9519063354003603B1 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		90A8FC9619063354003603B1 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		D00B8A0CF10D4A8EA28288E5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -92,9 +117,6 @@
 		EBE0B24318F9F2E400E2122E /* UserListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListViewController.h; sourceTree = "<group>"; };
 		EBE0B24418F9F2E400E2122E /* UserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListViewController.m; sourceTree = "<group>"; };
 		EBE0B24518F9F2E400E2122E /* UserListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserListViewController.xib; sourceTree = "<group>"; };
-		EBE0B24818F9F2F200E2122E /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
-		EBE0B24918F9F2F200E2122E /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
-		EBE0B24A18F9F2F200E2122E /* MessageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageViewController.xib; sourceTree = "<group>"; };
 		EBE794B418EC78F900733D5F /* WWCMentorship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWCMentorship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE794B718EC78F900733D5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EBE794B918EC78FA00733D5F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -155,6 +177,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		90A0F39E190A1C94009B160C /* ChatController */ = {
+			isa = PBXGroup;
+			children = (
+				90A0F39F190A1C94009B160C /* ChatController.h */,
+				90A0F3A0190A1C94009B160C /* ChatController.m */,
+				90A0F3A1190A1C94009B160C /* ChatInput.h */,
+				90A0F3A2190A1C94009B160C /* ChatInput.m */,
+				90A0F3A3190A1C94009B160C /* License */,
+				90A0F3A4190A1C94009B160C /* MessageCell.h */,
+				90A0F3A5190A1C94009B160C /* MessageCell.m */,
+				90A0F3A6190A1C94009B160C /* MyMacros.h */,
+				90A0F3A7190A1C94009B160C /* Previous.png */,
+				90A0F3A8190A1C94009B160C /* TopBar.h */,
+				90A0F3A9190A1C94009B160C /* TopBar.m */,
+			);
+			path = ChatController;
+			sourceTree = "<group>";
+		};
 		EB06982A1900DDC90054175E /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +210,9 @@
 				902F512E18FF665D00637BB1 /* UserCell.h */,
 				902F512F18FF665D00637BB1 /* UserCell.m */,
 				902F513018FF665D00637BB1 /* UserCell.xib */,
+				90A0F3B5190A3500009B160C /* MessageRowCell.h */,
+				90A0F3B6190A3500009B160C /* MessageRowCell.m */,
+				90A0F3B7190A3500009B160C /* MessageRowCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -193,9 +236,9 @@
 				EBE0B24318F9F2E400E2122E /* UserListViewController.h */,
 				EBE0B24418F9F2E400E2122E /* UserListViewController.m */,
 				EBE0B24518F9F2E400E2122E /* UserListViewController.xib */,
-				EBE0B24818F9F2F200E2122E /* MessageViewController.h */,
-				EBE0B24918F9F2F200E2122E /* MessageViewController.m */,
-				EBE0B24A18F9F2F200E2122E /* MessageViewController.xib */,
+				90A0F399190A124B009B160C /* ComposeViewController.h */,
+				90A0F39A190A124B009B160C /* ComposeViewController.m */,
+				90A0F39B190A124B009B160C /* ComposeViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -262,6 +305,7 @@
 		EBE794BE18EC78FA00733D5F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				90A0F39E190A1C94009B160C /* ChatController */,
 				EBE794BF18EC78FA00733D5F /* WWCMentorship-Info.plist */,
 				EBE794C018EC78FA00733D5F /* InfoPlist.strings */,
 				EBE794C318EC78FA00733D5F /* main.m */,
@@ -365,13 +409,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90A0F3B9190A3500009B160C /* MessageRowCell.xib in Resources */,
 				EBE0B22E18F9F2A800E2122E /* ProfileFormViewController.xib in Resources */,
-				EBE0B24C18F9F2F200E2122E /* MessageViewController.xib in Resources */,
+				90A0F3AE190A1C94009B160C /* Previous.png in Resources */,
+				90A0F39D190A124B009B160C /* ComposeViewController.xib in Resources */,
 				EBE0B23318F9F2B800E2122E /* MessageListViewController.xib in Resources */,
 				EBE0B24718F9F2E400E2122E /* UserListViewController.xib in Resources */,
 				EB8798DA18F3A46C00B9CF72 /* ProfileViewController.xib in Resources */,
 				902F513218FF665D00637BB1 /* UserCell.xib in Resources */,
 				EBE794C218EC78FA00733D5F /* InfoPlist.strings in Resources */,
+				90A0F3AC190A1C94009B160C /* License in Resources */,
 				EBE794CA18EC78FA00733D5F /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,11 +476,16 @@
 				EBE794C818EC78FA00733D5F /* AppDelegate.m in Sources */,
 				900D56BB18FA0A87009EE8B5 /* FBMissingSymbols.m in Sources */,
 				EBE0B24618F9F2E400E2122E /* UserListViewController.m in Sources */,
+				90A0F3AA190A1C94009B160C /* ChatController.m in Sources */,
 				EB8798D918F3A46C00B9CF72 /* ProfileViewController.m in Sources */,
-				EBE0B24B18F9F2F200E2122E /* MessageViewController.m in Sources */,
+				90A0F3AF190A1C94009B160C /* TopBar.m in Sources */,
+				90A0F3B8190A3500009B160C /* MessageRowCell.m in Sources */,
 				EBE0B22D18F9F2A800E2122E /* ProfileFormViewController.m in Sources */,
+				90A0F3AB190A1C94009B160C /* ChatInput.m in Sources */,
 				90A8FC9719063354003603B1 /* User.m in Sources */,
 				EBE794C418EC78FA00733D5F /* main.m in Sources */,
+				90A0F39C190A124B009B160C /* ComposeViewController.m in Sources */,
+				90A0F3AD190A1C94009B160C /* MessageCell.m in Sources */,
 				EBEA220E1904839A00F9880C /* CustomParseLoginViewController.m in Sources */,
 				902F513118FF665D00637BB1 /* UserCell.m in Sources */,
 			);
