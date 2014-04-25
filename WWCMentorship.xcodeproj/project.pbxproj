@@ -32,8 +32,6 @@
 		EBE0B23318F9F2B800E2122E /* MessageListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B23118F9F2B800E2122E /* MessageListViewController.xib */; };
 		EBE0B24618F9F2E400E2122E /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B24418F9F2E400E2122E /* UserListViewController.m */; };
 		EBE0B24718F9F2E400E2122E /* UserListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B24518F9F2E400E2122E /* UserListViewController.xib */; };
-		EBE0B24B18F9F2F200E2122E /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B24918F9F2F200E2122E /* MessageViewController.m */; };
-		EBE0B24C18F9F2F200E2122E /* MessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B24A18F9F2F200E2122E /* MessageViewController.xib */; };
 		EBE794B818EC78FA00733D5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE794B718EC78F900733D5F /* Foundation.framework */; };
 		EBE794BA18EC78FA00733D5F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE794B918EC78FA00733D5F /* CoreGraphics.framework */; };
 		EBE794BC18EC78FA00733D5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE794BB18EC78FA00733D5F /* UIKit.framework */; };
@@ -92,9 +90,6 @@
 		EBE0B24318F9F2E400E2122E /* UserListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListViewController.h; sourceTree = "<group>"; };
 		EBE0B24418F9F2E400E2122E /* UserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListViewController.m; sourceTree = "<group>"; };
 		EBE0B24518F9F2E400E2122E /* UserListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserListViewController.xib; sourceTree = "<group>"; };
-		EBE0B24818F9F2F200E2122E /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
-		EBE0B24918F9F2F200E2122E /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
-		EBE0B24A18F9F2F200E2122E /* MessageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageViewController.xib; sourceTree = "<group>"; };
 		EBE794B418EC78F900733D5F /* WWCMentorship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWCMentorship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE794B718EC78F900733D5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EBE794B918EC78FA00733D5F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -193,9 +188,6 @@
 				EBE0B24318F9F2E400E2122E /* UserListViewController.h */,
 				EBE0B24418F9F2E400E2122E /* UserListViewController.m */,
 				EBE0B24518F9F2E400E2122E /* UserListViewController.xib */,
-				EBE0B24818F9F2F200E2122E /* MessageViewController.h */,
-				EBE0B24918F9F2F200E2122E /* MessageViewController.m */,
-				EBE0B24A18F9F2F200E2122E /* MessageViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -366,7 +358,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBE0B22E18F9F2A800E2122E /* ProfileFormViewController.xib in Resources */,
-				EBE0B24C18F9F2F200E2122E /* MessageViewController.xib in Resources */,
 				EBE0B23318F9F2B800E2122E /* MessageListViewController.xib in Resources */,
 				EBE0B24718F9F2E400E2122E /* UserListViewController.xib in Resources */,
 				EB8798DA18F3A46C00B9CF72 /* ProfileViewController.xib in Resources */,
@@ -430,7 +421,6 @@
 				900D56BB18FA0A87009EE8B5 /* FBMissingSymbols.m in Sources */,
 				EBE0B24618F9F2E400E2122E /* UserListViewController.m in Sources */,
 				EB8798D918F3A46C00B9CF72 /* ProfileViewController.m in Sources */,
-				EBE0B24B18F9F2F200E2122E /* MessageViewController.m in Sources */,
 				EBE0B22D18F9F2A800E2122E /* ProfileFormViewController.m in Sources */,
 				90A8FC9719063354003603B1 /* User.m in Sources */,
 				EBE794C418EC78FA00733D5F /* main.m in Sources */,
