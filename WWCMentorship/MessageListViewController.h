@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "ChatController.h"
 
-@interface MessageListViewController : UIViewController < UITableViewDelegate, UITableViewDataSource >
+@interface MessageListViewController : UIViewController < UITableViewDelegate, UITableViewDataSource, ChatControllerDelegate >
+
+@property (nonatomic, strong) ChatController *chatController;
 
 @end
+

@@ -49,6 +49,9 @@
 {
     [super viewDidLoad];
     
+    // coloring
+    //self.view.backgroundColor = [UIColor blackColor];
+    
     NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
     NSString *bundleName = [NSString stringWithFormat:@"%@", [info objectForKey:@"CFbundleDisplayName"]];
     self.title = bundleName;

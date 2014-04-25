@@ -8,7 +8,9 @@
 
 #import "ProfileViewController.h"
 #import "UserListViewController.h"
+#import "MessageListViewController.h"
 #import "ProfileFormViewController.h"
+#import "ComposeViewController.h"
 #import "CustomParseLoginViewController.h"
 #import "CustomParseSignupViewController.h"
 
@@ -139,6 +141,36 @@
 }
 
 - (IBAction)onContactButton:(id)sender {
+    ComposeViewController *cvc = [[ComposeViewController alloc] init];
+    cvc.sender = self.me;
+    cvc.receiver = self.user;
+    [self.navigationController pushViewController:cvc animated:YES];
+}
+
+- (void)loadUser:(User *)user {
+    self.user = user;
+    self.name.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    self.summary.text = user.summary;
+    
+    // for testing only
+    NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];
+    [self.avatar setImageWithURL:tim]; // user.avatarURL
+    
+    NSArray *skills;
+    if (user.menteeSkills) {
+        skills = user.menteeSkills;
+    } else if (user.mentorSkills) {
+        skills = user.mentorSkills;
+    }
+    NSArray *skillLabels = @[self.skill1, self.skill2, self.skill3, self.skill4, self.skill5, self.skill6];
+    for (int i = 0; i == skillLabels.count; i++) {
+        UILabel *skill = skillLabels[i];
+        if (skills[i]) {
+            skill.text = skills[i];
+        } else {
+            [skill setHidden:YES];
+        }
+    }
 }
 
 # pragma mark - Navigation methods
@@ -233,6 +265,18 @@
                                                          [self.navigationController pushViewController:ulvc animated:NO];
                                                      }];
     
+    REMenuItem *messages = [[REMenuItem alloc] initWithTitle:@"Messages"
+                                                    subtitle:@"View Your Messages"
+                                                       image:nil
+                                            highlightedImage:nil
+                                                      action:^(REMenuItem *item) {
+                                                          NSLog(@"item: %@", item);
+                                                          NSLog(@"showing messages");
+                                                          
+                                                          MessageListViewController *mlvc = [[MessageListViewController alloc] init];
+                                                          [self.navigationController pushViewController:mlvc animated:NO];
+                                                      }];
+    
     REMenuItem *signOut = [[REMenuItem alloc] initWithTitle:@"Sign Out"
                                                    subtitle:nil
                                                       image:nil
@@ -253,33 +297,15 @@
                                                          [self.navigationController pushViewController:pflvc animated:NO];
                                                      }];
     
-    self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, signOut]];
-}
-
-- (void)loadUser:(User *)user {
-    self.user = user;
-    self.name.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
-    self.summary.text = user.summary;
-    
-    // for testing only
-    NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];
-    [self.avatar setImageWithURL:tim]; // user.avatarURL
-    
-    NSArray *skills;
-    if (user.menteeSkills) {
-        skills = user.menteeSkills;
-    } else if (user.mentorSkills) {
-        skills = user.mentorSkills;
-    }
-    NSArray *skillLabels = @[self.skill1, self.skill2, self.skill3, self.skill4, self.skill5, self.skill6];
-    for (int i = 0; i == skillLabels.count; i++) {
-        UILabel *skill = skillLabels[i];
-        if (skills[i]) {
-            skill.text = skills[i];
-        } else {
-            [skill setHidden:YES];
-        }
-    }
+    self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, messages, signOut]];
+    UIColor * color = [UIColor colorWithRed:33/255.0f green:33/255.0f blue:33/255.0f alpha:1.0f];
+    self.menu.backgroundColor = color;
+    self.menu.textColor = [UIColor whiteColor];
+    self.menu.subtitleTextColor = [UIColor whiteColor];
+    self.menu.separatorColor = [UIColor colorWithWhite:1.0 alpha:0.3];
+    self.menu.shadowOffset = CGSizeZero;
+    self.menu.subtitleTextShadowOffset = CGSizeZero;
+    self.menu.separatorHeight = 0.8;
 }
 
 @end

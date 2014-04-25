@@ -46,8 +46,10 @@
     } else if (user.mentorSkills) {
         skills = user.mentorSkills;
     }
+    NSLog(@"skills/cell: %@", skills);
     NSString *skillsText = [skills componentsJoinedByString:@", "];
-    self.skills.text = skillsText;
+    NSLog(@"skillsText: %@", skillsText);
+    self.skills.text = [NSString stringWithFormat:@"Skills: %@", skillsText];
     self.summary.text = user.summary;
     
     // for testing only
