@@ -10,7 +10,9 @@
 #import <Parse/Parse.h>
 #import "UserListViewController.h"
 #import "CustomParseLoginViewController.h"
+#import "CustomParseSignupViewController.h"
 #import "ProfileFormViewController.h"
+#import "ProfileViewController.h"
 
 @implementation AppDelegate
 
@@ -24,10 +26,12 @@
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
-    UserListViewController *ulvc = [[UserListViewController alloc] init];
-    UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:ulvc];
+    CustomParseSignupViewController *signup = [[CustomParseSignupViewController alloc] init];
+//    UserListViewController *ulvc = [[UserListViewController alloc] init];
+//    ProfileViewController *pvc = [[ProfileViewController alloc] init];
+    UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:pvc];
     
-    CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
+//    CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
     
     self.window.rootViewController = ulnc;
     self.window.backgroundColor = [UIColor whiteColor];

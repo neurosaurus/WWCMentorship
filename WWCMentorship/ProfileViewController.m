@@ -13,6 +13,7 @@
 #import "ComposeViewController.h"
 #import "CustomParseLoginViewController.h"
 #import "CustomParseSignupViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 #import "UIImageView+AFNetworking.h"
 #import "REMenu.h"
@@ -77,6 +78,10 @@
     self.skill5.textColor = [UIColor whiteColor];
     self.skill6.textColor = [UIColor whiteColor];
     self.contactButton.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
+
+    // set up navigation menu
+    [self setNavigationMenu];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
     
     // hide contact button if looking at self
     if (self.isSelf) {
