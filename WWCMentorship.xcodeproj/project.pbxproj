@@ -236,12 +236,9 @@
 				EBE0B24318F9F2E400E2122E /* UserListViewController.h */,
 				EBE0B24418F9F2E400E2122E /* UserListViewController.m */,
 				EBE0B24518F9F2E400E2122E /* UserListViewController.xib */,
-<<<<<<< HEAD
-=======
 				90A0F399190A124B009B160C /* ComposeViewController.h */,
 				90A0F39A190A124B009B160C /* ComposeViewController.m */,
 				90A0F39B190A124B009B160C /* ComposeViewController.xib */,
->>>>>>> work
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -414,11 +411,8 @@
 			files = (
 				90A0F3B9190A3500009B160C /* MessageRowCell.xib in Resources */,
 				EBE0B22E18F9F2A800E2122E /* ProfileFormViewController.xib in Resources */,
-<<<<<<< HEAD
-=======
 				90A0F3AE190A1C94009B160C /* Previous.png in Resources */,
 				90A0F39D190A124B009B160C /* ComposeViewController.xib in Resources */,
->>>>>>> work
 				EBE0B23318F9F2B800E2122E /* MessageListViewController.xib in Resources */,
 				EBE0B24718F9F2E400E2122E /* UserListViewController.xib in Resources */,
 				EB8798DA18F3A46C00B9CF72 /* ProfileViewController.xib in Resources */,
@@ -484,11 +478,8 @@
 				EBE0B24618F9F2E400E2122E /* UserListViewController.m in Sources */,
 				90A0F3AA190A1C94009B160C /* ChatController.m in Sources */,
 				EB8798D918F3A46C00B9CF72 /* ProfileViewController.m in Sources */,
-<<<<<<< HEAD
-=======
 				90A0F3AF190A1C94009B160C /* TopBar.m in Sources */,
 				90A0F3B8190A3500009B160C /* MessageRowCell.m in Sources */,
->>>>>>> work
 				EBE0B22D18F9F2A800E2122E /* ProfileFormViewController.m in Sources */,
 				90A0F3AB190A1C94009B160C /* ChatInput.m in Sources */,
 				90A8FC9719063354003603B1 /* User.m in Sources */,

@@ -27,9 +27,12 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
     CustomParseSignupViewController *signup = [[CustomParseSignupViewController alloc] init];
-//    UserListViewController *ulvc = [[UserListViewController alloc] init];
-//    ProfileViewController *pvc = [[ProfileViewController alloc] init];
-    UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:pvc];
+    CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
+    
+    UserListViewController *ulvc = [[UserListViewController alloc] init];
+    ProfileViewController *pvc = [[ProfileViewController alloc] init];
+    //UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:pvc];
+    UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:ulvc];
     
 //    CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
     
