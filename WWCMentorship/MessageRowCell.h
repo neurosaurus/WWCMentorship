@@ -10,4 +10,6 @@
 
 @interface MessageRowCell : UITableViewCell
 
+- (void)setPreview:(NSArray *)params;
+
 @end

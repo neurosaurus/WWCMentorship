@@ -89,22 +89,7 @@
     
     // grab user object for profile
     PFUser *myself = [PFUser currentUser];
-    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
-    PFObject *userObject = [query getObjectWithId:myself.objectId];
-    PFObject *fullUserObject = userObject;
-    
-    NSDictionary *parameters = @{@"pfUser" : fullUserObject,
-                                 @"objectId" : myself.objectId,
-                                 @"username" : fullUserObject[@"username"],
-                                 @"email" : fullUserObject[@"email"],
-                                 @"firstName" : fullUserObject[@"firstName"],
-                                 @"lastName" : fullUserObject[@"lastName"],
-                                 @"summary" : fullUserObject[@"summary"],
-                                 @"avatarURL" : fullUserObject[@"avatarURL"],
-                                 @"isMentor" : fullUserObject[@"isMentor"]};
-    
-    self.me = [[User alloc] init];
-    [self.me setUserWithDictionary:parameters];
+    self.me = [self convertToUser:myself.objectId];
     
     // set values
     User *user = self.user;
@@ -116,13 +101,8 @@
     [self.avatar setImageWithURL:user.avatarURL];
     
     NSArray *skills = user.skills;
-    if (user.menteeSkills) {
-        skills = user.menteeSkills;
-    } else if (user.mentorSkills) {
-        skills = user.mentorSkills;
-    }
-    NSLog(@"this is %@", self.name.text);
-    NSLog(@"skills: %@", skills);
+    //NSLog(@"this is %@", self.name.text);
+    //NSLog(@"skills: %@", skills);
     NSArray *skillLabels = @[self.skill1, self.skill2, self.skill3, self.skill4, self.skill5, self.skill6];
     for (int i = 0; i < skillLabels.count; i++) {
         UILabel *skill = skillLabels[i];
@@ -140,11 +120,33 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onContactButton:(id)sender {
-    ComposeViewController *cvc = [[ComposeViewController alloc] init];
-    cvc.sender = self.me;
-    cvc.receiver = self.user;
-    [self.navigationController pushViewController:cvc animated:YES];
+# pragma mark - Private methods
+
+- (User *)convertToUser:(NSString *)userId {
+    PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
+    PFObject *fullUserObject = [userQuery getObjectWithId:userId];
+    
+    NSDictionary *parameters = @{@"pfUser" : fullUserObject,
+                                 @"objectId" : userId,
+                                 @"username" : fullUserObject[@"username"],
+                                 @"email" : fullUserObject[@"email"],
+                                 @"firstName" : fullUserObject[@"firstName"],
+                                 @"lastName" : fullUserObject[@"lastName"],
+                                 @"summary" : fullUserObject[@"summary"],
+                                 @"avatarURL" : fullUserObject[@"avatarURL"],
+                                 @"isMentor" : fullUserObject[@"isMentor"],
+                                 @"skills" : fullUserObject[@"skills"]};
+    
+    User *user = [[User alloc] init];
+    //[user loadSkills:(PFUser *)fullUserObject];
+    [user setUserWithDictionary:parameters];
+    return user;
+}
+
+- (PFUser *)convertToPFUser:(NSString *)userId {
+    PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
+    PFObject *fullUserObject = [userQuery getObjectWithId:userId];
+    return (PFUser *) fullUserObject;
 }
 
 - (void)loadUser:(User *)user {
@@ -175,6 +177,22 @@
 
 # pragma mark - Navigation methods
 
+- (void)onMenu:(id)sender {
+    NSLog(@"let's go somewhere else");
+    if (self.menu.isOpen) {
+        return [self.menu close];
+    } else {
+        [self.menu showFromNavigationController:self.navigationController];
+    }
+}
+
+- (IBAction)onContactButton:(id)sender {
+    ComposeViewController *cvc = [[ComposeViewController alloc] init];
+    cvc.sender = self.me;
+    cvc.receiver = self.user;
+    [self.navigationController pushViewController:cvc animated:YES];
+}
+
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
     NSLog(@"i'm in!");
     [self.navigationController popToRootViewControllerAnimated:NO];
@@ -186,15 +204,6 @@
         ProfileFormViewController *pfvc = [[ProfileFormViewController alloc] init];
         [self.navigationController pushViewController:pfvc animated:NO];
     }];
-}
-
-- (void)onMenu:(id)sender {
-    NSLog(@"let's go somewhere else");
-    if (self.menu.isOpen) {
-        return [self.menu close];
-    } else {
-        [self.menu showFromNavigationController:self.navigationController];
-    }
 }
 
 - (void)setNavigationMenu {
