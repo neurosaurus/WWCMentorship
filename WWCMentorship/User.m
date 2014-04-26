@@ -20,6 +20,7 @@
     self.lastName = userDictionary[@"lastName"];
     self.summary = userDictionary[@"summary"];
     self.avatarURL = [NSURL URLWithString:userDictionary[@"avatarURL"]];
+    self.skills = userDictionary[@"skills"];
     
     //[self loadSkills];
     
@@ -30,6 +31,11 @@
     } else if (isMentorInt == 0){
         self.isMentor = NO;
     }
+}
+
+- (NSString *)name {
+    NSString *fullName = [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
+    return fullName;
 }
 
 - (void)loadSkills:(PFUser *)user {

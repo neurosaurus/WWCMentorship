@@ -39,16 +39,13 @@
     self.summary.textColor = [UIColor whiteColor];
     
     // set values
-    self.name.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    //self.name.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    self.name.text = user.name;
     NSArray *skills = user.skills;
-    if (user.menteeSkills) {
-        skills = user.menteeSkills;
-    } else if (user.mentorSkills) {
-        skills = user.mentorSkills;
-    }
-    NSLog(@"skills/cell: %@", skills);
+
+    //NSLog(@"skills/cell: %@", skills);
     NSString *skillsText = [skills componentsJoinedByString:@", "];
-    NSLog(@"skillsText: %@", skillsText);
+    //NSLog(@"skillsText: %@", skillsText);
     self.skills.text = [NSString stringWithFormat:@"Skills: %@", skillsText];
     self.summary.text = user.summary;
     

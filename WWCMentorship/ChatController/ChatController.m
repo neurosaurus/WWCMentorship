@@ -394,10 +394,9 @@ static int chatInputStartingHeight = 40;
     if (!message[kMessageRuntimeSentBy]) {
         
         // Random just for now, set at runtime
-        int sentByNumb = arc4random() % 2;
-        message[kMessageRuntimeSentBy] = [NSNumber numberWithInt:(sentByNumb == 0) ? kSentByOpponent : kSentByUser];
+        //int sentByNumb = arc4random() % 2;
+        //message[kMessageRuntimeSentBy] = [NSNumber numberWithInt:(sentByNumb == 0) ? kSentByOpponent : kSentByUser];
         
-        /* EXAMPLE IMPLEMENTATION
          // See if the sentBy associated with the message matches our currentUserId
          if ([_currentUserId isEqualToString:message[@"sentByUserId"]]) {
             message[kMessageRuntimeSentBy] = [NSNumber numberWithInt:kSentByUser];
@@ -405,7 +404,6 @@ static int chatInputStartingHeight = 40;
          else {
             message[kMessageRuntimeSentBy] = [NSNumber numberWithInt:kSentByOpponent];
          }
-         */
     }
     
     // Set the cell

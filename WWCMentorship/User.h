@@ -27,5 +27,6 @@
 
 - (void)setUserWithDictionary:(NSDictionary *)userDictionary;
 - (void)loadSkills:(PFUser *)user;
+- (NSString *)name;
 
 @end

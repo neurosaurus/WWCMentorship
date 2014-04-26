@@ -8,6 +8,13 @@
 
 #import "MessageRowCell.h"
 
+@interface MessageRowCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UILabel *message;
+
+@end
+
 @implementation MessageRowCell
 
 - (void)awakeFromNib
@@ -20,6 +27,11 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setPreview:(NSArray *)params {
+    self.name.text = params[0];
+    self.message.text = params[1];
 }
 
 @end

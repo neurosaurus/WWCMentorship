@@ -59,27 +59,13 @@
         [self.skills removeAllObjects];
         [self.users removeAllObjects];
         
-        PFQuery *query = [PFQuery queryWithClassName:@"_User"];
-        PFObject *userObject = [query getObjectWithId:user.objectId];
+        self.me = [self convertToUser:user.objectId];
         
-        NSDictionary *parameters = @{@"pfUser" : userObject,
-                                     @"objectId" : user.objectId,
-                                     @"username" : userObject[@"username"],
-                                     @"email" : userObject[@"email"],
-                                     @"firstName" : userObject[@"firstName"],
-                                     @"lastName" : userObject[@"lastName"],
-                                     @"summary" : userObject[@"summary"],
-                                     @"avatarURL" : userObject[@"avatarURL"],
-                                     @"isMentor" : userObject[@"isMentor"]};
-        
-        self.me = [[User alloc] init];
-        [self.me setUserWithDictionary:parameters];
-        
-        NSNumber *isMentorNumber = (NSNumber *) [userObject objectForKey:@"isMentor"];
-        int isMentor = [isMentorNumber intValue];
-        if (isMentor == 1) {
+        //NSNumber *isMentorNumber = (NSNumber *) [userObject objectForKey:@"isMentor"];
+        //int isMentor = [isMentorNumber intValue];
+        if (self.me.isMentor) {
             self.showMentor = NO;
-        } else if (isMentor == 0) {
+        } else {
             self.showMentor = YES;
         }
         
@@ -107,8 +93,8 @@
 {
     [super viewDidLoad];
     
-    PFUser *user = [PFUser currentUser];
-    NSLog(@"user is: %@", user);
+    //PFUser *user = [PFUser currentUser];
+    //NSLog(@"user is: %@", user);
     
     // coloring
     self.tableView.backgroundColor = [UIColor blackColor];
@@ -138,6 +124,34 @@
 }
 
 # pragma mark - Private methods
+
+- (User *)convertToUser:(NSString *)userId {
+    PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
+    PFObject *fullUserObject = [userQuery getObjectWithId:userId];
+
+    NSDictionary *parameters = @{@"pfUser" : fullUserObject,
+                                 @"objectId" : userId,
+                                 @"username" : fullUserObject[@"username"],
+                                 @"email" : fullUserObject[@"email"],
+                                 @"firstName" : fullUserObject[@"firstName"],
+                                 @"lastName" : fullUserObject[@"lastName"],
+                                 @"summary" : fullUserObject[@"summary"],
+                                 @"avatarURL" : fullUserObject[@"avatarURL"],
+                                 @"isMentor" : fullUserObject[@"isMentor"],
+                                 @"skills" : fullUserObject[@"skills"]};
+    
+    User *user = [[User alloc] init];
+    //[user loadSkills:(PFUser *)fullUserObject];
+    [user setUserWithDictionary:parameters];
+    return user;
+}
+
+- (PFUser *)convertToPFUser:(NSString *)userId {
+    PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
+    PFObject *fullUserObject = [userQuery getObjectWithId:userId];
+    //NSLog(@"retrieved user: %@", fullUserObject);
+    return (PFUser *) fullUserObject;
+}
 
 - (void)loadPotentials {
     PFUser *user = [PFUser currentUser];
@@ -191,23 +205,7 @@
         
                         // then retrieve full user objects for all userIds
                         for (NSString *userId in userIds) {
-                            PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
-                            PFObject *fullUserObject = [userQuery getObjectWithId:userId];
-                            NSLog(@"retrieved user: %@", fullUserObject);
-                            
-                            NSDictionary *parameters = @{@"pfUser" : fullUserObject,
-                                                         @"objectId" : userId,
-                                                         @"username" : fullUserObject[@"username"],
-                                                         @"email" : fullUserObject[@"email"],
-                                                         @"firstName" : fullUserObject[@"firstName"],
-                                                         @"lastName" : fullUserObject[@"lastName"],
-                                                         @"summary" : fullUserObject[@"summary"],
-                                                         @"avatarURL" : fullUserObject[@"avatarURL"],
-                                                         @"isMentor" : fullUserObject[@"isMentor"]};
-                            NSLog(@"params: %@", parameters);
-                            User *potentialMatch = [[User alloc] init];
-                            [potentialMatch loadSkills:(PFUser *)fullUserObject];
-                            [potentialMatch setUserWithDictionary:parameters];
+                            User *potentialMatch = [self convertToUser:userId];
                             [self.users addObject:potentialMatch];
                         }
                         
@@ -253,23 +251,7 @@
                 
                 // then retrieve full user objects for all userIds
                 for (NSString *userId in userIds) {
-                    PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
-                    PFObject *fullUserObject = [userQuery getObjectWithId:userId];
-                    NSLog(@"retrieved user: %@", fullUserObject);
-                    
-                    NSDictionary *parameters = @{@"pfUser" : fullUserObject,
-                                                 @"objectId" : userId,
-                                                 @"username" : fullUserObject[@"username"],
-                                                 @"email" : fullUserObject[@"email"],
-                                                 @"firstName" : fullUserObject[@"firstName"],
-                                                 @"lastName" : fullUserObject[@"lastName"],
-                                                 @"summary" : fullUserObject[@"summary"],
-                                                 @"avatarURL" : fullUserObject[@"avatarURL"],
-                                                 @"isMentor" : fullUserObject[@"isMentor"]};
-                    NSLog(@"params: %@", parameters);
-                    User *actualMatch = [[User alloc] init];
-                    [actualMatch loadSkills:(PFUser *)fullUserObject];
-                    [actualMatch setUserWithDictionary:parameters];
+                    User *actualMatch = [self convertToUser:userId];
                     [self.users addObject:actualMatch];
                 }
                 [self.tableView reloadData];
@@ -336,12 +318,11 @@
 
 - (void)setNavigationMenu {
     PFUser *user = [PFUser currentUser];
-    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
-    PFObject *userObject = [query getObjectWithId:user.objectId];
+    PFUser *userObject = [self convertToPFUser:user.objectId];
     
     NSString *type = @"Matches", *singular_type = @"Match";
-    NSLog(@"isMentor: %@ // 1 is true", [userObject objectForKey:@"isMentor"]);
-    NSNumber *isMentorNumber = (NSNumber *) [userObject objectForKey:@"isMentor"];
+    //NSLog(@"isMentor: %@ // 1 is true", [userObject objectForKey:@"isMentor"]);
+    NSNumber *isMentorNumber = (NSNumber *) userObject[@"isMentor"];
     int isMentor = [isMentorNumber intValue];
     if (isMentor == 1) {
         type = @"Mentees";

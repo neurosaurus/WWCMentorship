@@ -129,6 +129,7 @@
     object[@"lastName"] = self.lastnameTextField.text;
     object[@"summary"] = self.summaryTextView.text;
     object[@"isMentor"] = isMentorObject;
+    object[@"skills"] = self.selectedSkills;
     
     // save to Parse
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
