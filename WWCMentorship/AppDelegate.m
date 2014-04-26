@@ -12,6 +12,7 @@
 #import "CustomParseLoginViewController.h"
 #import "CustomParseSignupViewController.h"
 #import "ProfileFormViewController.h"
+#import "ProfileViewController.h"
 
 @implementation AppDelegate
 
@@ -27,7 +28,8 @@
 
     CustomParseSignupViewController *signup = [[CustomParseSignupViewController alloc] init];
 //    UserListViewController *ulvc = [[UserListViewController alloc] init];
-    UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:signup];
+//    ProfileViewController *pvc = [[ProfileViewController alloc] init];
+    UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:pvc];
     
 //    CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
     
