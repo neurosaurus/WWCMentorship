@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "ChatController.h"
+#import "MessageCell.h"
 
 @interface MessageListViewController : UIViewController < UITableViewDelegate, UITableViewDataSource, ChatControllerDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate >
 

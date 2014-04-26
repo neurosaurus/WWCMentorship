@@ -15,6 +15,7 @@
 #import "MessageRowCell.h"
 #import "User.h"
 #import "REMenu.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface MessageListViewController ()
 
@@ -39,6 +40,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.messages = [[NSMutableArray alloc] init];
+        self.messageDict = [[NSMutableDictionary alloc] init];
         self.correspondents = [[NSMutableSet alloc] init];
         self.correspondentNames = [[NSMutableDictionary alloc] init];
     }
@@ -76,7 +78,6 @@
     UINib *nib = [UINib nibWithNibName:@"MessageRowCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"MessageRowCell"];
     
-    [self loadMessages];
     [self setNavigationMenu];
 }
 
@@ -125,9 +126,9 @@
     [senderQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects && !error) {
             NSLog(@"1/objects: %@", objects);
-            for (PFObject *correspondent in objects) {
-                PFUser *receiver = correspondent[@"ReceiverID"];
-                [self.correspondents addObject:receiver];
+            for (PFObject *senderObject in objects) {
+                PFUser *receiver = senderObject[@"ReceiverID"];
+                [self.correspondents addObject:receiver.objectId];
             }
             
             NSLog(@"two");
@@ -136,20 +137,22 @@
             [receiverQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 if (objects && !error) {
                     NSLog(@"2/objects: %@", objects);
-                    for (PFObject *correspondent in objects) {
-                        PFUser *sender = correspondent[@"SenderID"];
-                        [self.correspondents addObject:sender];
+                    for (PFObject *receiverObject in objects) {
+                        PFUser *sender = receiverObject[@"SenderID"];
+                        [self.correspondents addObject:sender.objectId];
                     }
                     
                     NSLog(@"three");
                     NSLog(@"correspondents: %@", self.correspondents);
-                    for (PFUser *correspondent in self.correspondents) {
+                    for (NSString *correspondent in self.correspondents) {
+                        PFUser *correspondentUser = [self convertToPFUser:correspondent];
+                        
                         PFQuery *receiverQuery = [PFQuery queryWithClassName:@"Messages"];
                         [receiverQuery whereKey:@"ReceiverID" equalTo:user];
-                        [receiverQuery whereKey:@"SenderID" equalTo:correspondent];
+                        [receiverQuery whereKey:@"SenderID" equalTo:correspondentUser];
                         
                         PFQuery *senderQuery = [PFQuery queryWithClassName:@"Messages"];
-                        [senderQuery whereKey:@"ReceiverID" equalTo:correspondent];
+                        [senderQuery whereKey:@"ReceiverID" equalTo:correspondentUser];
                         [senderQuery whereKey:@"SenderID" equalTo:user];
                         
                         PFQuery *query = [PFQuery orQueryWithSubqueries:@[senderQuery, receiverQuery]];
@@ -157,18 +160,23 @@
                         
                         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                             if (!error && objects) {
-                                    NSLog(@"messages: %@", objects);
+                                NSLog(@"messages: %@", objects);
+                            
+                                NSMutableArray *messages = [[NSMutableArray alloc] init];
+                            
+                                for (PFObject *message in objects) {
+                                    [messages addObject:message];
+                                }
+                            
+                                [self.messages addObject:correspondent]; // key is correspondent objectId
+                                [self.messageDict setValue:messages forKey:correspondent]; // key is correspondent objectId
                                 
-                                    NSMutableArray *messages = [[NSMutableArray alloc] init];
+                                NSString *name = [NSString stringWithFormat:@"%@ %@", correspondentUser[@"firstName"], correspondentUser[@"lastName"]];
+                                [self.correspondentNames setValue:name forKey:correspondent];
                                 
-                                    for (PFObject *message in objects) {
-                                        [messages addObject:message];
-                                    }
-                                self.messageDict[correspondent.objectId] = messages;
-                                //[self.messageDict setObject:messages forKey:correspondent.objectId];
-                                [self.messages addObject:correspondent.objectId];
-                                NSString *name = [NSString stringWithFormat:@"%@ %@", correspondent[@"firstName"], correspondent[@"lastName"]];
-                                self.correspondentNames[correspondent.objectId] = name;
+                                //NSLog(@"self.messages: %@", self.messages);
+                                //NSLog(@"self.corrNames: %@", self.correspondentNames);
+                                //NSLog(@"self.messageDict: %@", self.messageDict);
                                 
                                 [self.tableView reloadData];
                             } else {
@@ -176,8 +184,6 @@
                             }
                         }];
                     }
-
-                    
                     
                 } else if (error) {
                     NSLog(@"error: %@", error.description);
@@ -199,18 +205,19 @@
     
     NSLog(@"Message Contents: %@", message[kMessageContent]);
     NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
-    //NSString *message = message[kMessageContent];
+    //NSString *message = (NSString *) message[kMessageContent];
     
     // Evaluate or add to the message here for example, if we wanted to assign the current userId:
     message[@"sentByUserId"] = self.me.objectId;
     
-//    PFObject *messageObject = [PFObject objectWithClassName:@"Messages"];
-//    messageObject[@"SenderID"] = self.me.pfUser;
-//    messageObject[@"ReceiverID"] = self.receiver.pfUser;
-//    messageObject[@"Message"] = message;
-//    [messageObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        NSLog(@"success: saved %@ in parse", message);
-//    }];
+    PFObject *messageObject = [PFObject objectWithClassName:@"Messages"];
+    messageObject[@"SenderID"] = self.me.pfUser;
+    PFUser *receiverUser = [self convertToPFUser:self.chatController.currentUserId];
+    messageObject[@"ReceiverID"] = receiverUser;
+    messageObject[@"Message"] = message;
+    //[messageObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    //    NSLog(@"success: saved %@ in parse", message);
+    //}];
     
     // Must add message to controller for it to show
     [self.chatController addNewMessage:message];
@@ -219,7 +226,7 @@
 # pragma mark - Table view methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
+    return 45;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -233,19 +240,53 @@
     NSString *correspondentId = self.messages[indexPath.row];
     NSString *name = self.correspondentNames[correspondentId];
     NSMutableArray *messages = self.messageDict[correspondentId];
-    NSString *message = messages[0];
+    NSString *message = messages[0][@"Message"];
     
     // set values in cell
     NSArray *params = @[name, message];
     [cell setPreview:params];
-    NSLog(@"CORRESPONDENT: %@", name);
-    NSLog(@"WILL DISPLAY: %@", message);
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-    [self presentViewController:self.chatController animated:YES completion:nil];
+    
+    // get name, message
+    NSString *correspondentId = self.messages[indexPath.row];
+    NSString *name = self.correspondentNames[correspondentId];
+    NSMutableArray *messages = self.messageDict[correspondentId];
+    PFUser *correspondent;
+    NSLog(@"c: %@", correspondent);
+    
+    NSMutableArray *mutableMessages = [[NSMutableArray alloc] init];
+    NSArray *firstToLastArray = [[messages reverseObjectEnumerator] allObjects];
+    for (PFObject *message in firstToLastArray) {
+        NSMutableDictionary *dict = [@{kMessageContent : message[@"Message"]} mutableCopy];
+        if ([((PFUser *)message[@"SenderID"]).objectId isEqualToString:self.me.objectId]) {
+            [dict setValue:[NSNumber numberWithInt:kSentByUser] forKey:kMessageRuntimeSentBy];
+            
+            if (!correspondent) {
+                correspondent = message[@"ReceiverID"];
+            }
+        } else if ([((PFUser *)message[@"ReceiverID"]).objectId isEqualToString:self.me.objectId]) {
+            [dict setValue:[NSNumber numberWithInt:kSentByOpponent] forKey:kMessageRuntimeSentBy];
+            
+            if (!correspondent) {
+                correspondent = message[@"SenderID"];
+            }
+        }
+        
+        [mutableMessages addObject:dict];
+    }
+    
+    //NSLog(@"avatarURL: %@", correspondent[@"avatarURL"]);
+    //NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:correspondent[@"avatarURL"]]];
+    //self.chatController.opponentImg = [UIImage imageWithData:data];
+    
+    [self.chatController setMessagesArray:mutableMessages];
+    [self.chatController setChatTitle:name];
+    self.chatController.currentUserId = self.me.objectId; // actually the receiver id
+    [self presentViewController:self.chatController animated:NO completion:nil];
 }
 
 # pragma mark - Navigation methods

@@ -128,8 +128,7 @@
 - (User *)convertToUser:(NSString *)userId {
     PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
     PFObject *fullUserObject = [userQuery getObjectWithId:userId];
-    //NSLog(@"retrieved user: %@", fullUserObject);
-    
+
     NSDictionary *parameters = @{@"pfUser" : fullUserObject,
                                  @"objectId" : userId,
                                  @"username" : fullUserObject[@"username"],
@@ -141,7 +140,6 @@
                                  @"isMentor" : fullUserObject[@"isMentor"],
                                  @"skills" : fullUserObject[@"skills"]};
     
-    //NSLog(@"params: %@", parameters);
     User *user = [[User alloc] init];
     //[user loadSkills:(PFUser *)fullUserObject];
     [user setUserWithDictionary:parameters];
