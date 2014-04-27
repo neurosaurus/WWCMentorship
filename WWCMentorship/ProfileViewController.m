@@ -95,7 +95,6 @@
 
     // set up navigation menu
     [self setNavigationMenu];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
     
     // hide contact button if looking at self
     if (self.isSelf) {

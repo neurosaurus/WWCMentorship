@@ -13,7 +13,9 @@
 @interface ComposeViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
+@property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UITextView *message;
+@property (weak, nonatomic) IBOutlet UIView *messageBox;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 
 - (IBAction)onSendButton:(id)sender;
@@ -39,13 +41,25 @@
     self.view.backgroundColor = [UIColor blackColor];
     self.message.backgroundColor = [UIColor blackColor];
     self.message.textColor = [UIColor whiteColor];
+    self.name.textColor = [UIColor whiteColor];
     self.sendButton.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
+    
+    CALayer *boxLayer = self.messageBox.layer;
+    boxLayer.borderWidth = 0.5;
+    boxLayer.borderColor = [[UIColor whiteColor] CGColor];
     
     self.message.delegate = self;
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onCustomTap:)];
     [self.view addGestureRecognizer:tapGestureRecognizer];
     
+    CALayer *avatarLayer = self.avatar.layer;
+    avatarLayer.cornerRadius = self.avatar.frame.size.width / 2;
+    avatarLayer.borderColor = [[UIColor whiteColor] CGColor];
+    avatarLayer.borderWidth = 0.5;
+    avatarLayer.masksToBounds = YES;
     [self.avatar setImageWithURL:self.receiver.avatarURL];
+    
+    self.name.text = self.receiver.name;
 }
 
 - (void)didReceiveMemoryWarning

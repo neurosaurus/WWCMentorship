@@ -50,6 +50,7 @@
     self.logInView.passwordField.backgroundColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
 //    self.logInView.emailField.backgroundColor = [UIColor blackColor];
     self.logInView.logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"None"]];
+    
 }
 
 - (void)didReceiveMemoryWarning

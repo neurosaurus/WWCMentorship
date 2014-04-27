@@ -22,6 +22,7 @@
 @property (nonatomic, strong) User *me;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *users;
+@property (nonatomic, assign) BOOL isLoaded;
 
 @end
 
@@ -31,6 +32,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.isLoaded = NO;
         self.users = [NSMutableArray array];
     }
     return self;
@@ -53,7 +55,6 @@
         
     // otherwise, present user list view controller
     } else {
-        [self.users removeAllObjects];
         
         self.me = [self convertToUser:user.objectId];
         
@@ -76,11 +77,16 @@
             self.title = @"Find a Mentee";
         }
         
-        // populate list with potentials or matches
-        if (self.showMatch) {
-            [self loadMatches];
-        } else {
-            [self loadPotentials];
+        if (!self.isLoaded) {
+            self.isLoaded = YES;
+            [self.users removeAllObjects];
+            
+            // populate list with potentials or matches
+            if (self.showMatch) {
+                [self loadMatches];
+            } else {
+                [self loadPotentials];
+            }
         }
     }
 }
