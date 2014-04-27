@@ -23,6 +23,7 @@
 @property (nonatomic, strong) User *me;
 @property (nonatomic, strong, readwrite) REMenu *menu;
 
+@property (weak, nonatomic) IBOutlet UIImageView *background;
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *twitter;
@@ -58,6 +59,16 @@
         self.title = @"Profile";
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.barTintColor = [UIColor clearColor];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
 }
 
 - (void)viewDidLoad
@@ -101,9 +112,15 @@
     self.name.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
     self.summary.text = user.summary;
     
-    // for testing only
-    //NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];
+    // set images
+    CALayer *avatarLayer = self.avatar.layer;
+    avatarLayer.cornerRadius = self.avatar.frame.size.width / 2;
+    avatarLayer.borderWidth = 0.5;
+    avatarLayer.borderColor = [[UIColor whiteColor] CGColor];
+    avatarLayer.masksToBounds = YES;
     [self.avatar setImageWithURL:user.avatarURL];
+    NSURL *bgURL = [NSURL URLWithString:@"http://fc04.deviantart.net/fs71/i/2013/012/1/9/random_blur_background_by_phalanxia-d5r8tjb.png"];
+    [self.background setImageWithURL:bgURL];
     
     NSArray *skills = user.skills;
     //NSLog(@"this is %@", self.name.text);

@@ -71,7 +71,7 @@
         _textView.font = [UIFont systemFontOfSize:16];
         _textView.layer.borderWidth = .5;
         _textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        _textView.textColor = [UIColor darkTextColor];
+        _textView.textColor = [UIColor whiteColor];
         //_textView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.825f];
         _textView.backgroundColor = [UIColor blackColor];
         [self addSubview:_textView];
@@ -79,7 +79,8 @@
         // Send Button
         _sendBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         
-        _sendBtnActiveColor = [UIColor colorWithRed:0.142954 green:0.60323 blue:0.862548 alpha:1];
+        //_sendBtnActiveColor = [UIColor colorWithRed:0.142954 green:0.60323 blue:0.862548 alpha:1];
+        _sendBtnActiveColor = [UIColor lightGrayColor];
         _sendBtnInactiveColor = [UIColor lightGrayColor];
         [self deactivateSendBtn];
         
@@ -326,12 +327,12 @@
     self.frame = CGRectMake(0, inputStartingPoint, self.bounds.size.width, -targetHeight);
     
     // in case they backspaced and we need to block send
-    if (_textView.text.length > 0) {
-        [self activateSendBtn];
-    }
-    else {
-        [self deactivateSendBtn];
-    }
+//    if (_textView.text.length > 0) {
+//        [self activateSendBtn];
+//    }
+//    else {
+//        [self deactivateSendBtn];
+//    }
 }
 
 - (void) alignTextViewWithAnimation:(BOOL)shouldAnimate {

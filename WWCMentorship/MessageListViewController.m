@@ -65,7 +65,6 @@
     self.tableView.separatorColor = [UIColor colorWithWhite:1.0 alpha:0.3];
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
 
-    
     PFUser *user = [PFUser currentUser];
     self.me = [self convertToUser:user.objectId];
     
@@ -245,6 +244,7 @@
     cell.backgroundColor = [UIColor blackColor];
     
     // get name, message
+    NSLog(@"clicked on row: %ld", indexPath.row);
     NSString *correspondentId = self.messages[indexPath.row];
     NSString *name = self.correspondentNames[correspondentId];
     NSMutableArray *messages = self.messageDict[correspondentId];
