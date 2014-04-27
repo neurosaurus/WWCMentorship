@@ -36,6 +36,9 @@
 		EB8798D518F3A3E600B9CF72 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8798D418F3A3E600B9CF72 /* SystemConfiguration.framework */; };
 		EB8798D918F3A46C00B9CF72 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8798D718F3A46C00B9CF72 /* ProfileViewController.m */; };
 		EB8798DA18F3A46C00B9CF72 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB8798D818F3A46C00B9CF72 /* ProfileViewController.xib */; };
+		EBCFB7A1190C933D00320496 /* ANBlurredTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = EBCFB79E190C933D00320496 /* ANBlurredTableView.m */; };
+		EBCFB7A2190C933D00320496 /* UIImage+BoxBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = EBCFB7A0190C933D00320496 /* UIImage+BoxBlur.m */; };
+		EBCFB7A4190C971700320496 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBCFB7A3190C971700320496 /* Accelerate.framework */; };
 		EBE0B22D18F9F2A800E2122E /* ProfileFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B22B18F9F2A800E2122E /* ProfileFormViewController.m */; };
 		EBE0B22E18F9F2A800E2122E /* ProfileFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE0B22C18F9F2A800E2122E /* ProfileFormViewController.xib */; };
 		EBE0B23218F9F2B800E2122E /* MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE0B23018F9F2B800E2122E /* MessageListViewController.m */; };
@@ -108,6 +111,11 @@
 		EB8798D618F3A46C00B9CF72 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		EB8798D718F3A46C00B9CF72 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		EB8798D818F3A46C00B9CF72 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
+		EBCFB79D190C933D00320496 /* ANBlurredTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBlurredTableView.h; sourceTree = "<group>"; };
+		EBCFB79E190C933D00320496 /* ANBlurredTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBlurredTableView.m; sourceTree = "<group>"; };
+		EBCFB79F190C933D00320496 /* UIImage+BoxBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BoxBlur.h"; sourceTree = "<group>"; };
+		EBCFB7A0190C933D00320496 /* UIImage+BoxBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BoxBlur.m"; sourceTree = "<group>"; };
+		EBCFB7A3190C971700320496 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		EBE0B22A18F9F2A800E2122E /* ProfileFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileFormViewController.h; sourceTree = "<group>"; };
 		EBE0B22B18F9F2A800E2122E /* ProfileFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileFormViewController.m; sourceTree = "<group>"; };
 		EBE0B22C18F9F2A800E2122E /* ProfileFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileFormViewController.xib; sourceTree = "<group>"; };
@@ -145,12 +153,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBCFB7A4190C971700320496 /* Accelerate.framework in Frameworks */,
+				EB8798CF18F3A3D400B9CF72 /* QuartzCore.framework in Frameworks */,
 				900D56B818FA07FA009EE8B5 /* Accounts.framework in Frameworks */,
 				900D56B618FA07F1009EE8B5 /* Social.framework in Frameworks */,
 				EB8798D518F3A3E600B9CF72 /* SystemConfiguration.framework in Frameworks */,
 				EB8798D318F3A3DF00B9CF72 /* StoreKit.framework in Frameworks */,
 				EB8798D118F3A3DA00B9CF72 /* Security.framework in Frameworks */,
-				EB8798CF18F3A3D400B9CF72 /* QuartzCore.framework in Frameworks */,
 				EB8798CD18F3A3CD00B9CF72 /* MobileCoreServices.framework in Frameworks */,
 				EB8798CB18F3A3C700B9CF72 /* libz.dylib in Frameworks */,
 				EB8798C918F3A3BE00B9CF72 /* CoreLocation.framework in Frameworks */,
@@ -266,6 +275,7 @@
 		EBE794B618EC78F900733D5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EBCFB7A3190C971700320496 /* Accelerate.framework */,
 				900D56B718FA07FA009EE8B5 /* Accounts.framework */,
 				900D56B518FA07F1009EE8B5 /* Social.framework */,
 				EB8798D418F3A3E600B9CF72 /* SystemConfiguration.framework */,
@@ -290,6 +300,10 @@
 		EBE794BD18EC78FA00733D5F /* WWCMentorship */ = {
 			isa = PBXGroup;
 			children = (
+				EBCFB79D190C933D00320496 /* ANBlurredTableView.h */,
+				EBCFB79E190C933D00320496 /* ANBlurredTableView.m */,
+				EBCFB79F190C933D00320496 /* UIImage+BoxBlur.h */,
+				EBCFB7A0190C933D00320496 /* UIImage+BoxBlur.m */,
 				EBE794C618EC78FA00733D5F /* AppDelegate.h */,
 				EBE794C718EC78FA00733D5F /* AppDelegate.m */,
 				900D56BA18FA0A87009EE8B5 /* FBMissingSymbols.m */,
@@ -474,11 +488,13 @@
 				EBEA220B19047FCA00F9880C /* CustomParseSignupViewController.m in Sources */,
 				EBE0B23218F9F2B800E2122E /* MessageListViewController.m in Sources */,
 				EBE794C818EC78FA00733D5F /* AppDelegate.m in Sources */,
+				EBCFB7A1190C933D00320496 /* ANBlurredTableView.m in Sources */,
 				900D56BB18FA0A87009EE8B5 /* FBMissingSymbols.m in Sources */,
 				EBE0B24618F9F2E400E2122E /* UserListViewController.m in Sources */,
 				90A0F3AA190A1C94009B160C /* ChatController.m in Sources */,
 				EB8798D918F3A46C00B9CF72 /* ProfileViewController.m in Sources */,
 				90A0F3AF190A1C94009B160C /* TopBar.m in Sources */,
+				EBCFB7A2190C933D00320496 /* UIImage+BoxBlur.m in Sources */,
 				90A0F3B8190A3500009B160C /* MessageRowCell.m in Sources */,
 				EBE0B22D18F9F2A800E2122E /* ProfileFormViewController.m in Sources */,
 				90A0F3AB190A1C94009B160C /* ChatInput.m in Sources */,
