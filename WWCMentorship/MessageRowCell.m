@@ -30,6 +30,10 @@
 }
 
 - (void)setPreview:(NSArray *)params {
+    // coloring
+    self.name.tintColor = [UIColor whiteColor];
+    self.message.tintColor = [UIColor whiteColor];
+    
     self.name.text = params[0];
     self.message.text = params[1];
 }

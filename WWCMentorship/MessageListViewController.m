@@ -39,6 +39,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.title = @"Messages";
         self.messages = [[NSMutableArray alloc] init];
         self.messageDict = [[NSMutableDictionary alloc] init];
         self.correspondents = [[NSMutableSet alloc] init];
@@ -60,7 +61,10 @@
     [super viewDidLoad];
     
     // coloring
-    self.tableView.tintColor = [UIColor blackColor];
+    self.tableView.backgroundColor = [UIColor blackColor];
+    self.tableView.separatorColor = [UIColor colorWithWhite:1.0 alpha:0.3];
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
+
     
     PFUser *user = [PFUser currentUser];
     self.me = [self convertToUser:user.objectId];
@@ -79,6 +83,7 @@
     [self.tableView registerNib:nib forCellReuseIdentifier:@"MessageRowCell"];
     
     [self setNavigationMenu];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -236,6 +241,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MessageRowCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"MessageRowCell" forIndexPath:indexPath];
     
+    // coloring
+    cell.backgroundColor = [UIColor blackColor];
+    
     // get name, message
     NSString *correspondentId = self.messages[indexPath.row];
     NSString *name = self.correspondentNames[correspondentId];
@@ -286,6 +294,7 @@
     [self.chatController setMessagesArray:mutableMessages];
     [self.chatController setChatTitle:name];
     self.chatController.currentUserId = self.me.objectId; // actually the receiver id
+    self.chatController.tintColor = [UIColor blackColor];
     [self presentViewController:self.chatController animated:NO completion:nil];
 }
 

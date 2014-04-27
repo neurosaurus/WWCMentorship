@@ -46,13 +46,18 @@
         _tintColor = [UIColor colorWithRed:0.142954 green:0.60323 blue:0.862548 alpha:1];
         
         _bgToolbar = [[UIToolbar alloc]init];
+        _bgToolbar.backgroundColor = [UIColor blackColor];
+        _bgToolbar.tintColor = [UIColor blackColor];
+        _bgToolbar.barTintColor = [UIColor blackColor];
         _bgToolbar.frame = self.bounds;
         _bgToolbar.autoresizingMask= UIViewAutoresizingFlexibleWidth;
         [self addSubview:_bgToolbar];
         
         _leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         _leftBtn.frame = CGRectMake(4, 20, 40, 40);
-        [_leftBtn setTintColor:_tintColor];
+        //[_leftBtn setTintColor:_tintColor];
+        [_leftBtn setTintColor:[UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f]];
+        
         [_leftBtn addTarget:self action:@selector(topLeftBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
         _leftBtn.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
         _leftBtn.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
@@ -61,7 +66,9 @@
         
         _rightBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         _rightBtn.frame = CGRectMake(width(self) - 4, 20, -40, 40);
-        [_rightBtn setTintColor:_tintColor];
+        //[_rightBtn setTintColor:_tintColor];
+        [_rightBtn setTintColor:[UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f]];
+        
         [_rightBtn addTarget:self action:@selector(topRightBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
         _rightBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self addSubview:_rightBtn];
@@ -79,7 +86,8 @@
         
         _shadowLine = [CAGradientLayer layer];
         _shadowLine.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, -0.5);
-        _shadowLine.colors = [NSArray arrayWithObjects:(id)[[UIColor lightGrayColor] CGColor], (id)[[UIColor clearColor] CGColor], nil];
+        _shadowLine.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[[UIColor clearColor] CGColor], nil];
+        //_shadowLine.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] CGColor], (id)[[UIColor blackColor] CGColor], nil];
         _shadowLine.opacity = .6;
         [self.layer addSublayer:_shadowLine];
     }
@@ -123,6 +131,7 @@
 }
 
 - (void) setTintColor:(UIColor *)tintColor {
+    tintColor = [UIColor whiteColor];
     [_leftBtn setTintColor:tintColor];
     [_rightBtn setTintColor:tintColor];
     [_middleBtn setTitleColor:tintColor forState:UIControlStateNormal];

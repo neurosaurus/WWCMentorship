@@ -88,7 +88,8 @@ static int minimumHeight = 30;
             _textLabel.layer.rasterizationScale = 2.0f;
             _textLabel.layer.shouldRasterize = YES;
             _textLabel.font = [UIFont systemFontOfSize:15.0f];
-            _textLabel.textColor = [UIColor darkTextColor];
+            //_textLabel.textColor = [UIColor darkTextColor];
+            _textLabel.textColor = [UIColor whiteColor];
             _textLabel.numberOfLines = 0;
             [self.contentView addSubview:_textLabel];
         }

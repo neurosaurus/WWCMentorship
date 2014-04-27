@@ -42,7 +42,8 @@
     
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor whiteColor];
+        //self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor blackColor];
         
         // Set Up Main Frame
         UIInterfaceOrientation myOrientation = [UIApplication sharedApplication].statusBarOrientation;
@@ -71,7 +72,8 @@
         _textView.layer.borderWidth = .5;
         _textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
         _textView.textColor = [UIColor darkTextColor];
-        _textView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.825f];
+        //_textView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.825f];
+        _textView.backgroundColor = [UIColor blackColor];
         [self addSubview:_textView];
         
         // Send Button
@@ -92,6 +94,7 @@
         // Background
         _bgToolbar = [[UIToolbar alloc] initWithFrame:self.bounds];
         _bgToolbar.barStyle = UIBarStyleDefault;
+        _bgToolbar.barTintColor = [UIColor blackColor];
         _bgToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self insertSubview:_bgToolbar belowSubview:_textView];
         
