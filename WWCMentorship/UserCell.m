@@ -45,11 +45,20 @@
     NSString *skillsText = [skills componentsJoinedByString:@", "];
     self.skills.text = [NSString stringWithFormat:@"Skills: %@", skillsText];
     self.summary.text = user.summary;
-    self.summary.numberOfLines = 4;
+    self.summary.numberOfLines = 3;
+    CGRect frame = self.summary.frame;
+    frame.size.width = 225.0;
+    self.summary.frame = frame;
+    [self.summary sizeToFit];
     
     // for testing only
     //NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];
     [self.avatar setImageWithURL:user.avatarURL];
+    CALayer *avatarLayer = self.avatar.layer;
+    avatarLayer.cornerRadius = 45;
+    avatarLayer.borderColor = [[UIColor whiteColor] CGColor];
+    avatarLayer.borderWidth = 0.5;
+    avatarLayer.masksToBounds = YES;
 }
 
 @end
