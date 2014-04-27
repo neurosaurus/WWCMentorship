@@ -9,6 +9,7 @@
 #import "ComposeViewController.h"
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
+#import "TSMessage.h"
 
 @interface ComposeViewController ()
 
@@ -77,10 +78,16 @@
     messageObject[@"SenderID"] = self.sender.pfUser;
     messageObject[@"ReceiverID"] = self.receiver.pfUser;
     messageObject[@"Message"] = self.message.text;
+    messageObject[@"isNew"] = @YES;
     [messageObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         NSLog(@"success: saved %@ in parse", self.message.text);
     }];
     [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    [TSMessage showNotificationWithTitle:@"Success!"
+                                subtitle:@"Your request has been sent."
+                                    type:TSMessageNotificationTypeSuccess];
+
 }
 
 @end

@@ -15,6 +15,7 @@
 #import "User.h"
 #import "UserCell.h"
 #import "REMenu.h"
+#import "TSMessage.h"
 
 @interface UserListViewController ()
 
@@ -87,6 +88,8 @@
             } else {
                 [self loadPotentials];
             }
+            
+            [self loadMessages];
         }
     }
 }
@@ -153,6 +156,38 @@
     PFObject *fullUserObject = [userQuery getObjectWithId:userId];
     //NSLog(@"retrieved user: %@", fullUserObject);
     return (PFUser *) fullUserObject;
+}
+
+- (void)loadMessages {
+    NSLog(@"called load messages");
+    PFQuery *receiverQuery = [PFQuery queryWithClassName:@"Messages"];
+    [receiverQuery whereKey:@"ReceiverID" equalTo:self.me.pfUser];
+    [receiverQuery whereKey:@"isNew" equalTo:@YES];
+    [receiverQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects && !error) {
+            NSLog(@"objects: %@", objects);
+            if (objects.count > 0) {
+                [TSMessage showNotificationInViewController:self
+                                                      title:@"You have new messages."
+                                                   subtitle:nil
+                                                      image:nil
+                                                       type:TSMessageNotificationTypeMessage
+                                                   duration:TSMessageNotificationDurationEndless
+                                                   callback:nil
+                                                buttonTitle:@"Messages"
+                                             buttonCallback:^{
+                                                 MessageListViewController *mlvc = [[MessageListViewController alloc] init];
+                                                 [self.navigationController pushViewController:mlvc animated:NO];
+                                             }
+                                                 atPosition:TSMessageNotificationPositionTop
+                                        canBeDismissedByUser:YES];
+                //for (PFObject *object in objects) {
+                //    object[@"isNew"] = @NO;
+                //    [object saveInBackground];
+               //}
+            }
+        }
+    }];
 }
 
 - (void)loadPotentials {

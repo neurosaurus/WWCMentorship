@@ -54,6 +54,12 @@
 #define COCOAPODS_VERSION_MINOR_BDBOAuth1Manager 2
 #define COCOAPODS_VERSION_PATCH_BDBOAuth1Manager 0
 
+// HexColors
+#define COCOAPODS_POD_AVAILABLE_HexColors
+#define COCOAPODS_VERSION_MAJOR_HexColors 2
+#define COCOAPODS_VERSION_MINOR_HexColors 2
+#define COCOAPODS_VERSION_PATCH_HexColors 1
+
 // LPPopupListView
 #define COCOAPODS_POD_AVAILABLE_LPPopupListView
 #define COCOAPODS_VERSION_MAJOR_LPPopupListView 1
@@ -71,4 +77,10 @@
 #define COCOAPODS_VERSION_MAJOR_TPKeyboardAvoiding 1
 #define COCOAPODS_VERSION_MINOR_TPKeyboardAvoiding 2
 #define COCOAPODS_VERSION_PATCH_TPKeyboardAvoiding 3
+
+// TSMessages
+#define COCOAPODS_POD_AVAILABLE_TSMessages
+#define COCOAPODS_VERSION_MAJOR_TSMessages 0
+#define COCOAPODS_VERSION_MINOR_TSMessages 9
+#define COCOAPODS_VERSION_PATCH_TSMessages 7
 

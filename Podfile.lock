@@ -21,9 +21,12 @@ PODS:
   - BDBOAuth1Manager (1.2.0):
     - AFNetworking/NSURLConnection (~> 2.2.0)
     - AFNetworking/NSURLSession (~> 2.2.0)
+  - HexColors (2.2.1)
   - LPPopupListView (1.0.2)
   - REMenu (1.8.5)
   - TPKeyboardAvoiding (1.2.3)
+  - TSMessages (0.9.7):
+    - HexColors
 
 DEPENDENCIES:
   - AFNetworking
@@ -31,12 +34,15 @@ DEPENDENCIES:
   - LPPopupListView
   - REMenu (~> 1.8.5)
   - TPKeyboardAvoiding (~> 1.2)
+  - TSMessages
 
 SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
   BDBOAuth1Manager: 25d18d56820695aa18aae44eecad55829274a290
+  HexColors: 99211502e17904af7891fc8f687d0e4958a6d66e
   LPPopupListView: 4ee256fd0d41ec16889aae3ddfdd04c4bd144a5d
   REMenu: 282a6b5feee8cce5403d7f28e15ffbc0aee359ab
   TPKeyboardAvoiding: 17995aaa6db26ac2a9fa8714a86509c5888f0392
+  TSMessages: 9dd053bcf1a8985275177ebe0fb8c0f1416e92f7
 
 COCOAPODS: 0.32.1
