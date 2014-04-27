@@ -20,7 +20,6 @@
 
 @property (nonatomic, strong, readwrite) REMenu *menu;
 @property (nonatomic, strong) User *me;
-@property (nonatomic, strong) NSMutableArray *skills;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *users;
 
@@ -32,7 +31,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.skills = [[NSMutableArray alloc] init];
         self.users = [NSMutableArray array];
     }
     return self;
@@ -55,8 +53,6 @@
         
     // otherwise, present user list view controller
     } else {
-        
-        [self.skills removeAllObjects];
         [self.users removeAllObjects];
         
         self.me = [self convertToUser:user.objectId];
@@ -165,60 +161,48 @@
     }
 
     // retrieve current user's skills
-    PFQuery *skillQuery = [PFQuery queryWithClassName:@"Skills"];
-    [skillQuery whereKey:@"UserID" equalTo:user];
-    [skillQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error && objects) {
-            // save skill names
-            for (PFObject *skillObject in objects) {
-                NSString *skill = skillObject[@"Name"];
-                [self.skills addObject:skill];
+    PFUser *fullUser = [self convertToPFUser:user.objectId];
+    NSArray *skills = fullUser[@"skills"];
+    
+    if (skills.count > 0) {
+        // then find all potential matches with the same skills
+        NSMutableArray *subqueries = [[NSMutableArray alloc] init];
+        for (NSString *skill in skills) {
+            PFQuery *subquery = [PFQuery queryWithClassName:@"Skills"];
+            [subquery whereKey:@"Name" equalTo:skill];
+            if (self.showMentor) {
+                [subquery whereKey:@"isMentor" equalTo:@YES];
+            } else {
+                [subquery whereKey:@"isMentor" equalTo:@NO];
             }
-            NSLog(@"self.skills: %@", self.skills);
-            
-            if (self.skills.count > 0) {
-                // then find all potential matches with the same skills
-                NSMutableArray *subqueries = [[NSMutableArray alloc] init];
-                for (NSString *skill in self.skills) {
-                    PFQuery *subquery = [PFQuery queryWithClassName:@"Skills"];
-                    [subquery whereKey:@"Name" equalTo:skill];
-                    if (self.showMentor) {
-                        [subquery whereKey:@"isMentor" equalTo:@YES];
-                    } else {
-                        [subquery whereKey:@"isMentor" equalTo:@NO];
-                    }
-                    [subqueries addObject:subquery];
-                }
-                PFQuery *matchQuery = [PFQuery orQueryWithSubqueries:[[NSArray alloc] initWithArray:subqueries]];
-                
-                [matchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    if (objects && !error) {
-                        NSLog(@"%@: %@", type, objects);
-                        
-                        NSMutableSet *userIds = [[NSMutableSet alloc] init];
-                        // then add match userID's to userIds set
-                        for (PFObject *userObject in objects) {
-                            PFUser *pfUser = userObject[@"UserID"];
-                            [userIds addObject:pfUser.objectId];
-                        }
-                        NSLog(@"userIDs: %@", userIds);
-        
-                        // then retrieve full user objects for all userIds
-                        for (NSString *userId in userIds) {
-                            User *potentialMatch = [self convertToUser:userId];
-                            [self.users addObject:potentialMatch];
-                        }
-                        
-                        [self.tableView reloadData];
-                    } else if (error){
-                        NSLog(@"error in retrieving potential %@: %@", type, error.description);
-                    }
-                }];
-            }
-        } else if (error) {
-            NSLog(@"error: %@", error.description);
+            [subqueries addObject:subquery];
         }
-    }];
+        PFQuery *matchQuery = [PFQuery orQueryWithSubqueries:[[NSArray alloc] initWithArray:subqueries]];
+        
+        [matchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (objects && !error) {
+                NSLog(@"%@: %@", type, objects);
+                
+                NSMutableSet *userIds = [[NSMutableSet alloc] init];
+                // then add match userID's to userIds set
+                for (PFObject *userObject in objects) {
+                    PFUser *pfUser = userObject[@"UserID"];
+                    [userIds addObject:pfUser.objectId];
+                }
+                NSLog(@"userIDs: %@", userIds);
+
+                // then retrieve full user objects for all userIds
+                for (NSString *userId in userIds) {
+                    User *potentialMatch = [self convertToUser:userId];
+                    [self.users addObject:potentialMatch];
+                }
+                
+                [self.tableView reloadData];
+            } else if (error){
+                NSLog(@"error in retrieving potential %@: %@", type, error.description);
+            }
+        }];
+    }
 }
 
 - (void)loadMatches {

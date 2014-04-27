@@ -39,15 +39,13 @@
     self.summary.textColor = [UIColor whiteColor];
     
     // set values
-    //self.name.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
     self.name.text = user.name;
     NSArray *skills = user.skills;
 
-    //NSLog(@"skills/cell: %@", skills);
     NSString *skillsText = [skills componentsJoinedByString:@", "];
-    //NSLog(@"skillsText: %@", skillsText);
     self.skills.text = [NSString stringWithFormat:@"Skills: %@", skillsText];
     self.summary.text = user.summary;
+    self.summary.numberOfLines = 4;
     
     // for testing only
     //NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];

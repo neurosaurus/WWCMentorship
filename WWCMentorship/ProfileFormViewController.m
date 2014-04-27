@@ -116,11 +116,25 @@
         isMentorObject = @NO;
     }
     
+    // default values
+    if (!self.firstnameTextField.text) {
+        self.firstnameTextField.text = @"Foo";
+    }
+    if (!self.lastnameTextField.text) {
+        self.lastnameTextField.text = @"Bar";
+    }
+    if (!self.summaryTextView.text) {
+        self.summaryTextView.text = @"Hello there!";
+    }
+    if (!self.selectedSkills) {
+        self.selectedSkills = [[NSArray alloc] init];
+    }
+    
     // for testing only
-    NSLog(@"first name will be: %@", self.firstnameTextField.text);
-    NSLog(@"last name will be: %@", self.lastnameTextField.text);
-    NSLog(@"summary will be: %@", self.summaryTextView.text);
-    NSLog(@"isMentor will be: %@", isMentorObject);
+    //NSLog(@"first name will be: %@", self.firstnameTextField.text);
+    //NSLog(@"last name will be: %@", self.lastnameTextField.text);
+    //NSLog(@"summary will be: %@", self.summaryTextView.text);
+    //NSLog(@"isMentor will be: %@", isMentorObject);
 
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     [query whereKey:@"objectId" equalTo:user.objectId];
@@ -130,6 +144,7 @@
     object[@"summary"] = self.summaryTextView.text;
     object[@"isMentor"] = isMentorObject;
     object[@"skills"] = self.selectedSkills;
+    object[@"avatarURL"] = @"https://avatars3.githubusercontent.com/u/99078?s=400";
     
     // save to Parse
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
