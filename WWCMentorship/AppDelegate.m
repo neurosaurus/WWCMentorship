@@ -32,7 +32,7 @@
     UserListViewController *ulvc = [[UserListViewController alloc] init];
     ProfileViewController *pvc = [[ProfileViewController alloc] init];
     //UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:pvc];
-    UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:ulvc];
+    UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:signup];
     
 //    CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
     
