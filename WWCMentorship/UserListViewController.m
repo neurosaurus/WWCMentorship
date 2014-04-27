@@ -431,4 +431,9 @@
     self.menu.separatorHeight = 0.8;
 }
 
+//- (UIStatusBarStyle)preferredStatusBarStyle
+//{
+//    return UIStatusBarStyleLightContent;
+//}
+
 @end
