@@ -19,21 +19,22 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [UIApplication sharedApplication].statusBar = UIStatusBarStyleLightContent;
 
-        
+    [application setStatusBarHidden:NO];
+    [application setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     [Parse setApplicationId:@"EFnYeM1PjDIus6gHu02UTOZ9XbbvuAXlv21ZxFnK"
                   clientKey:@"PQEtRTrB4PJ9A9KeKWQbw1OLGraXtVNOtU4cHHZl"];
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
-//    CustomParseSignupViewController *signup = [[CustomParseSignupViewController alloc] init];
+    CustomParseSignupViewController *signup = [[CustomParseSignupViewController alloc] init];
 //    CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
     
-    UserListViewController *ulvc = [[UserListViewController alloc] init];
+//    UserListViewController *ulvc = [[UserListViewController alloc] init];
 //    ProfileViewController *pvc = [[ProfileViewController alloc] init];
     //UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:pvc];
-    UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:ulvc];
+    UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:signup];
     
 //    CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
     

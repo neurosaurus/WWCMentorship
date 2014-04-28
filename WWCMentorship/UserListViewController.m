@@ -15,7 +15,6 @@
 #import "User.h"
 #import "UserCell.h"
 #import "REMenu.h"
-#import "UIImage+BoxBlur.h"
 
 @interface UserListViewController ()
 

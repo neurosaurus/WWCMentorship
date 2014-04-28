@@ -25,8 +25,10 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
 @property (weak, nonatomic) IBOutlet UILabel *name;
-@property (weak, nonatomic) IBOutlet UILabel *twitter;
-@property (weak, nonatomic) IBOutlet UILabel *github;
+//@property (weak, nonatomic) IBOutlet UILabel *twitter;
+//@property (weak, nonatomic) IBOutlet UILabel *github;
+- (IBAction)twitterButton:(id)sender;
+- (IBAction)githubButton:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextView *summary;
 @property (weak, nonatomic) IBOutlet UIButton *contactButton;
 
@@ -67,8 +69,8 @@
     // coloring
     self.view.backgroundColor = [UIColor blackColor];
     self.name.textColor = [UIColor whiteColor];
-    self.twitter.textColor = [UIColor whiteColor];
-    self.github.textColor = [UIColor whiteColor];
+//    self.twitter.textColor = [UIColor whiteColor];
+//    self.github.textColor = [UIColor whiteColor];
     self.summary.textColor = [UIColor whiteColor];
     self.summary.backgroundColor = [UIColor blackColor];
     self.skill1.textColor = [UIColor whiteColor];
@@ -322,4 +324,9 @@
     self.menu.separatorHeight = 0.8;
 }
 
+- (IBAction)twitterButton:(id)sender {
+}
+
+- (IBAction)githubButton:(id)sender {
+}
 @end

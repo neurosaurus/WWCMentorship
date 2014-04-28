@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "wwc_bg_login.png"
+      "filename" : "social-github.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "social-github@2x.png"
     }
   ],
   "info" : {

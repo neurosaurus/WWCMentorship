@@ -61,7 +61,7 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Tell us a little about yourself!" translatesAutoresizingMaskIntoConstraints="NO" id="2kp-RS-Rsk">
-                    <rect key="frame" x="25" y="158" width="282" height="96"/>
+                    <rect key="frame" x="22" y="158" width="282" height="96"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
