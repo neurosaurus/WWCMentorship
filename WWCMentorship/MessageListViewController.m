@@ -302,6 +302,8 @@
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
     NSLog(@"i'm in!");
+    UserListViewController *rvc = self.navigationController.viewControllers[0];
+    [rvc viewWillAppear:YES];
     [self.navigationController popToRootViewControllerAnimated:NO];
     [self dismissViewControllerAnimated:YES completion:^{
         NSLog(@"dismissed");
@@ -415,6 +417,9 @@
                                                          pfsvc.delegate = self;
                                                          
                                                          pflvc.signUpController = pfsvc;
+                                                         
+                                                         UserListViewController *rvc = self.navigationController.viewControllers[0];
+                                                         rvc.isNewUser = YES;
                                                          
                                                          [self.navigationController pushViewController:pflvc animated:NO];
                                                      }];

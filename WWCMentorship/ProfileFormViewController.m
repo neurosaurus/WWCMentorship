@@ -129,12 +129,6 @@
     if (!self.selectedSkills) {
         self.selectedSkills = [[NSArray alloc] init];
     }
-    
-    // for testing only
-    //NSLog(@"first name will be: %@", self.firstnameTextField.text);
-    //NSLog(@"last name will be: %@", self.lastnameTextField.text);
-    //NSLog(@"summary will be: %@", self.summaryTextView.text);
-    //NSLog(@"isMentor will be: %@", isMentorObject);
 
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     [query whereKey:@"objectId" equalTo:user.objectId];

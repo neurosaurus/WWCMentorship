@@ -7,6 +7,7 @@
 //
 
 #import "ComposeViewController.h"
+#import "UserListViewController.h"
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 #import "TSMessage.h"
@@ -82,7 +83,10 @@
     [messageObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         NSLog(@"success: saved %@ in parse", self.message.text);
     }];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    UserListViewController *rvc = self.navigationController.viewControllers[0];
+    [rvc removeUser:self.receiver];
+    [self.navigationController popToRootViewControllerAnimated:NO];
     
     PFObject *requestObject = [PFObject objectWithClassName:@"Requests"];
     requestObject[@"RequesterID"] = self.sender.pfUser;

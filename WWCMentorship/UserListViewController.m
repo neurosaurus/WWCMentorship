@@ -33,6 +33,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.isLoaded = NO;
+        self.isNewUser = NO;
         self.users = [NSMutableArray array];
     }
     return self;
@@ -77,9 +78,11 @@
             self.title = @"Find a Mentee";
         }
         
-        if (!self.isLoaded) {
+        if (!self.isLoaded || self.isNewUser) {
+            NSLog(@"reloading table");
             self.isLoaded = YES;
             [self.users removeAllObjects];
+            [self.tableView reloadData];
             
             // populate list with potentials or matches
             if (self.showMatch) {
@@ -90,6 +93,11 @@
             
             [self loadMessages];
         }
+        
+        // set up navigation menu
+        [self.navigationController.navigationBar setHidden:NO];
+        [self setNavigationMenu];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
     }
 }
 
@@ -114,11 +122,6 @@
     // register user cell nib
     UINib *nib = [UINib nibWithNibName:@"UserCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"UserCell"];
-    
-    // set up navigation menu
-    [self.navigationController.navigationBar setHidden:NO];
-    [self setNavigationMenu];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -185,10 +188,10 @@
                                              }
                                                  atPosition:TSMessageNotificationPositionTop
                                         canBeDismissedByUser:YES];
-                //for (PFObject *object in objects) {
-                //    object[@"isNew"] = @NO;
-                //    [object saveInBackground];
-               //}
+                for (PFObject *object in objects) {
+                    object[@"isNew"] = @NO;
+                    [object saveInBackground];
+               }
             }
         }
     }];
@@ -344,6 +347,31 @@
                 pvc.hasRequested = NO;
             }
             
+//            // modify users you've sent requests to to say "Request Sent"
+//            PFQuery *oppositeQuery = [PFQuery queryWithClassName:@"Requests"];
+//            [oppositeQuery whereKey:@"RequesterID" equalTo:self.me.pfUser];
+//            [oppositeQuery whereKey:@"RequesteeID" equalTo:user.pfUser];
+//            [oppositeQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//                    if (!error && objects) {
+//                        if (objects.count > 0) {
+//                            pvc.requestedUser = YES;
+//                        } else {
+//                            pvc.requestedUser = NO;
+//                        }
+//                
+//                        if (self.showMatch) {
+//                            pvc.hasRequested = NO;
+//                            pvc.isMatch = YES;
+//                        }
+//                    
+//                        pvc.user = user;
+//                        pvc.isSelf = NO;
+//                        [self.navigationController pushViewController:pvc animated:YES];
+//                    } else if (error) {
+//                        NSLog(@"error: %@", error.description);
+//                    }
+//            }];
+            
             if (self.showMatch) {
                 pvc.hasRequested = NO;
                 pvc.isMatch = YES;
@@ -352,6 +380,8 @@
             pvc.user = user;
             pvc.isSelf = NO;
             [self.navigationController pushViewController:pvc animated:YES];
+
+            
         } else if (error) {
             NSLog(@"error: %@", error.description);
         }
@@ -362,6 +392,8 @@
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
     NSLog(@"i'm in!");
+    UserListViewController *rvc = self.navigationController.viewControllers[0];
+    [rvc viewWillAppear:YES];
     [self.navigationController popToRootViewControllerAnimated:NO];
     [self dismissViewControllerAnimated:YES completion:^{
         NSLog(@"dismissed");
@@ -378,6 +410,7 @@
 
 - (void)onMenu:(id)sender {
     NSLog(@"let's go somewhere else");
+    NSLog(@"currently on %@", self);
     if (self.menu.isOpen) {
         return [self.menu close];
     } else {
@@ -483,6 +516,8 @@
                                                      pfsvc.delegate = self;
                                                      
                                                      pflvc.signUpController = pfsvc;
+                                                     
+                                                     self.isNewUser = YES;
                                                      
                                                      [self.navigationController pushViewController:pflvc animated:NO];
                                                  }];
