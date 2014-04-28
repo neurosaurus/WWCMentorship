@@ -382,6 +382,9 @@
             
             pvc.user = user;
             pvc.isSelf = NO;
+            
+            self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Explore" style:UIBarButtonItemStylePlain target:self action:nil];
+            
             [self.navigationController pushViewController:pvc animated:YES];
 
             

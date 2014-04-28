@@ -111,10 +111,14 @@
     } else if (self.isMatch) {
         [self.contactButton setHidden:YES];
         [self.acceptButton setHidden:YES];
+    
     } else if (self.hasRequested) {
         [self.contactButton setHidden:YES];
+        
     } else if (!self.hasRequested) {
         [self.acceptButton setHidden:YES];
+        
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Profile" style:UIBarButtonItemStylePlain target:self action:nil];
     }
     
     // grab user object for profile
