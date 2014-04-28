@@ -37,7 +37,7 @@
 {
     [super viewDidLoad];
     
-//    self.signUpView.logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"WWC"]];
+    self.signUpView.logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"WWC_small"]];
     
     self.signUpView.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     self.signUpView.usernameField.backgroundColor = [UIColor colorWithRed:0/255.0f green:114/255.0f blue:91/255.0f alpha:1.0f];

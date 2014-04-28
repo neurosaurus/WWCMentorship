@@ -324,9 +324,13 @@
     self.menu.separatorHeight = 0.8;
 }
 
-- (IBAction)twitterButton:(id)sender {
+- (IBAction)twitterButton:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.twitter.com"]];
 }
 
-- (IBAction)githubButton:(id)sender {
+- (IBAction)githubButton:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.github.com"]];
 }
 @end
