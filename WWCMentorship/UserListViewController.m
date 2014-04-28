@@ -23,7 +23,6 @@
 @property (nonatomic, strong) User *me;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *users;
-@property (nonatomic, assign) BOOL isLoaded;
 
 @end
 
@@ -128,6 +127,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)removeUser:(User *)user {
+    [self.users removeObject:user];
+    [self.tableView reloadData];
+}
+
 # pragma mark - Private methods
 
 - (User *)convertToUser:(NSString *)userId {
@@ -192,12 +196,16 @@
 
 - (void)loadPotentials {
     PFUser *user = [PFUser currentUser];
-    NSString *key, *type;
+    NSString *key, *key1, *key2, *type;
     if (self.showMentor) {
         key = @"MenteeID";
+        key1 = @"menteeID";
+        key2 = @"mentorID";
         type = @"mentors";
     } else {
         key = @"MentorID";
+        key1 = @"mentorID";
+        key2 = @"menteeID";
         type = @"mentees";
     }
 
@@ -231,14 +239,30 @@
                     [userIds addObject:pfUser.objectId];
                 }
                 NSLog(@"userIDs: %@", userIds);
-
-                // then retrieve full user objects for all userIds
-                for (NSString *userId in userIds) {
-                    User *potentialMatch = [self convertToUser:userId];
-                    [self.users addObject:potentialMatch];
-                }
                 
-                [self.tableView reloadData];
+                // remove users that have requested this user, existing matches
+                PFQuery *existingQuery = [PFQuery queryWithClassName:@"Relationships"];
+                [existingQuery whereKey:key1 equalTo:user];
+                [existingQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    NSLog(@"objects: %@", objects);
+                    if (!error && objects) {
+                        for (PFObject *matchObject in objects) {
+                            PFUser *match = matchObject[key2];
+                            [userIds removeObject:match.objectId];
+                        }
+                        
+                        // then retrieve full user objects for all userIds
+                        for (NSString *userId in userIds) {
+                            User *potentialMatch = [self convertToUser:userId];
+                            [self.users addObject:potentialMatch];
+                        }
+                        
+                        [self.tableView reloadData];
+                    } else if (error) {
+                        NSLog(@"error: %@", error.description);
+                    }
+                }];
+        
             } else if (error){
                 NSLog(@"error in retrieving potential %@: %@", type, error.description);
             }
@@ -250,18 +274,18 @@
     PFUser *user = [PFUser currentUser];
     NSString *key1, *key2, *type;
     if (self.showMentor) {
-        key1 = @"MenteeID"; // if showing mentors, current user is a mentee
-        key2 = @"MentorID";
+        key1 = @"menteeID"; // if showing mentors, current user is a mentee
+        key2 = @"mentorID";
         type = @"mentors";
     } else {
-        key1 = @"MentorID"; // if showing mentees, current user is a mentor
-        key2 = @"MenteeID";
+        key1 = @"mentorID"; // if showing mentees, current user is a mentor
+        key2 = @"menteeID";
         type = @"mentees";
     }
     
     // perform query in relationships table where current UserID = mentorID if mentor, or current UserID = menteeID if mentee
     PFQuery *query = [PFQuery queryWithClassName:@"Relationships"];
-    [query whereKey:key1 equalTo:user.objectId];
+    [query whereKey:key1 equalTo:user];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects) {
                 NSLog(@"%@: %@", type, objects);
@@ -308,10 +332,30 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     User *user = self.users[indexPath.row];
     
-    ProfileViewController *pvc = [[ProfileViewController alloc] init];
-    pvc.user = user;
-    pvc.isSelf = NO;
-    [self.navigationController pushViewController:pvc animated:YES];
+    PFQuery *requestQuery = [PFQuery queryWithClassName:@"Requests"];
+    [requestQuery whereKey:@"RequesterID" equalTo:user.pfUser];
+    [requestQuery whereKey:@"RequesteeID" equalTo:self.me.pfUser];
+    [requestQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error && objects) {
+            ProfileViewController *pvc = [[ProfileViewController alloc] init];
+            if (objects.count > 0) {
+                pvc.hasRequested = YES;
+            } else {
+                pvc.hasRequested = NO;
+            }
+            
+            if (self.showMatch) {
+                pvc.hasRequested = NO;
+                pvc.isMatch = YES;
+            }
+            
+            pvc.user = user;
+            pvc.isSelf = NO;
+            [self.navigationController pushViewController:pvc animated:YES];
+        } else if (error) {
+            NSLog(@"error: %@", error.description);
+        }
+    }];
 }
 
 # pragma mark - Navigation methods

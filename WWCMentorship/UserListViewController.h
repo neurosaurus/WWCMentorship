@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "User.h"
 
 @interface UserListViewController : UIViewController < UITableViewDataSource, UITableViewDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate >
 
 @property (nonatomic, assign) BOOL showMentor;
 @property (nonatomic, assign) BOOL showMatch;
+@property (nonatomic, assign) BOOL isLoaded;
+
+- (void)removeUser:(User *)user;
 
 @end

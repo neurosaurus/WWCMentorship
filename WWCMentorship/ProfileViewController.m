@@ -17,6 +17,7 @@
 
 #import "UIImageView+AFNetworking.h"
 #import "REMenu.h"
+#import "TSMessage.h"
 
 @interface ProfileViewController ()
 
@@ -30,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *github;
 @property (weak, nonatomic) IBOutlet UITextView *summary;
 @property (weak, nonatomic) IBOutlet UIButton *contactButton;
+@property (weak, nonatomic) IBOutlet UIButton *acceptButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *skill1;
 @property (weak, nonatomic) IBOutlet UILabel *skill2;
@@ -39,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *skill6;
 
 - (IBAction)onContactButton:(id)sender;
+- (IBAction)onAcceptButton:(id)sender;
 
 @end
 
@@ -92,6 +95,7 @@
     self.skill5.textColor = [UIColor whiteColor];
     self.skill6.textColor = [UIColor whiteColor];
     self.contactButton.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
+    self.acceptButton.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
 
     // set up navigation menu
     [self setNavigationMenu];
@@ -99,10 +103,18 @@
     // hide contact button if looking at self
     if (self.isSelf) {
         [self.contactButton setHidden:YES];
+        [self.acceptButton setHidden:YES];
         
         // set up navigation menu
         [self setNavigationMenu];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
+    } else if (self.isMatch) {
+        [self.contactButton setHidden:YES];
+        [self.acceptButton setHidden:YES];
+    } else if (self.hasRequested) {
+        [self.contactButton setHidden:YES];
+    } else if (!self.hasRequested) {
+        [self.acceptButton setHidden:YES];
     }
     
     // grab user object for profile
@@ -215,6 +227,28 @@
     cvc.sender = self.me;
     cvc.receiver = self.user;
     [self.navigationController pushViewController:cvc animated:YES];
+}
+
+- (IBAction)onAcceptButton:(id)sender {
+    PFObject *relationshipObject = [PFObject objectWithClassName:@"Relationships"];
+    if (self.me.isMentor) {
+        relationshipObject[@"mentorID"] = self.me.pfUser;
+        relationshipObject[@"menteeID"] = self.user.pfUser;
+    } else if (!self.me.isMentor) {
+        relationshipObject[@"mentorID"] = self.user.pfUser;
+        relationshipObject[@"menteeID"] = self.me.pfUser;
+    }
+    [relationshipObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        NSLog(@"success: saved relationship in parse");
+    }];
+    
+    UserListViewController *rvc = self.navigationController.viewControllers[0];
+    [rvc removeUser:self.user];
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    
+    [TSMessage showNotificationWithTitle:@"Success!"
+                                subtitle:@"You have accepted a request."
+                                    type:TSMessageNotificationTypeSuccess];
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {

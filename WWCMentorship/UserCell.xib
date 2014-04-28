@@ -29,19 +29,12 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Summary of user in here" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="197" translatesAutoresizingMaskIntoConstraints="NO" id="2R1-fi-CkD">
-                        <rect key="frame" x="112" y="52" width="197" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="avatar" destination="UkQ-3Y-lVn" id="VZz-eY-Uzq"/>
                 <outlet property="name" destination="eP9-O8-TCc" id="Oh4-Ey-mcy"/>
                 <outlet property="skills" destination="LrD-Vb-cen" id="FGg-sJ-IZd"/>
-                <outlet property="summary" destination="2R1-fi-CkD" id="JyR-LA-u1u"/>
             </connections>
         </tableViewCell>
     </objects>

@@ -14,7 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *skills;
-@property (weak, nonatomic) IBOutlet UILabel *summary;
 
 @end
 
@@ -36,7 +35,6 @@
     // coloring
     self.name.textColor = [UIColor whiteColor];
     self.skills.textColor = [UIColor whiteColor];
-    self.summary.textColor = [UIColor whiteColor];
     
     // set values
     self.name.text = user.name;
@@ -44,13 +42,6 @@
 
     NSString *skillsText = [skills componentsJoinedByString:@", "];
     self.skills.text = [NSString stringWithFormat:@"Skills: %@", skillsText];
-    self.summary.text = user.summary;
-    //self.summary.numberOfLines = 3;
-    //self.summary.lineBreakMode = NSLineBreakByWordWrapping;
-    //CGRect frame = self.summary.frame;
-    //frame.size.width = 250.0;
-    //self.summary.frame = frame;
-    //[self.summary sizeToFit];
     
     // for testing only
     //NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];

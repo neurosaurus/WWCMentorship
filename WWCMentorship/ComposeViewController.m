@@ -84,6 +84,11 @@
     }];
     [self.navigationController popToRootViewControllerAnimated:YES];
     
+    PFObject *requestObject = [PFObject objectWithClassName:@"Requests"];
+    requestObject[@"RequesterID"] = self.sender.pfUser;
+    requestObject[@"RequesteeID"] = self.receiver.pfUser;
+    [requestObject saveInBackground];
+    
     [TSMessage showNotificationWithTitle:@"Success!"
                                 subtitle:@"Your request has been sent."
                                     type:TSMessageNotificationTypeSuccess];

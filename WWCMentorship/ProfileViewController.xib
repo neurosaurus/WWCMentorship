@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController">
             <connections>
+                <outlet property="acceptButton" destination="Rpd-aA-JaM" id="34Q-cT-WRx"/>
                 <outlet property="avatar" destination="sKG-U5-1Qt" id="g1a-lL-lpE"/>
                 <outlet property="background" destination="TCh-ba-MA6" id="Aks-N9-cCG"/>
                 <outlet property="contactButton" destination="JrI-92-Duo" id="R69-Vs-Cvf"/>
@@ -28,7 +29,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TCh-ba-MA6">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="297"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="293"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sKG-U5-1Qt">
@@ -115,7 +116,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JrI-92-Duo">
-                    <rect key="frame" x="107" y="501" width="91" height="30"/>
+                    <rect key="frame" x="115" y="501" width="91" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Get in Touch!">
                         <color key="titleColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -123,6 +124,16 @@
                     </state>
                     <connections>
                         <action selector="onContactButton:" destination="-1" eventType="touchUpInside" id="bb2-bB-xxX"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rpd-aA-JaM">
+                    <rect key="frame" x="106" y="500" width="110" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Accept Request">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onAcceptButton:" destination="-1" eventType="touchUpInside" id="Nke-R9-FRO"/>
                     </connections>
                 </button>
             </subviews>

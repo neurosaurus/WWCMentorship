@@ -13,6 +13,8 @@
 @interface ProfileViewController : UIViewController < PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate >
 
 @property (nonatomic, assign) BOOL isSelf;
+@property (nonatomic, assign) BOOL isMatch;
+@property (nonatomic, assign) BOOL hasRequested;
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) NSString *userId;
 
