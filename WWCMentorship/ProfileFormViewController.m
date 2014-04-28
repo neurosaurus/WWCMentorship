@@ -36,11 +36,15 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     // hide navigation bar
     self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
     // unhide navigation bar
     self.navigationController.navigationBarHidden = NO;
 }

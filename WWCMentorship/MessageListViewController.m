@@ -49,6 +49,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     [self.messages removeAllObjects];
     [self.correspondentNames removeAllObjects];
     [self.correspondentNames removeAllObjects];

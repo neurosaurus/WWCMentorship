@@ -40,6 +40,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     PFUser *user = [PFUser currentUser];
     
     // if not logged in, present login view controller
