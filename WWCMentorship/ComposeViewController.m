@@ -85,6 +85,7 @@
     }];
     
     UserListViewController *rvc = self.navigationController.viewControllers[0];
+    NSLog(@"vcs: %@", self.navigationController.viewControllers);
     [rvc removeUser:self.receiver];
     [self.navigationController popToRootViewControllerAnimated:NO];
     

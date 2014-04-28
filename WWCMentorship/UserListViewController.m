@@ -131,7 +131,10 @@
 }
 
 - (void)removeUser:(User *)user {
+    NSLog(@"removing user: %@", user);
+    NSLog(@"users before: %@", self.users);
     [self.users removeObject:user];
+    NSLog(@"users after: %@", self.users);
     [self.tableView reloadData];
 }
 

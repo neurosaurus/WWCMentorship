@@ -209,19 +209,22 @@
     
     NSLog(@"Message Contents: %@", message[kMessageContent]);
     NSLog(@"Timestamp: %@", message[kMessageTimestamp]);
-    //NSString *message = (NSString *) message[kMessageContent];
+    NSString *msgText = (NSString *) message[kMessageContent];
     
     // Evaluate or add to the message here for example, if we wanted to assign the current userId:
     message[@"sentByUserId"] = self.me.objectId;
+    message[@"kMessageRuntimeSentBy"] = [NSNumber numberWithInt:kSentByUser];
+    message[@"runtimeSentBy"] = [NSNumber numberWithInt:kSentByUser];
     
     PFObject *messageObject = [PFObject objectWithClassName:@"Messages"];
     messageObject[@"SenderID"] = self.me.pfUser;
     PFUser *receiverUser = [self convertToPFUser:self.chatController.currentUserId];
     messageObject[@"ReceiverID"] = receiverUser;
-    messageObject[@"Message"] = message;
-    //[messageObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-    //    NSLog(@"success: saved %@ in parse", message);
-    //}];
+    messageObject[@"Message"] = msgText;
+    messageObject[@"isNew"] = @YES;
+    [messageObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        NSLog(@"success: saved %@ in parse", message);
+    }];
     
     // Must add message to controller for it to show
     [self.chatController addNewMessage:message];
@@ -244,7 +247,7 @@
     cell.backgroundColor = [UIColor blackColor];
     
     // get name, message
-    NSLog(@"clicked on row: %ld", indexPath.row);
+    NSLog(@"loading cell %d", indexPath.row);
     NSString *correspondentId = self.messages[indexPath.row];
     NSString *name = self.correspondentNames[correspondentId];
     NSMutableArray *messages = self.messageDict[correspondentId];
@@ -293,7 +296,7 @@
     
     [self.chatController setMessagesArray:mutableMessages];
     [self.chatController setChatTitle:name];
-    self.chatController.currentUserId = self.me.objectId; // actually the receiver id
+    self.chatController.currentUserId = correspondentId; // actually the receiver id
     self.chatController.tintColor = [UIColor blackColor];
     [self presentViewController:self.chatController animated:NO completion:nil];
 }
