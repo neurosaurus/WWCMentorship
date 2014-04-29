@@ -108,7 +108,9 @@
                                  @"summary" : fullUserObject[@"summary"],
                                  @"avatarURL" : fullUserObject[@"avatarURL"],
                                  @"isMentor" : fullUserObject[@"isMentor"],
-                                 @"skills" : fullUserObject[@"skills"]};
+                                 @"skills" : fullUserObject[@"skills"],
+                                 @"twitter" : fullUserObject[@"Twitter"],
+                                 @"github" : fullUserObject[@"Github"]};
     
     User *user = [[User alloc] init];
     //[user loadSkills:(PFUser *)fullUserObject];

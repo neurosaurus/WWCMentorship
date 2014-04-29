@@ -19,6 +19,5 @@
 @property (nonatomic, strong) NSString *userId;
 
 - (id)initWithUser:(User *)user;
-- (void)loadUser:(User *)user;
 
 @end

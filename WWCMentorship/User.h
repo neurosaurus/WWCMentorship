@@ -24,9 +24,13 @@
 @property (nonatomic, strong) NSArray *mentorSkills;
 @property (nonatomic, strong) NSArray *menteeSkills;
 @property (nonatomic, strong) NSArray *skills;
+@property (nonatomic, strong) NSString *twitterHandle;
+@property (nonatomic, strong) NSString *githubHandle;
 
 - (void)setUserWithDictionary:(NSDictionary *)userDictionary;
 - (void)loadSkills:(PFUser *)user;
 - (NSString *)name;
+- (NSURL *)twitter;
+- (NSURL *)github;
 
 @end

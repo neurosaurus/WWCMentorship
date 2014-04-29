@@ -21,6 +21,8 @@
     self.summary = userDictionary[@"summary"];
     self.avatarURL = [NSURL URLWithString:userDictionary[@"avatarURL"]];
     self.skills = userDictionary[@"skills"];
+    self.twitterHandle = userDictionary[@"twitter"];
+    self.githubHandle = userDictionary[@"github"];
     
     //[self loadSkills];
     
@@ -36,6 +38,18 @@
 - (NSString *)name {
     NSString *fullName = [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
     return fullName;
+}
+
+- (NSURL *)twitter {
+    NSString *urlString = [NSString stringWithFormat:@"http://www.twitter.com/%@", self.twitterHandle];
+    NSURL *twitter = [NSURL URLWithString:urlString];
+    return twitter;
+}
+
+- (NSURL *)github {
+    NSString *urlString = [NSString stringWithFormat:@"http://www.github.com/%@", self.githubHandle];
+    NSURL *github = [NSURL URLWithString:urlString];
+    return github;
 }
 
 - (void)loadSkills:(PFUser *)user {

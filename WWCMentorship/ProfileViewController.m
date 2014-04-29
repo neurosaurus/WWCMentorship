@@ -25,11 +25,12 @@
 @property (nonatomic, strong, readwrite) REMenu *menu;
 @property (nonatomic, strong) NSArray *backgroundImages;
 
+@property (weak, nonatomic) IBOutlet UIButton *twitterButton;
+@property (weak, nonatomic) IBOutlet UIButton *githubButton;
+
 @property (weak, nonatomic) IBOutlet UIImageView *background;
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
 @property (weak, nonatomic) IBOutlet UILabel *name;
-@property (weak, nonatomic) IBOutlet UILabel *twitter;
-@property (weak, nonatomic) IBOutlet UILabel *github;
 @property (weak, nonatomic) IBOutlet UITextView *summary;
 @property (weak, nonatomic) IBOutlet UIButton *contactButton;
 @property (weak, nonatomic) IBOutlet UIButton *acceptButton;
@@ -38,11 +39,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *skill2;
 @property (weak, nonatomic) IBOutlet UILabel *skill3;
 @property (weak, nonatomic) IBOutlet UILabel *skill4;
-@property (weak, nonatomic) IBOutlet UILabel *skill5;
-@property (weak, nonatomic) IBOutlet UILabel *skill6;
 
 - (IBAction)onContactButton:(id)sender;
 - (IBAction)onAcceptButton:(id)sender;
+- (IBAction)onGithub:(id)sender;
+- (IBAction)onTwitter:(id)sender;
 
 @end
 
@@ -89,16 +90,12 @@
     // coloring
     self.view.backgroundColor = [UIColor blackColor];
     self.name.textColor = [UIColor whiteColor];
-    self.twitter.textColor = [UIColor whiteColor];
-    self.github.textColor = [UIColor whiteColor];
     self.summary.textColor = [UIColor whiteColor];
     self.summary.backgroundColor = [UIColor clearColor];
     self.skill1.textColor = [UIColor whiteColor];
     self.skill2.textColor = [UIColor whiteColor];
     self.skill3.textColor = [UIColor whiteColor];
     self.skill4.textColor = [UIColor whiteColor];
-    self.skill5.textColor = [UIColor whiteColor];
-    self.skill6.textColor = [UIColor whiteColor];
     self.contactButton.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
     self.acceptButton.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
     
@@ -112,7 +109,7 @@
     // set up navigation menu
     [self setNavigationMenu];
     
-    // hide contact button if looking at self
+    // set up visibility of buttons
     if (self.isSelf) {
         [self.contactButton setHidden:YES];
         [self.acceptButton setHidden:YES];
@@ -151,7 +148,7 @@
     [self.background setImage:self.backgroundImages[arc4random() % 4]];
     
     NSArray *skills = user.skills;
-    NSArray *skillLabels = @[self.skill1, self.skill2, self.skill3, self.skill4, self.skill5, self.skill6];
+    NSArray *skillLabels = @[self.skill1, self.skill2, self.skill3, self.skill4];
     for (int i = 0; i < skillLabels.count; i++) {
         UILabel *skill = skillLabels[i];
         if (i < skills.count) {
@@ -160,6 +157,10 @@
             [skill setHidden:YES];
         }
     }
+    
+    // set buttons
+    [self.githubButton setImage:[UIImage imageNamed:@"gh.png"] forState:UIControlStateNormal];
+    [self.twitterButton setImage:[UIImage imageNamed:@"tw.png"] forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning
@@ -183,7 +184,9 @@
                                  @"summary" : fullUserObject[@"summary"],
                                  @"avatarURL" : fullUserObject[@"avatarURL"],
                                  @"isMentor" : fullUserObject[@"isMentor"],
-                                 @"skills" : fullUserObject[@"skills"]};
+                                 @"skills" : fullUserObject[@"skills"],
+                                 @"twitter" : fullUserObject[@"Twitter"],
+                                 @"github" : fullUserObject[@"Github"]};
     
     User *user = [[User alloc] init];
     //[user loadSkills:(PFUser *)fullUserObject];
@@ -239,6 +242,14 @@
     [TSMessage showNotificationWithTitle:@"Success!"
                                 subtitle:@"You have accepted a request."
                                     type:TSMessageNotificationTypeSuccess];
+}
+
+- (IBAction)onGithub:(id)sender {
+    [[UIApplication sharedApplication] openURL:self.user.github];
+}
+
+- (IBAction)onTwitter:(id)sender {
+    [[UIApplication sharedApplication] openURL:self.user.twitter];
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
