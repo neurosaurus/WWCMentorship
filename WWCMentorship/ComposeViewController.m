@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIView *messageBox;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
 - (IBAction)onSendButton:(id)sender;
 
 @end
@@ -33,6 +35,22 @@
         self.title = @"Compose";
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // register for keyboard notifications
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardDidHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    // unregister for keyboard notifications
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
 }
 
 - (void)viewDidLoad
@@ -62,6 +80,23 @@
     [self.avatar setImageWithURL:self.receiver.avatarURL];
     
     self.name.text = self.receiver.name;
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(popNavigationItemAnimated:)];
+    
+    //CGRect fullScreenRect = [[UIScreen mainScreen] applicationFrame];
+    //self.scrollView = [[UIScrollView alloc] initWithFrame:fullScreenRect];
+    //self.scrollView.contentSize = CGSizeMake(320,758);
+    
+    //[self.scrollView addSubview:self.avatar];
+    //[self.scrollView addSubview:self.name];
+    //[self.scrollView addSubview:self.message];
+    //[self.scrollView addSubview:self.messageBox];
+    
+    // do any further configuration to the scroll view
+    // add a view, or views, as a subview of the scroll view.
+    
+    // release scrollView as self.view retains it
+    //self.view = self.scrollView;
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,8 +105,40 @@
     // Dispose of any resources that can be recreated.
 }
 
+// Called when the UIKeyboardDidShowNotification is sent.
+- (void)keyboardWasShown:(NSNotification*)aNotification {
+    CGSize keyboardSize = [[[aNotification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height, 0.0);
+    
+    self.scrollView.contentInset = contentInsets;
+    self.scrollView.scrollIndicatorInsets = contentInsets;
+    
+    CGRect rect = self.view.frame; rect.size.height -= keyboardSize.height;
+    
+    if (!CGRectContainsPoint(rect, self.message.frame.origin)) {
+        CGPoint scrollPoint = CGPointMake(0.0, self.message.frame.origin.y - (keyboardSize.height - self.message.frame.size.height));
+        [self.scrollView setContentOffset:scrollPoint animated:NO];
+    }
+}
+
+// Called when the UIKeyboardWillHideNotification is sent
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.scrollView.contentInset = contentInsets;
+    self.scrollView.scrollIndicatorInsets = contentInsets;
+}
+
+# pragma mark - Private methods
+
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
+    [textView resignFirstResponder];
+    return YES;
+}
+
 - (void)onCustomTap:(UITapGestureRecognizer *)tapGestureRecognizer {
     [self.message endEditing:YES];
+    //[self textViewDidEndEditing:self.message];
 }
 
 - (IBAction)onSendButton:(id)sender {
@@ -94,10 +161,17 @@
     requestObject[@"RequesteeID"] = self.receiver.pfUser;
     [requestObject saveInBackground];
     
+    NSString *subtitle = [NSString stringWithFormat:@"Your request has been sent to %@", self.receiver.name];
     [TSMessage showNotificationWithTitle:@"Success!"
-                                subtitle:@"Your request has been sent."
+                                subtitle:subtitle
                                     type:TSMessageNotificationTypeSuccess];
 
+}
+
+# pragma mark - Navigation methods
+
+- (void)popNavigationItemAnimated:(id)sender {
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 @end

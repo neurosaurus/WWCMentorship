@@ -54,6 +54,7 @@
         [self addSubview:_bgToolbar];
         
         _leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        
         _leftBtn.frame = CGRectMake(4, 20, 40, 40);
         //[_leftBtn setTintColor:_tintColor];
         [_leftBtn setTintColor:[UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f]];
@@ -61,7 +62,8 @@
         [_leftBtn addTarget:self action:@selector(topLeftBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
         _leftBtn.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
         _leftBtn.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
-        [_leftBtn setImage:[UIImage imageNamed:@"Previous.png"] forState:UIControlStateNormal];
+        //[_leftBtn setImage:[UIImage imageNamed:@"Previous.png"] forState:UIControlStateNormal];
+        [_leftBtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
         [self addSubview:_leftBtn];
         
         _rightBtn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -132,7 +134,7 @@
 
 - (void) setTintColor:(UIColor *)tintColor {
     tintColor = [UIColor whiteColor];
-    [_leftBtn setTintColor:tintColor];
+    [_leftBtn setTintColor:[UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f]];
     [_rightBtn setTintColor:tintColor];
     [_middleBtn setTitleColor:tintColor forState:UIControlStateNormal];
     

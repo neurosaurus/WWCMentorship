@@ -99,7 +99,7 @@
         // set up navigation menu
         [self.navigationController.navigationBar setHidden:NO];
         [self setNavigationMenu];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu.png"] style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
     }
 }
 
@@ -384,12 +384,8 @@
             
             pvc.user = user;
             pvc.isSelf = NO;
-            
-            self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Explore" style:UIBarButtonItemStylePlain target:self action:nil];
-            
             [self.navigationController pushViewController:pvc animated:YES];
 
-            
         } else if (error) {
             NSLog(@"error: %@", error.description);
         }
@@ -457,80 +453,79 @@
                                                      [self.navigationController pushViewController:pvc animated:NO];
                                                  }];
     
-    REMenuItem *potentials = [[REMenuItem alloc] initWithTitle:@"Explore"
-                                                      subtitle:[NSString stringWithFormat:@"Find a %@", singular_type]
-                                                  image:nil
-                                       highlightedImage:nil
-                                                 action:^(REMenuItem *item) {
-                                                     NSLog(@"item: %@", item);
-                                                     NSLog(@"showing potential users");
-                                                     if (self.showMatch) {
-                                                         UserListViewController *ulvc = [[UserListViewController alloc] init];
-                                                         ulvc.showMatch = NO;
-                                                         if (isMentor == 1){
-                                                             ulvc.showMentor = NO;
-                                                         } else if (isMentor == 0) {
-                                                             ulvc.showMentor = YES;
-                                                         }
-                                                         [self.navigationController pushViewController:ulvc animated:NO];
-                                                     }
-                                                 }];
+    REMenuItem *messages = [[REMenuItem alloc] initWithTitle:@"Messages"
+                                                    subtitle:@"View Your Messages"
+                                                       image:nil
+                                            highlightedImage:nil
+                                                      action:^(REMenuItem *item) {
+                                                          NSLog(@"item: %@", item);
+                                                          NSLog(@"showing messages");
+                                                          
+                                                          MessageListViewController *mlvc = [[MessageListViewController alloc] init];
+                                                          [self.navigationController pushViewController:mlvc animated:NO];
+                                                      }];
     
-    REMenuItem *matches = [[REMenuItem alloc] initWithTitle:type
-                                                      subtitle:[NSString stringWithFormat:@"View Your %@", type]
-                                                         image:nil
-                                              highlightedImage:nil
-                                                        action:^(REMenuItem *item) {
-                                                            NSLog(@"item: %@", item);
-                                                            NSLog(@"showing matches");
-                                                            
-                                                            if (!self.showMatch) {
+    REMenuItem *signOut = [[REMenuItem alloc] initWithTitle:@"Sign Out"
+                                                   subtitle:nil
+                                                      image:nil
+                                           highlightedImage:nil
+                                                     action:^(REMenuItem *item) {
+                                                         NSLog(@"item: %@", item);
+                                                         NSLog(@"signing out");
+                                                         [PFUser logOut];
+                                                         
+                                                         CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
+                                                         CustomParseSignupViewController *pfsvc = [[CustomParseSignupViewController alloc] init];
+                                                         
+                                                         pflvc.delegate = self;
+                                                         pfsvc.delegate = self;
+                                                         
+                                                         pflvc.signUpController = pfsvc;
+                                                         
+                                                         self.isNewUser = YES;
+                                                         
+                                                         [self.navigationController pushViewController:pflvc animated:NO];
+                                                     }];
+    
+    if (self.showMatch) {
+        REMenuItem *potentials = [[REMenuItem alloc] initWithTitle:@"Explore"
+                                                          subtitle:[NSString stringWithFormat:@"Find a %@", singular_type]
+                                                             image:nil
+                                                  highlightedImage:nil
+                                                            action:^(REMenuItem *item) {
+                                                                NSLog(@"item: %@", item);
+                                                                NSLog(@"showing potential users");
                                                                 UserListViewController *ulvc = [[UserListViewController alloc] init];
-                                                                ulvc.showMatch = YES;
+                                                                ulvc.showMatch = NO;
                                                                 if (isMentor == 1){
                                                                     ulvc.showMentor = NO;
                                                                 } else if (isMentor == 0) {
                                                                     ulvc.showMentor = YES;
                                                                 }
                                                                 [self.navigationController pushViewController:ulvc animated:NO];
+                                                            }];
+        self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, messages, signOut]];
+    } else if (!self.showMatch) {
+        REMenuItem *matches = [[REMenuItem alloc] initWithTitle:type
+                                                       subtitle:[NSString stringWithFormat:@"View Your %@", type]
+                                                         image:nil
+                                              highlightedImage:nil
+                                                        action:^(REMenuItem *item) {
+                                                            NSLog(@"item: %@", item);
+                                                            NSLog(@"showing matches");
+                                                            
+                                                            UserListViewController *ulvc = [[UserListViewController alloc] init];
+                                                            ulvc.showMatch = YES;
+                                                            if (isMentor == 1){
+                                                                ulvc.showMentor = NO;
+                                                            } else if (isMentor == 0) {
+                                                                ulvc.showMentor = YES;
                                                             }
+                                                            [self.navigationController pushViewController:ulvc animated:NO];
                                                         }];
+        self.menu = [[REMenu alloc] initWithItems:@[profile, matches, messages, signOut]];
+    }
     
-    REMenuItem *messages = [[REMenuItem alloc] initWithTitle:@"Messages"
-                                                   subtitle:@"View Your Messages"
-                                                      image:nil
-                                           highlightedImage:nil
-                                                     action:^(REMenuItem *item) {
-                                                         NSLog(@"item: %@", item);
-                                                         NSLog(@"showing messages");
-                                                         
-                                                         MessageListViewController *mlvc = [[MessageListViewController alloc] init];
-                                                         [self.navigationController pushViewController:mlvc animated:NO];
-                                                     }];
-    
-    REMenuItem *signOut = [[REMenuItem alloc] initWithTitle:@"Sign Out"
-                                               subtitle:nil
-                                                  image:nil
-                                       highlightedImage:nil
-                                                 action:^(REMenuItem *item) {
-                                                     NSLog(@"item: %@", item);
-                                                     NSLog(@"signing out");
-                                                     [PFUser logOut];
-                                                     
-                                                     CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
-                                                     CustomParseSignupViewController *pfsvc = [[CustomParseSignupViewController alloc] init];
-                                                     
-                                                     pflvc.delegate = self;
-                                                     pfsvc.delegate = self;
-                                                     
-                                                     pflvc.signUpController = pfsvc;
-                                                     
-                                                     self.isNewUser = YES;
-                                                     
-                                                     [self.navigationController pushViewController:pflvc animated:NO];
-                                                 }];
-    
-    self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, messages, signOut]];
     UIColor * color = [UIColor colorWithRed:33/255.0f green:33/255.0f blue:33/255.0f alpha:1.0f];
     self.menu.backgroundColor = color;
     self.menu.textColor = [UIColor whiteColor];

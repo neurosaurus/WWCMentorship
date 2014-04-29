@@ -23,6 +23,7 @@
 
 @property (nonatomic, strong) User *me;
 @property (nonatomic, strong, readwrite) REMenu *menu;
+@property (nonatomic, strong) NSArray *backgroundImages;
 
 @property (weak, nonatomic) IBOutlet UIImageView *background;
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
@@ -91,7 +92,7 @@
     self.twitter.textColor = [UIColor whiteColor];
     self.github.textColor = [UIColor whiteColor];
     self.summary.textColor = [UIColor whiteColor];
-    self.summary.backgroundColor = [UIColor blackColor];
+    self.summary.backgroundColor = [UIColor clearColor];
     self.skill1.textColor = [UIColor whiteColor];
     self.skill2.textColor = [UIColor whiteColor];
     self.skill3.textColor = [UIColor whiteColor];
@@ -100,6 +101,13 @@
     self.skill6.textColor = [UIColor whiteColor];
     self.contactButton.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
     self.acceptButton.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
+    
+    // set up background images
+    UIImage *bg1 = [UIImage imageNamed:@"bg1.png"];
+    UIImage *bg2 = [UIImage imageNamed:@"bg2.png"];
+    UIImage *bg3 = [UIImage imageNamed:@"bg3.png"];
+    UIImage *bg4 = [UIImage imageNamed:@"bg4.png"];
+    self.backgroundImages = @[bg1, bg2, bg3, bg4];
 
     // set up navigation menu
     [self setNavigationMenu];
@@ -111,18 +119,17 @@
         
         // set up navigation menu
         [self setNavigationMenu];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
-    } else if (self.isMatch) {
-        [self.contactButton setHidden:YES];
-        [self.acceptButton setHidden:YES];
-    
-    } else if (self.hasRequested) {
-        [self.contactButton setHidden:YES];
-        
-    } else if (!self.hasRequested) {
-        [self.acceptButton setHidden:YES];
-        
-        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Profile" style:UIBarButtonItemStylePlain target:self action:nil];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu.png"] style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
+    } else {
+        if (self.isMatch) {
+            [self.contactButton setHidden:YES];
+            [self.acceptButton setHidden:YES];
+        } else if (self.hasRequested) {
+            [self.contactButton setHidden:YES];
+        } else if (!self.hasRequested) {
+            [self.acceptButton setHidden:YES];
+        }
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(popNavigationItemAnimated:)];
     }
     
     // grab user object for profile
@@ -141,12 +148,9 @@
     avatarLayer.borderColor = [[UIColor whiteColor] CGColor];
     avatarLayer.masksToBounds = YES;
     [self.avatar setImageWithURL:user.avatarURL];
-    NSURL *bgURL = [NSURL URLWithString:@"http://fc04.deviantart.net/fs71/i/2013/012/1/9/random_blur_background_by_phalanxia-d5r8tjb.png"];
-    [self.background setImageWithURL:bgURL];
+    [self.background setImage:self.backgroundImages[arc4random() % 4]];
     
     NSArray *skills = user.skills;
-    //NSLog(@"this is %@", self.name.text);
-    //NSLog(@"skills: %@", skills);
     NSArray *skillLabels = @[self.skill1, self.skill2, self.skill3, self.skill4, self.skill5, self.skill6];
     for (int i = 0; i < skillLabels.count; i++) {
         UILabel *skill = skillLabels[i];
@@ -193,33 +197,11 @@
     return (PFUser *) fullUserObject;
 }
 
-- (void)loadUser:(User *)user {
-    self.user = user;
-    self.name.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
-    self.summary.text = user.summary;
-    
-    // for testing only
-    NSURL *tim = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/99078?s=400"];
-    [self.avatar setImageWithURL:tim]; // user.avatarURL
-    
-    NSArray *skills;
-    if (user.menteeSkills) {
-        skills = user.menteeSkills;
-    } else if (user.mentorSkills) {
-        skills = user.mentorSkills;
-    }
-    NSArray *skillLabels = @[self.skill1, self.skill2, self.skill3, self.skill4, self.skill5, self.skill6];
-    for (int i = 0; i == skillLabels.count; i++) {
-        UILabel *skill = skillLabels[i];
-        if (skills[i]) {
-            skill.text = skills[i];
-        } else {
-            [skill setHidden:YES];
-        }
-    }
-}
-
 # pragma mark - Navigation methods
+
+- (void)popNavigationItemAnimated:(id)sender {
+    [self.navigationController popViewControllerAnimated:NO];
+}
 
 - (void)onMenu:(id)sender {
     NSLog(@"let's go somewhere else");
@@ -291,23 +273,6 @@
         singular_type = @"Mentor";
     }
     
-    REMenuItem *profile = [[REMenuItem alloc] initWithTitle:@"Profile"
-                                                   subtitle:@"View Your Profile"
-                                                      image:nil
-                                           highlightedImage:nil
-                                                     action:^(REMenuItem *item) {
-                                                         NSLog(@"item: %@", item);
-                                                         NSLog(@"showing profile");
-                                                         
-                                                         if (!self.isSelf) {
-                                                             ProfileViewController *pvc = [[ProfileViewController alloc] init];
-                                                             pvc.user = self.me;
-                                                             pvc.isSelf = YES;
-                                                             
-                                                             [self.navigationController pushViewController:pvc animated:NO];
-                                                         }
-                                                     }];
-    
     REMenuItem *potentials = [[REMenuItem alloc] initWithTitle:@"Explore"
                                                       subtitle:[NSString stringWithFormat:@"Find a %@", singular_type]
                                                          image:nil
@@ -376,7 +341,24 @@
                                                          [self.navigationController pushViewController:pflvc animated:NO];
                                                      }];
     
-    self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, messages, signOut]];
+    if (!self.isSelf) {
+        REMenuItem *profile = [[REMenuItem alloc] initWithTitle:@"Profile"
+                                                       subtitle:@"View Your Profile"
+                                                          image:nil
+                                               highlightedImage:nil
+                                                         action:^(REMenuItem *item) {
+                                                             NSLog(@"item: %@", item);
+                                                             NSLog(@"showing profile");
+                                                             ProfileViewController *pvc = [[ProfileViewController alloc] init];
+                                                             pvc.user = self.me;
+                                                             pvc.isSelf = YES;
+                                                             
+                                                             [self.navigationController pushViewController:pvc animated:NO];
+                                                     }];
+        self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, messages, signOut]];
+    } else if (self.isSelf) {
+        self.menu = [[REMenu alloc] initWithItems:@[potentials, matches, messages, signOut]];
+    }
     UIColor * color = [UIColor colorWithRed:33/255.0f green:33/255.0f blue:33/255.0f alpha:1.0f];
     self.menu.backgroundColor = color;
     self.menu.textColor = [UIColor whiteColor];

@@ -10,6 +10,7 @@
                 <outlet property="message" destination="a8I-pc-IEz" id="fNh-ub-vgb"/>
                 <outlet property="messageBox" destination="TyT-fq-tpS" id="y1D-ln-csE"/>
                 <outlet property="name" destination="jfw-zm-DUr" id="4Xo-GY-kIg"/>
+                <outlet property="scrollView" destination="2zT-te-pAS" id="A7N-QC-V8w"/>
                 <outlet property="sendButton" destination="F5t-82-iaQ" id="Lcn-en-twy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -19,13 +20,17 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2zT-te-pAS">
+                    <rect key="frame" x="0.0" y="0.0" width="325" height="437"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </scrollView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TyT-fq-tpS">
-                    <rect key="frame" x="13" y="231" width="293" height="199"/>
+                    <rect key="frame" x="13" y="231" width="293" height="149"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Hey there, your profile looked really interesting and I'd love an opportunity to chat further about our common interests." translatesAutoresizingMaskIntoConstraints="NO" id="a8I-pc-IEz">
-                    <rect key="frame" x="20" y="237" width="275" height="159"/>
+                    <rect key="frame" x="20" y="237" width="275" height="136"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>

@@ -84,7 +84,7 @@
     [self.tableView registerNib:nib forCellReuseIdentifier:@"MessageRowCell"];
     
     [self setNavigationMenu];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu.png"] style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -397,15 +397,6 @@
                                                          [self.navigationController pushViewController:ulvc animated:NO];
                                                      }];
     
-    REMenuItem *messages = [[REMenuItem alloc] initWithTitle:@"Messages"
-                                                    subtitle:@"View Your Messages"
-                                                       image:nil
-                                            highlightedImage:nil
-                                                      action:^(REMenuItem *item) {
-                                                          NSLog(@"item: %@", item);
-                                                          NSLog(@"showing messages");
-                                                      }];
-    
     REMenuItem *signOut = [[REMenuItem alloc] initWithTitle:@"Sign Out"
                                                    subtitle:nil
                                                       image:nil
@@ -429,7 +420,7 @@
                                                          [self.navigationController pushViewController:pflvc animated:NO];
                                                      }];
     
-    self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, messages, signOut]];
+    self.menu = [[REMenu alloc] initWithItems:@[profile, potentials, matches, signOut]];
     UIColor * color = [UIColor colorWithRed:33/255.0f green:33/255.0f blue:33/255.0f alpha:1.0f];
     self.menu.backgroundColor = color;
     self.menu.textColor = [UIColor whiteColor];
