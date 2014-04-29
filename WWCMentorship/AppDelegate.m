@@ -19,9 +19,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    [application setStatusBarHidden:NO];
-    [application setStatusBarStyle:UIStatusBarStyleLightContent];
         
     [Parse setApplicationId:@"EFnYeM1PjDIus6gHu02UTOZ9XbbvuAXlv21ZxFnK"
                   clientKey:@"PQEtRTrB4PJ9A9KeKWQbw1OLGraXtVNOtU4cHHZl"];
@@ -36,7 +33,9 @@
     //UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:pvc];
     UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:ulvc];
     
-//    CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    application.statusBarStyle = UIStatusBarStyleLightContent;
     
     self.window.rootViewController = ulnc;
     self.window.backgroundColor = [UIColor whiteColor];

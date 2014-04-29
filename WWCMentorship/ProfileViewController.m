@@ -96,8 +96,8 @@
     self.skill2.textColor = [UIColor whiteColor];
     self.skill3.textColor = [UIColor whiteColor];
     self.skill4.textColor = [UIColor whiteColor];
-    self.contactButton.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
-    self.acceptButton.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
+    //self.contactButton.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
+    //self.acceptButton.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
     
     // set up background images
     UIImage *bg1 = [UIImage imageNamed:@"bg1.png"];
@@ -116,7 +116,7 @@
         
         // set up navigation menu
         [self setNavigationMenu];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu.png"] style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"whiteMenu.png"] style:UIBarButtonItemStylePlain target:self action:@selector(onMenu:)];
     } else {
         if (self.isMatch) {
             [self.contactButton setHidden:YES];
@@ -126,7 +126,7 @@
         } else if (!self.hasRequested) {
             [self.acceptButton setHidden:YES];
         }
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(popNavigationItemAnimated:)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"whiteBack.png"] style:UIBarButtonItemStylePlain target:self action:@selector(popNavigationItemAnimated:)];
     }
     
     // grab user object for profile

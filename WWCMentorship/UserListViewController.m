@@ -116,6 +116,7 @@
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     
     // assign table view's delegate, data source
     self.tableView.delegate = self;

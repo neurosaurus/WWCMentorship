@@ -294,9 +294,9 @@
         [mutableMessages addObject:dict];
     }
     
-    //NSLog(@"avatarURL: %@", correspondent[@"avatarURL"]);
-    //NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:correspondent[@"avatarURL"]]];
-    //self.chatController.opponentImg = [UIImage imageWithData:data];
+    PFUser *opponent = [self convertToPFUser:correspondentId];
+    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:opponent[@"avatarURL"]]];
+    self.chatController.opponentImg = [UIImage imageWithData:data];
     
     [self.chatController setMessagesArray:mutableMessages];
     [self.chatController setChatTitle:name];
