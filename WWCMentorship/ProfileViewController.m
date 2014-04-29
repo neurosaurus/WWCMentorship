@@ -219,7 +219,7 @@
     ComposeViewController *cvc = [[ComposeViewController alloc] init];
     cvc.sender = self.me;
     cvc.receiver = self.user;
-    [self.navigationController pushViewController:cvc animated:YES];
+    [self.navigationController pushViewController:cvc animated:NO];
 }
 
 - (IBAction)onAcceptButton:(id)sender {

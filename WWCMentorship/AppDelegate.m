@@ -14,6 +14,8 @@
 #import "ProfileFormViewController.h"
 #import "ProfileViewController.h"
 
+#import "ComposeViewController.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -38,6 +40,11 @@
     application.statusBarStyle = UIStatusBarStyleLightContent;
     
     self.window.rootViewController = ulnc;
+    
+    // testing
+    //ComposeViewController *cvc = [[ComposeViewController alloc] init];
+    //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:cvc];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

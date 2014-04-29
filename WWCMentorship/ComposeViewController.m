@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 
 - (IBAction)onSendButton:(id)sender;
 
@@ -61,6 +62,8 @@
     self.view.backgroundColor = [UIColor blackColor];
     self.message.backgroundColor = [UIColor blackColor];
     self.message.textColor = [UIColor whiteColor];
+    self.message.tintColor = [UIColor whiteColor];
+    self.messageBox.backgroundColor = [UIColor blackColor];
     self.name.textColor = [UIColor whiteColor];
     self.sendButton.tintColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
     
@@ -70,6 +73,7 @@
     
     self.message.delegate = self;
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onCustomTap:)];
+    [tapGestureRecognizer setCancelsTouchesInView:NO];
     [self.view addGestureRecognizer:tapGestureRecognizer];
     
     CALayer *avatarLayer = self.avatar.layer;
@@ -83,20 +87,26 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(popNavigationItemAnimated:)];
     
-    //CGRect fullScreenRect = [[UIScreen mainScreen] applicationFrame];
-    //self.scrollView = [[UIScrollView alloc] initWithFrame:fullScreenRect];
-    //self.scrollView.contentSize = CGSizeMake(320,758);
+    // configure scroll view
+    [self.containerView addSubview:self.avatar];
+    [self.containerView addSubview:self.name];
+    [self.containerView addSubview:self.messageBox];
+    [self.containerView addSubview:self.message];
+    [self.scrollView addSubview:self.sendButton];
+    [self.scrollView addSubview:self.containerView];
+    [self.scrollView bringSubviewToFront:self.sendButton];
     
-    //[self.scrollView addSubview:self.avatar];
-    //[self.scrollView addSubview:self.name];
-    //[self.scrollView addSubview:self.message];
-    //[self.scrollView addSubview:self.messageBox];
+    CGRect size = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    self.scrollView.contentSize = self.scrollView.frame.size;
+    self.scrollView.frame = size;
+    self.scrollView.scrollEnabled = YES;
+    self.containerView.userInteractionEnabled = YES;
     
-    // do any further configuration to the scroll view
-    // add a view, or views, as a subview of the scroll view.
-    
-    // release scrollView as self.view retains it
-    //self.view = self.scrollView;
+    [self.view addSubview:self.scrollView];
+    self.scrollView.delegate = self;
+    [self.scrollView setContentOffset:CGPointMake(0, 0)];
+    self.scrollView.delaysContentTouches = NO;
+    self.scrollView.canCancelContentTouches = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,23 +117,31 @@
 
 // Called when the UIKeyboardDidShowNotification is sent.
 - (void)keyboardWasShown:(NSNotification*)aNotification {
-    CGSize keyboardSize = [[[aNotification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height, 0.0);
+    NSLog(@"in here");
     
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
     self.scrollView.contentInset = contentInsets;
     self.scrollView.scrollIndicatorInsets = contentInsets;
     
-    CGRect rect = self.view.frame; rect.size.height -= keyboardSize.height;
+//    UIView *view = [[UIView alloc] initWithFrame:self.messageBox.frame];
+//    [view addSubview:self.messageBox];
+//    [view addSubview:self.message];
     
-    if (!CGRectContainsPoint(rect, self.message.frame.origin)) {
-        CGPoint scrollPoint = CGPointMake(0.0, self.message.frame.origin.y - (keyboardSize.height - self.message.frame.size.height));
-        [self.scrollView setContentOffset:scrollPoint animated:NO];
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    // Your application might not need or want this behavior.
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height;
+    if (!CGRectContainsPoint(aRect, self.message.frame.origin) ) {
+        CGPoint scrollPoint = CGPointMake(0.0, self.message.frame.origin.y-kbSize.height);
+        [self.scrollView setContentOffset:scrollPoint animated:YES];
     }
 }
 
 // Called when the UIKeyboardWillHideNotification is sent
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification
-{
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification {
+    NSLog(@"now in here");
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
     self.scrollView.contentInset = contentInsets;
     self.scrollView.scrollIndicatorInsets = contentInsets;

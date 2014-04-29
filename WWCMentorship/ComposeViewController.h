@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "User.h"
 
-@interface ComposeViewController : UIViewController <UITextViewDelegate >
+@interface ComposeViewController : UIViewController <UITextViewDelegate, UIScrollViewDelegate >
 
 @property (nonatomic, strong) User *sender;
 @property (nonatomic, strong) User *receiver;
