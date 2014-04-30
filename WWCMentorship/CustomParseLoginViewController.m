@@ -37,20 +37,18 @@
 {
     [super viewDidLoad];
     
-    [self.logInView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"WWC Icon"]]];
-    //    UIImage *logo = [UIImage imageNamed:@"WWC Icon"];
-    //    CGRect rect = CGRectMake(0.0f, 40.0f, logo.size.width, logo.size.height);
-    //    UIImageView *logoView = [[UIImageView alloc] initWithFrame:rect];
-    //    [logoView setImage:logo];
-    //    self.signUpView.logo = logoView;
-    //
-    //    self.view.backgroundColor = [UIColor blackColor];
+    self.logInView.logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"WWC_small"]];
     
-    self.logInView.usernameField.backgroundColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
-    self.logInView.passwordField.backgroundColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
-//    self.logInView.emailField.backgroundColor = [UIColor blackColor];
-    self.logInView.logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"None"]];
+    self.logInView.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    self.logInView.usernameField.backgroundColor = [UIColor colorWithRed:0/255.0f green:114/255.0f blue:91/255.0f alpha:1.0f];
     
+    self.logInView.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    self.logInView.passwordField.backgroundColor = [UIColor colorWithRed:0/255.0f green:114/255.0f blue:91/255.0f alpha:1.0f];
+    
+    // Set field text color
+    [self.logInView.usernameField setTextColor:[UIColor colorWithWhite:1.0 alpha:0.5]];
+    [self.logInView.passwordField setTextColor:[UIColor colorWithWhite:1.0 alpha:0.5]];
+
 }
 
 - (void)didReceiveMemoryWarning
