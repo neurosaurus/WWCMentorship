@@ -43,6 +43,10 @@
     [super viewWillAppear:animated];
     
     PFUser *user = [PFUser currentUser];
+    self.me = [self convertToUser:user.objectId];
+    if (self.me) {
+        self.hasEnteredInfo = YES;
+    }
     
     // if not logged in, present login view controller
     if (!user) {
@@ -51,14 +55,18 @@
         
         pflvc.delegate = self;
         pfsvc.delegate = self;
-        
         pflvc.signUpController = pfsvc;
         
         [self presentViewController:pflvc animated:YES completion:NULL];
-        
-    // otherwise, present user list view controller
-    } else {
-        
+    }
+    
+    // skip this method if user has signed in but hasn't put in info
+    if (!self.hasEnteredInfo) {
+        return;
+    }
+    
+    // if user, present user list view controller
+    if (user) {
         self.me = [self convertToUser:user.objectId];
         
         //NSNumber *isMentorNumber = (NSNumber *) [userObject objectForKey:@"isMentor"];
@@ -107,8 +115,11 @@
 {
     [super viewDidLoad];
     
-    //PFUser *user = [PFUser currentUser];
-    //NSLog(@"user is: %@", user);
+    if (self.me) {
+        self.hasEnteredInfo = YES;
+    } else {
+        self.hasEnteredInfo = NO;
+    }
     
     // coloring
     self.tableView.backgroundColor = [UIColor blackColor];
@@ -146,6 +157,10 @@
 - (User *)convertToUser:(NSString *)userId {
     PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
     PFObject *fullUserObject = [userQuery getObjectWithId:userId];
+    
+    if (fullUserObject[@"firstName"] == nil) {
+        return NULL;
+    }
 
     NSDictionary *parameters = @{@"pfUser" : fullUserObject,
                                  @"objectId" : userId,

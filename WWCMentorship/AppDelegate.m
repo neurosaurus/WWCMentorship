@@ -31,19 +31,13 @@
     CustomParseLoginViewController *pflvc = [[CustomParseLoginViewController alloc] init];
     
     UserListViewController *ulvc = [[UserListViewController alloc] init];
-    ProfileViewController *pvc = [[ProfileViewController alloc] init];
-    //UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:pvc];
     UINavigationController *ulnc = [[UINavigationController alloc] initWithRootViewController:ulvc];
     
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     application.statusBarStyle = UIStatusBarStyleLightContent;
-    
+
     self.window.rootViewController = ulnc;
-    
-    // testing
-    //ComposeViewController *cvc = [[ComposeViewController alloc] init];
-    //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:cvc];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

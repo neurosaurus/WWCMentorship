@@ -7,6 +7,7 @@
 //
 
 #import "ProfileFormViewController.h"
+#import "UserListViewController.h"
 
 @interface ProfileFormViewController ()
 
@@ -14,7 +15,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *lastnameTextField;
 @property (weak, nonatomic) IBOutlet UITextView *summaryTextView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *isMentorControl;
+@property (weak, nonatomic) IBOutlet UIButton *skillsButton;
 @property (nonatomic, strong) NSMutableArray *selectedList;
+@property (weak, nonatomic) IBOutlet UIView *saveBox;
+@property (weak, nonatomic) IBOutlet UIView *skillsBox;
 
 @property (nonatomic, assign) BOOL isMentor;
 @property (nonatomic, strong) NSArray *selectedSkills;
@@ -54,7 +58,13 @@
     [super viewDidLoad];
     
     // coloring
-    //self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor blackColor];
+    self.summaryTextView.textColor = [UIColor whiteColor];
+    self.summaryTextView.backgroundColor = [UIColor blackColor];
+    self.summaryTextView.tintColor = [UIColor whiteColor];
+    self.saveBox.backgroundColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
+    self.skillsButton.tintColor = [UIColor whiteColor];
+    self.skillsBox.backgroundColor = [UIColor colorWithRed:0/255.0f green:182/255.0f blue:170/255.0f alpha:1.0f];
     
     NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
     NSString *bundleName = [NSString stringWithFormat:@"%@", [info objectForKey:@"CFbundleDisplayName"]];
@@ -143,6 +153,8 @@
     object[@"isMentor"] = isMentorObject;
     object[@"skills"] = self.selectedSkills;
     object[@"avatarURL"] = @"https://avatars3.githubusercontent.com/u/99078?s=400";
+    object[@"Twitter"] = @"test";
+    object[@"Github"] = @"test";
     
     // save to Parse
     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -160,6 +172,8 @@
         }];
     }
     
+    UserListViewController *rvc = self.navigationController.viewControllers[0];
+    rvc.hasEnteredInfo = YES;
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
 

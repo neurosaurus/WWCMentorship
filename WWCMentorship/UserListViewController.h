@@ -16,6 +16,7 @@
 @property (nonatomic, assign) BOOL showMatch;
 @property (nonatomic, assign) BOOL isLoaded;
 @property (nonatomic, assign) BOOL isNewUser;
+@property (nonatomic, assign) BOOL hasEnteredInfo;
 
 - (void)removeUser:(User *)user;
 
